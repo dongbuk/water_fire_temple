@@ -1,0 +1,2460 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0a1832" />
+<title>불꽃과 물방울 V5 EXPERT | 2인 협동 순위전</title>
+<style>
+:root{color-scheme:dark;--bg:#09172c;--panel:#0f2440;--line:#345377;--text:#f5f7ff;--muted:#abc1dc;--fire:#ff925a;--water:#57ceff;--gold:#ffdc7a}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:var(--text);background:#071526}
+body{background:radial-gradient(ellipse at 50% -25%,#254978 0%,#0d2340 43%,#081627 100%);min-height:100dvh;overflow-x:hidden}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.shell{max-width:1150px;margin:auto;padding:20px 18px 36px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}.logo{width:57px;height:53px;flex-shrink:0;white-space:nowrap;font-size:22px;border:1px solid #5b7694;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,#362a49,#123c62);font-size:27px;box-shadow:0 8px 26px #0004}
+.eyebrow{font-size:11px;letter-spacing:2.2px;color:#a7bfdc;font-weight:850}.brand h1{font-size:clamp(20px,3vw,30px);margin:2px 0 0;letter-spacing:-1.1px}.brand h1 span{color:#a4e8ff}
+.header-buttons{display:flex;gap:9px}.smallbtn{min-height:39px;border:1px solid #47658a;border-radius:12px;padding:0 13px;color:#edf5ff;background:#213a5b;font-size:13px;font-weight:750}.smallbtn:hover{background:#2d4a71}.smallbtn:disabled{opacity:.35;cursor:not-allowed}
+.dashboard{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap}.stage-line{display:flex;align-items:center;gap:10px;font-size:14px}.pill{background:#183a59;color:#addefc;border:1px solid #346e95;border-radius:99px;padding:6px 12px;font-size:12px;font-weight:850;white-space:nowrap}.stage-line strong{font-weight:900;font-size:16px}.scores{display:flex;gap:9px;flex-wrap:wrap}.stat{border:1px solid #345477;background:#112940;border-radius:10px;padding:6px 10px;font-size:12px;color:#bfd5eb}.stat b{color:#fff;font-size:14px;margin-left:5px}
+.gameframe{position:relative;overflow:hidden;border:2px solid #4b7090;border-radius:20px;background:#152c4c;box-shadow:0 24px 75px #0008,0 0 0 5px #132f4c66;isolation:isolate}
+canvas{width:100%;height:auto;aspect-ratio:1000 / 590;display:block;touch-action:none}.gameframe:after{pointer-events:none;content:'';inset:0;position:absolute;border:1px solid #ffffff13;border-radius:18px}
+.game-label{position:absolute;top:14px;left:17px;z-index:1;background:#0a1c31b7;backdrop-filter:blur(5px);padding:8px 12px;border-radius:12px;font-size:12px;color:#ecf5fd;border:1px solid #c4e9fa32;max-width:min(66%,510px)}.game-label b{color:#ffe0a2}
+.overlay{position:absolute;inset:0;z-index:5;background:#07162cc9;backdrop-filter:blur(7px);display:flex;align-items:center;justify-content:center;padding:18px;transition:opacity .18s}.overlay[hidden]{display:none!important}
+.modal{width:min(490px,100%);max-height:100%;overflow-y:auto;background:linear-gradient(155deg,#1a385a,#10253e 75%);border:1px solid #7496bb;border-radius:25px;padding:26px 27px 24px;box-shadow:0 20px 70px #020e2188;text-align:center}.modal .badge{display:inline-block;border-radius:100px;background:#284f71;padding:7px 14px;color:#b8e9ff;font-size:12px;font-weight:900;letter-spacing:1px}.modal h2{font-size:clamp(23px,3vw,33px);letter-spacing:-1.3px;margin:13px 0 8px}.modal p{line-height:1.65;color:#cbddf1;font-size:14px;margin:9px 0 17px}.modal .mascots{font-size:51px;letter-spacing:14px;line-height:1.3;margin:3px auto 10px}.modal .bigbtn{border:0;border-radius:14px;min-height:49px;padding:0 26px;background:linear-gradient(110deg,#ffce72,#ff9d6a);color:#29243e;font-size:16px;font-weight:950;box-shadow:0 7px 0 #a75b43,0 12px 25px #0004}.modal .bigbtn:active{transform:translateY(4px);box-shadow:0 3px 0 #a75b43}.modal .secondary{border:1px solid #7798b9;border-radius:12px;background:#203e5c;color:#f0f7ff;min-height:44px;padding:0 16px;font-size:14px;font-weight:800}.modal .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:17px}.modal .helper{color:#a8c1df;font-size:12px;margin-top:19px}.modal .hint{padding:11px;background:#0e2843;border-radius:12px;border:1px solid #41617f;color:#deedfb;font-size:13px}
+.world-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;margin:14px 0}.world-tab{background:#1e3c5f;border:1px solid #59718d;color:#cee4fb;border-radius:10px;min-height:48px;padding:6px 3px;font-size:11px;font-weight:850}.world-tab.active{background:#355b7c;border-color:#ffdc90;color:#fff;box-shadow:inset 0 0 0 1px #ffdc9060}.world-sub{font-size:12px;color:#c3d8ea;margin:8px 0}.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:10px auto}.lvl{padding:11px 7px;border:1px solid #5c7e9f;border-radius:12px;background:#1c3e60;color:#e6f5ff;font-size:13px;font-weight:850;min-height:60px}.lvl b{display:block;font-size:20px}.lvl.locked{opacity:.37;cursor:not-allowed}.lvl.selected{background:#385675;border-color:#eacb8d;box-shadow:0 0 0 1px #eacb8d}
+.lower{display:flex;justify-content:space-between;gap:14px;margin:14px 2px 0;align-items:stretch;flex-wrap:wrap}.rule{border:1px solid #385575;background:#0e2540b8;border-radius:14px;padding:11px 15px;flex:1 1 360px;display:flex;align-items:center;gap:11px}.rule .avatar{border-radius:10px;width:36px;height:36px;display:grid;place-items:center;font-size:22px}.rule.fire .avatar{background:#713a37}.rule.water .avatar{background:#205675}.rule .desc{font-size:12px;color:#c2d5e9;line-height:1.6}.rule strong{display:block;font-size:13px;color:white}.key{display:inline-block;border:1px solid #6483a1;background:#244465;color:#fff;border-radius:5px;padding:1px 5px;font-size:11px;font-weight:800;margin:0 1px}
+.note{font-size:12px;text-align:center;color:#94afcb;margin:14px 0 0}
+.mobile-controls{display:none;justify-content:space-between;gap:18px;margin-top:16px;touch-action:none;user-select:none}.pad{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid #31547a;background:#0c2845;border-radius:16px;padding:10px}.pad-label{font-size:12px;font-weight:900;white-space:nowrap}.pad.fire .pad-label{color:#ffc4a2}.pad.water .pad-label{color:#9ae5ff}.touchkey{touch-action:none;user-select:none;-webkit-user-select:none;display:grid;place-items:center;width:55px;height:53px;border:1px solid #5c7c9a;border-radius:12px;background:linear-gradient(#335573,#1a3854);color:white;font-size:22px;font-weight:900;box-shadow:0 4px 0 #092037}.touchkey.down{background:#557f9c;transform:translateY(3px);box-shadow:0 1px 0 #092037}.touchkey.jump{background:linear-gradient(#496987,#29455d);font-size:17px}.touchkey.actionkey{background:linear-gradient(#7564a0,#3a4777);color:#ffe5ab;font-size:21px}
+@media(hover:none),(max-width:760px){.mobile-controls{display:flex}.shell{padding:9px 8px 16px}.brand h1{font-size:19px}.eyebrow{font-size:9px}.logo{width:42px;height:42px;font-size:22px;border-radius:12px}.smallbtn{padding:0 9px;min-height:35px;font-size:12px}.gameframe{border-radius:12px}.game-label{top:7px;left:7px;font-size:10px;padding:5px 8px}.modal{padding:16px 16px 19px;border-radius:18px}.world-tab{font-size:10px;min-height:44px}.modal h2{margin:8px 0 5px}.modal p{font-size:12px;margin:7px 0 12px}.modal .mascots{font-size:38px}.dashboard{margin-bottom:7px}.scores{gap:5px}.stat{font-size:11px;padding:5px 7px}.lower{display:none}.pad{gap:5px;padding:8px 6px;flex-wrap:wrap}.pad-label{width:100%;text-align:center}.touchkey{width:clamp(36px,8vw,55px);height:clamp(42px,10vw,55px)}.note{font-size:10px}}
+@media(max-width:490px){.topbar{align-items:flex-start;gap:5px}.header-buttons{gap:5px}.smallbtn{font-size:11px;padding:0 7px}.brand h1{font-size:17px}.eyebrow{font-size:8px;letter-spacing:1px}.logo{display:none}.stage-line strong{font-size:13px}.scores .stat:last-child{display:none}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media(max-width:490px){.header-buttons .smallbtn{white-space:nowrap;font-size:10px;padding:0 5px;min-height:33px}.brand h1{font-size:16px}.brand{gap:6px}}
+.touch-mode .mobile-controls{display:flex}.touch-mode .lower{display:none}
+
+/* V4: atmospheric remaster, responsive panels and readable controls */
+:root{--worldaccent:#8ddbaa;--worldglow:#7be4a733}
+body{background:radial-gradient(ellipse 75% 50% at 52% -12%,#32527a 0%,#132943 56%,#061324 100%)}
+.shell{max-width:1170px}.gameframe{border-color:#637d99;box-shadow:0 26px 75px #000a,0 0 0 5px #30496342,0 0 32px var(--worldglow)}
+.gameframe:before{content:'';position:absolute;z-index:1;pointer-events:none;inset:0;border-radius:18px;box-shadow:inset 0 0 55px #09182962}
+.logo{box-shadow:0 9px 32px #0006, inset 0 1px #ffffff24;background:linear-gradient(145deg,#79402e,#265b78);border-color:#eac4a44d}
+.brand h1 span{background:linear-gradient(95deg,#e1bd80,#95e7ee);color:transparent;background-clip:text;-webkit-background-clip:text}
+.smallbtn{background:linear-gradient(180deg,#2b496b,#1b3450);transition:transform .12s,background .2s,border-color .2s}
+.smallbtn:hover{transform:translateY(-2px);border-color:#9dc4e2}
+.pill{border-color:var(--worldaccent);background:#122f48;color:#fff}
+.game-label{border-color:#82a8ba55;box-shadow:0 3px 16px #0410206b}
+.stat{background:#0b243c;box-shadow:inset 0 1px #ffffff0b}.stat b{font-variant-numeric:tabular-nums}
+.modal{width:min(590px,100%);border-color:#8aa7c5;background:linear-gradient(156deg,#274462,#142b49 62%,#0f2442);box-shadow:0 26px 90px #000b,inset 0 1px #ffffff30}
+.modal .badge{background:#355577;border:1px solid #76a6c64c;box-shadow:inset 0 1px #ffffff22}
+.modal .mascots{font-size:55px;letter-spacing:10px;filter:drop-shadow(0 12px 10px #0007);animation:heroBob 3s ease-in-out infinite}
+.modal .bigbtn{background:linear-gradient(110deg,#ffe296,#ffab75);box-shadow:0 5px 0 #9c5e45,0 11px 27px #0006}
+.modal .bigbtn:hover{filter:brightness(1.07)}
+.modal .secondary:hover,.world-tab:hover:not(:disabled),.lvl:hover:not(:disabled){border-color:#d2eaff;background:#2e5073}
+.world-tabs{gap:7px}.world-tab{position:relative;overflow:hidden;border:1px solid #6781a1;background:linear-gradient(145deg,#2d4561,#1d3551);min-height:62px;line-height:1.7;transition:transform .15s,filter .2s}.world-tab.active{background:linear-gradient(135deg,#446981,#305372);border-color:#ffe2a6;transform:translateY(-2px);box-shadow:inset 0 0 0 1px #ffe1a67b,0 4px 14px #0004}
+.world-tab::after{content:'';position:absolute;bottom:0;left:12%;width:76%;height:3px;background:var(--tabcolor,#aac5ee);opacity:.3}.world-tab.active::after{opacity:1}
+.world-tab:nth-child(1){--tabcolor:#98dfa8}.world-tab:nth-child(2){--tabcolor:#ffd184}.world-tab:nth-child(3){--tabcolor:#8cdaff}.world-tab:nth-child(4){--tabcolor:#d5a8ff}.world-tab:nth-child(5){--tabcolor:#ffbb85}
+.lvl{background:linear-gradient(150deg,#29496b,#1b3451);transition:transform .15s,border-color .15s;text-wrap:balance}.lvl:hover:not(:disabled){transform:translateY(-2px)}.lvl.selected{border-color:var(--worldaccent)}
+.touchkey{transition:background .11s,transform .10s;touch-action:none}.pad.fire{background:linear-gradient(180deg,#3a2738,#1c243b);border-color:#905d65}.pad.water{background:linear-gradient(180deg,#173d58,#142a47);border-color:#42789a}
+.pad.fire .touchkey{border-color:#a76562}.pad.water .touchkey{border-color:#528dad}.touchkey:active{filter:brightness(1.24)}
+@keyframes heroBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media(max-width:750px){.modal{max-height:100%;padding:16px}.modal .mascots{font-size:38px}.world-tab{min-height:48px}.gameframe:before{border-radius:10px}}
+@media(prefers-reduced-motion:reduce){.modal .mascots{animation:none}}
+
+/* V5 final polish */
+.header-buttons{flex-wrap:wrap;justify-content:flex-end}
+.v5-medal{font-size:15px;line-height:1.8}
+.v5-gold{color:#ffe38f}.v5-silver{color:#d6eeff}.v5-bronze{color:#e8b394}
+.v5-progress{height:9px;border-radius:20px;overflow:hidden;background:#0d2946;border:1px solid #376184;margin:8px 0 12px}
+.v5-progress>div{height:100%;background:linear-gradient(90deg,#73b5ff,#f8d17c);border-radius:20px}
+.v5-hint-step{padding:13px 15px;margin:12px 0 6px;border:1px solid #6584a2;background:linear-gradient(135deg,#163959,#18334b);border-radius:13px;text-align:left;font-size:14px;line-height:1.7;color:#eaf6ff}
+.v5-hint-step strong{color:#ffe3a4}
+.v5-statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px auto}
+.v5-statgrid>div{background:#15334e;border:1px solid #4e708b;border-radius:12px;padding:12px 4px}
+.v5-statgrid strong{display:block;font-size:24px;color:#ffe49c}
+.v5-statgrid small{font-size:11px;color:#c3d6ef}
+.v5-bonus{width:100%;border-radius:12px;border:1px solid #d0aafb;background:linear-gradient(135deg,#47326a,#293d62);padding:12px;margin-top:10px;color:#fff;font-size:13px;font-weight:800;min-height:48px}
+.v5-bonus:disabled{opacity:.48;filter:grayscale(.55);cursor:not-allowed}
+.v5-worldstats{text-align:left;font-size:13px;color:#cfddf3;line-height:1.65;margin:10px 0}
+.v5-worldstats b{color:#f6e0af}
+.v5-worldstats .v5-progress{margin:3px 0 7px}
+.v5-stats-scroll{max-height:53vh;overflow-y:auto;padding-right:3px}
+@media(max-width:680px){.header-buttons{gap:5px}.header-buttons .smallbtn{padding:0 9px;min-height:36px;font-size:12px}.modal{padding:15px}.v5-statgrid{gap:4px}.v5-statgrid strong{font-size:20px}}
+
+/* V5 EXPERT cooperative leaderboard */
+.modal:has(.lb-board){width:min(850px,100%);max-height:min(92vh,800px);overflow-y:auto}
+.modal:has(.lb-register){width:min(610px,100%)}
+.lb-board{text-align:left}.lb-head{text-align:center}
+.lb-scoreline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0}
+.lb-scoreline>div{background:#0c2844;border:1px solid #51789b;border-radius:13px;padding:12px 5px;text-align:center}
+.lb-scoreline strong{display:block;color:#fff0ba;font-size:22px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lb-scoreline small{display:block;color:#b7d0e8;font-size:11px;margin-top:3px}
+.lb-players{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:14px 0}
+.lb-field{text-align:left;color:#c9e3fa;font-size:13px;font-weight:750}
+.lb-field input,.lb-url{font:inherit;width:100%;padding:12px 13px;border-radius:12px;border:1px solid #5a82a5;background:#0a1e35;color:white;outline:none;margin-top:7px}
+.lb-field input:focus,.lb-url:focus{border-color:#ffda81;box-shadow:0 0 0 2px #ffda8144}
+.lb-field input::placeholder,.lb-url::placeholder{color:#7897b4}
+.lb-warning{font-size:12px;color:#ffe0a2;background:#3d301e;border:1px solid #6e5b41;padding:11px;border-radius:11px;text-align:left;line-height:1.5}
+.lb-error{font-size:12px;color:#ffd1cd;min-height:17px;margin-top:5px}
+.lb-tabs,.lb-sort{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:12px 0}
+.lb-tab,.lb-sortbtn{border:1px solid #5a799e;border-radius:99px;color:#d5ebff;background:#123454;padding:9px 14px;font-weight:750;font-size:12px}
+.lb-tab.active,.lb-sortbtn.active{background:#f5d18a;color:#22344b;border-color:#f5d18a}
+.lb-table-wrap{border:1px solid #3c5c7c;border-radius:15px;overflow:auto;max-height:310px;background:#0b233d}
+.lb-table{width:100%;border-collapse:collapse;min-width:455px;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums}
+.lb-table th{color:#9ec5e7;background:#1c3956;font-size:11px;text-align:center;position:sticky;top:0;z-index:2;padding:11px 7px;white-space:nowrap}
+.lb-table td{border-top:1px solid #244563;text-align:center;padding:12px 8px;white-space:nowrap}
+.lb-table td.lb-team{text-align:left;font-weight:800;color:#f3f8ff;white-space:normal}
+.lb-table tr.lb-me{background:#4b492c80}
+.lb-table tr:nth-child(even):not(.lb-me){background:#17345177}
+.lb-none{text-align:center;background:#12314f;border-radius:14px;padding:22px;color:#b7d0e8;font-size:13px}
+.lb-foot{color:#acc3d8;font-size:11px;line-height:1.6;text-align:center;margin-top:11px}
+.lb-settings{text-align:left;background:#0c243e;border:1px solid #395b7e;border-radius:12px;margin-top:13px;padding:12px}
+.lb-settings summary{cursor:pointer;color:#cfe7ff;font-size:12px;font-weight:800}
+.lb-setup{font-size:11px;line-height:1.7;color:#accee7;margin-top:9px}
+.lb-fieldname{font-size:12px;font-weight:800;color:#cbdff4;display:block;margin-bottom:5px}
+@media(max-width:680px){.lb-scoreline strong{font-size:17px}.lb-players{gap:5px}.lb-field input{padding:10px 8px}.lb-table{font-size:12px}.lb-board .actions{gap:6px}}
+@media(max-width:490px){.lb-scoreline strong{font-size:14px}.lb-scoreline small{font-size:10px}.header-buttons{flex-wrap:wrap;justify-content:flex-end}}
+
+/* Wide/tall ranking panels should not be trapped in the short game canvas on phones. */
+body.lb-fullscreen #overlay{position:fixed;inset:0;z-index:9999;background:#06162df5;padding:12px;overscroll-behavior:contain}
+body.lb-fullscreen #modal{max-height:calc(100dvh - 24px);width:min(860px,100%);overscroll-behavior:contain}
+body.lb-fullscreen #modal:has(.lb-register){width:min(610px,100%)}
+@media(max-width:490px){body.lb-fullscreen #overlay{padding:6px}body.lb-fullscreen #modal{padding:15px 12px;border-radius:16px;max-height:calc(100dvh - 12px)}.lb-board .lb-table-wrap{max-height:43dvh}.lb-scoreline{gap:5px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="topbar">
+  <div class="brand"><div class="logo">🔥💧</div><div><div class="eyebrow">CO-OP PUZZLE ADVENTURE · V5 EXPERT RANKED</div><h1>불꽃과 물방울 <span>다섯 신전의 비밀</span></h1></div></div>
+  <nav class="header-buttons"><button id="levelsBtn" class="smallbtn" type="button">☷ 스테이지</button><button id="hintBtn" class="smallbtn" type="button" title="힌트 (H)">💡 힌트</button><button id="statsBtn" class="smallbtn" type="button">🏅 기록</button><button id="leaderBtn" class="smallbtn" type="button">🏆 순위표</button><button id="restartBtn" class="smallbtn" type="button">↻ 재시작</button><button id="soundBtn" class="smallbtn" type="button" aria-label="소리 켜기 또는 끄기">♪ 소리</button></nav>
+</header>
+<div class="dashboard"><div class="stage-line"><span class="pill" id="levelNumber">STAGE 1 / 30</span><strong id="levelName">첫 만남</strong></div><div class="scores"><div class="stat">💎 보석 <b id="gemsLabel">0 / 2</b></div><div class="stat">💥 실수 <b id="deathsLabel">0</b></div><div class="stat">⏱️ 현재 <b id="timeLabel">00:00</b></div><div class="stat">🏁 누적 <b id="totalTimerLabel">00:00</b></div><div class="stat">💡 힌트 <b id="hintsLabel">0</b></div></div></div>
+<div class="gameframe" id="frame">
+<canvas id="game" width="1000" height="590" aria-label="두 캐릭터를 각각 조종해 퍼즐을 풀고 출구로 가는 협동 플랫폼 게임"></canvas>
+<div id="gameLabel" class="game-label">두 친구가 함께 퍼즐을 풀고 <b>각자의 출구</b>로 향해요!</div>
+<section id="overlay" class="overlay" role="dialog" aria-modal="true" aria-label="게임 메뉴"><div id="modal" class="modal"></div></section>
+</div>
+<div class="mobile-controls" id="mobileControls" aria-label="터치 조작 버튼">
+<div class="pad fire"><div class="pad-label">🔥 불꽃</div><button class="touchkey" data-control="fireLeft" aria-label="불꽃 왼쪽">◀</button><button class="touchkey jump" data-control="fireJump" aria-label="불꽃 점프">▲</button><button class="touchkey" data-control="fireRight" aria-label="불꽃 오른쪽">▶</button><button class="touchkey actionkey" data-interact="fire" aria-label="불꽃 작동">✦</button></div>
+<div class="pad water"><div class="pad-label">💧 물방울</div><button class="touchkey" data-control="waterLeft" aria-label="물방울 왼쪽">◀</button><button class="touchkey jump" data-control="waterJump" aria-label="물방울 점프">▲</button><button class="touchkey" data-control="waterRight" aria-label="물방울 오른쪽">▶</button><button class="touchkey actionkey" data-interact="water" aria-label="물방울 작동">✦</button></div>
+</div>
+<div class="lower"><div class="rule fire"><div class="avatar">🔥</div><div class="desc"><strong>불꽃 조작</strong><span class="key">A</span><span class="key">D</span> 이동 · <span class="key">W</span> 점프 · <span class="key">E</span> 작동 · 물 웅덩이 주의!</div></div><div class="rule water"><div class="avatar">💧</div><div class="desc"><strong>물방울 조작</strong><span class="key">←</span><span class="key">→</span> 이동 · <span class="key">↑</span> 점프 · <span class="key">↓</span> 작동 · 용암 웅덩이 주의!</div></div></div>
+<p class="note">힌트: H 키 · 일시정지: Esc/P · 재시작: R · 비밀 스테이지: 신전별 6단계를 모두 클리어하면 개방<br>불꽃은 용암에, 물방울은 물에 안전해요. 초록 독액은 둘 다 위험해요. · 상자를 밀고 스위치를 눌러 봉인을 푸는 2인용 게임</p>
+</div>
+<script>
+(()=>{'use strict';
+const W=1000,H=590,FLOOR=532,GRAVITY=.61,SPEED=4.5,JUMP=-12.5;
+const LEVELS=[
+ {name:'상자의 첫걸음',subtitle:'상자를 밀어 첫 번째 문을 열자',tip:'두 캐릭터 중 누구든 나무 상자를 오른쪽 황금 스위치까지 밀어보세요. 상자를 올려두면 문이 열립니다.',sky:['#152947','#345474'],
+  crates:[{x:222}],plates:[{id:'box',x:373,w:60,type:'box',mode:'hold'}],gates:[{x:687,y:312,h:220,requires:['box'],mode:'hold'}],hazards:[{x:515,w:83,type:'water'},{x:774,w:70,type:'fire'}],platforms:[{x:285,y:427,w:115},{x:493,y:415,w:125},{x:761,y:435,w:98}],gems:[{x:330,y:389,type:'fire'},{x:563,y:378,type:'water'}]},
+ {name:'두 색의 약속',subtitle:'동시에 누르면 봉인이 풀린다',tip:'불꽃은 빨간 스위치, 물방울은 파란 스위치를 동시에 밟아주세요. 문이 영구히 열립니다.',sky:['#1b3150','#345e7e'],
+  plates:[{id:'f',x:248,w:61,type:'fire',mode:'hold'},{id:'w',x:493,w:61,type:'water',mode:'hold'}],gates:[{x:729,y:302,h:230,requires:['f','w'],mode:'latch'}],hazards:[{x:354,w:80,type:'water'},{x:592,w:76,type:'fire'}],platforms:[{x:357,y:430,w:130},{x:597,y:410,w:118}],gems:[{x:426,y:392,type:'fire'},{x:656,y:371,type:'water'}]},
+ {name:'상자와 두 개의 문',subtitle:'한쪽에서 열고, 건너가서 다시 열기',tip:'상자로 첫 스위치를 고정하고 첫 번째 문을 지나가세요. 반대편 파란 스위치를 밟아 두 번째 문을 열어보세요.',sky:['#192b4b','#405878'],
+  crates:[{x:199}],plates:[{id:'box',x:316,w:60,type:'box',mode:'hold'},{id:'water',x:632,w:56,type:'water',mode:'latch'}],gates:[{x:448,y:302,h:230,requires:['box'],mode:'hold'},{x:813,y:302,h:230,requires:['water'],mode:'latch'}],hazards:[{x:517,w:85,type:'toxic'},{x:708,w:78,type:'fire'}],moving:[{kind:'horizontal',x:530,y:458,w:82,range:42,speed:.021,phase:1}],platforms:[{x:500,y:432,w:116},{x:708,y:420,w:115}],gems:[{x:535,y:394,type:'fire'},{x:752,y:384,type:'water'}]},
+ {name:'승강기의 비밀',subtitle:'움직이는 승강기로 높은 발판에 오르자',tip:'가운데 황금 스위치를 밟으면 승강기가 반복 운행합니다. 높은 발판의 파란 스위치로 출구 문을 여세요.',sky:['#23334f','#50627d'],
+  plates:[{id:'start',x:263,w:66,type:'any',mode:'latch'},{id:'high',x:734,y:349,w:61,type:'water',mode:'latch'}],gates:[{x:825,y:301,h:231,requires:['high'],mode:'latch'}],moving:[{kind:'elevator',x:513,y:507,w:127,targetY:354,speed:.030,switch:'start'}],hazards:[{x:366,w:94,type:'toxic'},{x:654,w:43,type:'water'}],platforms:[{x:704,y:349,w:127},{x:414,y:420,w:70}],gems:[{x:570,y:318,type:'fire'},{x:759,y:311,type:'water'}]},
+ {name:'릴레이 작전',subtitle:'두 사람이 각자의 구역에서 협동!',tip:'상자를 황금 스위치에 놓고 첫 문을 통과한 뒤, 빨간·파란 스위치를 동시에 밟으면 마지막 문이 열립니다.',sky:['#1d2d4e','#465d7b'],
+  crates:[{x:170}],plates:[{id:'box',x:305,w:54,type:'box',mode:'hold'},{id:'f',x:566,w:52,type:'fire',mode:'hold'},{id:'w',x:690,w:52,type:'water',mode:'hold'}],gates:[{x:431,y:303,h:229,requires:['box'],mode:'hold'},{x:799,y:303,h:229,requires:['f','w'],mode:'latch'}],hazards:[{x:476,w:58,type:'water'},{x:633,w:45,type:'toxic'}],platforms:[{x:464,y:419,w:111},{x:622,y:408,w:85}],gems:[{x:497,y:381,type:'fire'},{x:672,y:371,type:'water'}]},
+ {name:'원소의 심장',subtitle:'모든 장치를 활용하는 마지막 퍼즐',tip:'상자를 밀어 승강기부터 작동시키세요. 위쪽의 파란 스위치를 누른 뒤, 두 색 스위치를 함께 밟아 마지막 문을 열어보세요!',sky:['#192740','#49456c'],
+  crates:[{x:169}],plates:[{id:'box',x:303,w:56,type:'box',mode:'hold'},{id:'upper',x:658,y:349,w:54,type:'water',mode:'latch'},{id:'f',x:690,w:46,type:'fire',mode:'hold'},{id:'w',x:759,w:46,type:'water',mode:'hold'}],gates:[{x:816,y:292,h:240,requires:['upper','f','w'],mode:'latch'}],moving:[{kind:'elevator',x:494,y:506,w:118,targetY:357,speed:.032,switch:'box'}],hazards:[{x:398,w:72,type:'toxic'},{x:617,w:57,type:'fire'}],platforms:[{x:632,y:349,w:115},{x:454,y:415,w:53}],gems:[{x:557,y:327,type:'fire'},{x:697,y:314,type:'water'}]}
+];
+
+const WORLDS=[
+  {name:"숲의 신전", icon:"🌿", desc:"상자·협동 발판·승강기", accent:"#7ce2ae"},
+  {name:"빛의 신전", icon:"☀️", desc:"빛 반사·거울·레버", accent:"#ffd289"},
+  {name:"얼음의 신전", icon:"❄️", desc:"빙판·녹는 얼음벽", accent:"#8fdbff"},
+  {name:"수정의 신전", icon:"🔮", desc:"순간이동 포털·공간", accent:"#d8a1ff"},
+  {name:"시간의 신전", icon:"⏳", desc:"시간제한 장치·종합", accent:"#ffba8d"}
+];
+LEVELS.forEach(L=>L.world=0);
+LEVELS.push(...[
+ {
+  "world": 1,
+  "name": "첫 번째 빛",
+  "subtitle": "거울을 돌려 광센서를 켜세요",
+  "tip": "🔥 E 또는 💧 ↓로 가까운 거울을 돌려 빛을 위쪽 센서로 보내세요.",
+  "sky": [
+   "#211c52",
+   "#315b92"
+  ],
+  "platforms": [
+   {
+    "x": 549,
+    "y": 431,
+    "w": 102
+   }
+  ],
+  "moving": [],
+  "crates": [],
+  "plates": [],
+  "gates": [
+   {
+    "x": 782,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "s1"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 567,
+    "w": 74,
+    "type": "toxic"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [
+   {
+    "id": "m1",
+    "x": 438,
+    "y": 465,
+    "state": 0
+   }
+  ],
+  "emitters": [
+   {
+    "id": "e1",
+    "x": 215,
+    "y": 465,
+    "mirror": "m1"
+   }
+  ],
+  "sensors": [
+   {
+    "id": "s1",
+    "x": 438,
+    "y": 320,
+    "mirror": "m1"
+   }
+  ],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 1,
+  "name": "쌍둥이 광선",
+  "subtitle": "두 개의 거울을 연달아 작동!",
+  "tip": "두 거울을 각각 회전시켜 두 센서를 모두 켜야 문이 열려요.",
+  "sky": [
+   "#211c52",
+   "#315b92"
+  ],
+  "platforms": [
+   {
+    "x": 460,
+    "y": 422,
+    "w": 94
+   }
+  ],
+  "moving": [],
+  "crates": [],
+  "plates": [],
+  "gates": [
+   {
+    "x": 798,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "s1",
+     "s2"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 476,
+    "w": 66,
+    "type": "fire"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [
+   {
+    "id": "m1",
+    "x": 362,
+    "y": 465,
+    "state": 0
+   },
+   {
+    "id": "m2",
+    "x": 626,
+    "y": 465,
+    "state": 0
+   }
+  ],
+  "emitters": [
+   {
+    "id": "e1",
+    "x": 190,
+    "y": 465,
+    "mirror": "m1"
+   },
+   {
+    "id": "e2",
+    "x": 465,
+    "y": 465,
+    "mirror": "m2"
+   }
+  ],
+  "sensors": [
+   {
+    "id": "s1",
+    "x": 362,
+    "y": 325,
+    "mirror": "m1"
+   },
+   {
+    "id": "s2",
+    "x": 626,
+    "y": 302,
+    "mirror": "m2"
+   }
+  ],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 1,
+  "name": "빛과 나무 상자",
+  "subtitle": "상자를 고정해야 빛의 문이 열린다",
+  "tip": "상자를 황금 스위치에 올리고 거울의 방향도 바꿔보세요.",
+  "sky": [
+   "#211c52",
+   "#315b92"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [
+   {
+    "x": 175
+   }
+  ],
+  "plates": [
+   {
+    "id": "box",
+    "x": 312,
+    "w": 58,
+    "type": "box",
+    "mode": "hold"
+   }
+  ],
+  "gates": [
+   {
+    "x": 815,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "box",
+     "s1"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 672,
+    "w": 65,
+    "type": "water"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [
+   {
+    "id": "m1",
+    "x": 570,
+    "y": 468,
+    "state": 0
+   }
+  ],
+  "emitters": [
+   {
+    "id": "e1",
+    "x": 420,
+    "y": 468,
+    "mirror": "m1"
+   }
+  ],
+  "sensors": [
+   {
+    "id": "s1",
+    "x": 570,
+    "y": 335,
+    "mirror": "m1"
+   }
+  ],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 1,
+  "name": "빛의 아래쪽",
+  "subtitle": "거울 방향을 반대로 바꾸기",
+  "tip": "이번에는 아래쪽 센서가 켜져야 해요. 거울을 살펴보세요.",
+  "sky": [
+   "#211c52",
+   "#315b92"
+  ],
+  "platforms": [
+   {
+    "x": 248,
+    "y": 404,
+    "w": 95
+   }
+  ],
+  "moving": [],
+  "crates": [],
+  "plates": [],
+  "gates": [
+   {
+    "x": 807,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "s1"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 616,
+    "w": 65,
+    "type": "toxic"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [
+   {
+    "id": "m1",
+    "x": 476,
+    "y": 433,
+    "state": 1
+   }
+  ],
+  "emitters": [
+   {
+    "id": "e1",
+    "x": 235,
+    "y": 433,
+    "mirror": "m1"
+   }
+  ],
+  "sensors": [
+   {
+    "id": "s1",
+    "x": 476,
+    "y": 505,
+    "mirror": "m1"
+   }
+  ],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 1,
+  "name": "레버와 광선",
+  "subtitle": "레버도 빛도 모두 필요해요",
+  "tip": "빛의 센서에 불을 켠 뒤, 문에 연결된 레버도 작동시키세요.",
+  "sky": [
+   "#211c52",
+   "#315b92"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [],
+  "gates": [
+   {
+    "x": 795,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "s1",
+     "lv"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 531,
+    "w": 55,
+    "type": "fire"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [
+   {
+    "id": "lv",
+    "x": 654,
+    "y": 474,
+    "mode": "toggle"
+   }
+  ],
+  "mirrors": [
+   {
+    "id": "m1",
+    "x": 434,
+    "y": 466,
+    "state": 0
+   }
+  ],
+  "emitters": [
+   {
+    "id": "e1",
+    "x": 220,
+    "y": 466,
+    "mirror": "m1"
+   }
+  ],
+  "sensors": [
+   {
+    "id": "s1",
+    "x": 434,
+    "y": 326,
+    "mirror": "m1"
+   }
+  ],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 1,
+  "name": "찬란한 광장",
+  "subtitle": "두 광선과 두 색 발판의 조합",
+  "tip": "두 광선을 켜고 불꽃·물방울이 각자 색깔 발판을 동시에 밟아보세요.",
+  "sky": [
+   "#211c52",
+   "#315b92"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [
+   {
+    "id": "f",
+    "x": 648,
+    "w": 45,
+    "type": "fire",
+    "mode": "hold"
+   },
+   {
+    "id": "w",
+    "x": 720,
+    "w": 45,
+    "type": "water",
+    "mode": "hold"
+   }
+  ],
+  "gates": [
+   {
+    "x": 810,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "s1",
+     "s2",
+     "f",
+     "w"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [
+   {
+    "id": "m1",
+    "x": 319,
+    "y": 464,
+    "state": 0
+   },
+   {
+    "id": "m2",
+    "x": 556,
+    "y": 464,
+    "state": 0
+   }
+  ],
+  "emitters": [
+   {
+    "id": "e1",
+    "x": 163,
+    "y": 464,
+    "mirror": "m1"
+   },
+   {
+    "id": "e2",
+    "x": 418,
+    "y": 464,
+    "mirror": "m2"
+   }
+  ],
+  "sensors": [
+   {
+    "id": "s1",
+    "x": 319,
+    "y": 342,
+    "mirror": "m1"
+   },
+   {
+    "id": "s2",
+    "x": 556,
+    "y": 340,
+    "mirror": "m2"
+   }
+  ],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 2,
+  "name": "얼음길에 첫발",
+  "subtitle": "미끄러운 얼음 위에서 상자 밀기",
+  "tip": "얼음 바닥에서는 바로 멈추기 어려워요. 상자를 천천히 밀어보세요.",
+  "sky": [
+   "#123750",
+   "#497996"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [
+   {
+    "x": 195
+   }
+  ],
+  "plates": [
+   {
+    "id": "box",
+    "x": 446,
+    "w": 58,
+    "type": "box",
+    "mode": "hold"
+   }
+  ],
+  "gates": [
+   {
+    "x": 768,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "box"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 610,
+    "w": 68,
+    "type": "fire"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [
+   {
+    "x": 165,
+    "w": 430
+   }
+  ],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 2,
+  "name": "녹아내리는 벽",
+  "subtitle": "불꽃의 열로 얼음벽을 녹여요",
+  "tip": "🔥 불꽃이 얼음벽 가까이 가면 녹아요. 그 뒤 💧 물방울 발판을 눌러보세요.",
+  "sky": [
+   "#123750",
+   "#497996"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [
+   {
+    "id": "w",
+    "x": 626,
+    "w": 58,
+    "type": "water",
+    "mode": "latch"
+   }
+  ],
+  "gates": [
+   {
+    "x": 793,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "w"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 705,
+    "w": 55,
+    "type": "water"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [
+   {
+    "x": 205,
+    "w": 275
+   }
+  ],
+  "iceBlocks": [
+   {
+    "x": 470,
+    "y": 393,
+    "w": 44,
+    "h": 139
+   }
+  ],
+  "portals": []
+ },
+ {
+  "world": 2,
+  "name": "상자와 빙벽",
+  "subtitle": "멈추기 어려운 상자 운송",
+  "tip": "얼음 위에서 상자를 누르고, 불꽃이 벽을 녹여 나머지 길을 열어보세요.",
+  "sky": [
+   "#123750",
+   "#497996"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [
+   {
+    "x": 180
+   }
+  ],
+  "plates": [
+   {
+    "id": "b",
+    "x": 390,
+    "w": 58,
+    "type": "box",
+    "mode": "hold"
+   }
+  ],
+  "gates": [
+   {
+    "x": 811,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "b"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 652,
+    "w": 67,
+    "type": "toxic"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [
+   {
+    "x": 170,
+    "w": 370
+   }
+  ],
+  "iceBlocks": [
+   {
+    "x": 560,
+    "y": 398,
+    "w": 44,
+    "h": 134
+   }
+  ],
+  "portals": []
+ },
+ {
+  "world": 2,
+  "name": "두 색의 빙판",
+  "subtitle": "미끄러짐을 이겨내고 함께 누르기",
+  "tip": "두 색의 스위치를 동시에 밟으면 봉인이 풀려요.",
+  "sky": [
+   "#123750",
+   "#497996"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [
+   {
+    "id": "f",
+    "x": 340,
+    "w": 58,
+    "type": "fire",
+    "mode": "hold"
+   },
+   {
+    "id": "w",
+    "x": 620,
+    "w": 58,
+    "type": "water",
+    "mode": "hold"
+   }
+  ],
+  "gates": [
+   {
+    "x": 809,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "f",
+     "w"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 480,
+    "w": 68,
+    "type": "fire"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [
+   {
+    "x": 210,
+    "w": 390
+   },
+   {
+    "x": 635,
+    "w": 135
+   }
+  ],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 2,
+  "name": "차가운 승강장",
+  "subtitle": "승강기를 타고 위로 올라가자",
+  "tip": "공용 스위치로 승강기를 움직인 뒤 위쪽 물방울 발판을 눌러주세요.",
+  "sky": [
+   "#123750",
+   "#497996"
+  ],
+  "platforms": [
+   {
+    "x": 695,
+    "y": 346,
+    "w": 129
+   }
+  ],
+  "moving": [
+   {
+    "kind": "elevator",
+    "x": 510,
+    "y": 507,
+    "w": 122,
+    "targetY": 348,
+    "speed": 0.031,
+    "switch": "start"
+   }
+  ],
+  "crates": [],
+  "plates": [
+   {
+    "id": "start",
+    "x": 282,
+    "w": 58,
+    "type": "any",
+    "mode": "latch"
+   },
+   {
+    "id": "high",
+    "x": 727,
+    "w": 58,
+    "type": "water",
+    "mode": "latch",
+    "y": 346
+   }
+  ],
+  "gates": [
+   {
+    "x": 835,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "high"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 648,
+    "w": 44,
+    "type": "toxic"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [
+   {
+    "x": 170,
+    "w": 380
+   }
+  ],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 2,
+  "name": "얼음 왕관",
+  "subtitle": "빙벽과 상자, 두 개의 장치",
+  "tip": "불꽃이 얼음을 녹이고 상자가 첫 문을 열어요. 마지막 문은 색깔 발판으로 열 수 있어요.",
+  "sky": [
+   "#123750",
+   "#497996"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [
+   {
+    "x": 166
+   }
+  ],
+  "plates": [
+   {
+    "id": "b",
+    "x": 336,
+    "w": 58,
+    "type": "box",
+    "mode": "hold"
+   },
+   {
+    "id": "f",
+    "x": 661,
+    "w": 58,
+    "type": "fire",
+    "mode": "hold"
+   },
+   {
+    "id": "w",
+    "x": 732,
+    "w": 58,
+    "type": "water",
+    "mode": "hold"
+   }
+  ],
+  "gates": [
+   {
+    "x": 550,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "b"
+    ],
+    "mode": "latch"
+   },
+   {
+    "x": 827,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "f",
+     "w"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [
+   {
+    "x": 160,
+    "w": 250
+   },
+   {
+    "x": 500,
+    "w": 185
+   }
+  ],
+  "iceBlocks": [
+   {
+    "x": 455,
+    "y": 397,
+    "w": 42,
+    "h": 135
+   }
+  ],
+  "portals": []
+ },
+ {
+  "world": 3,
+  "name": "수정의 문",
+  "subtitle": "포털을 타고 독액 계곡을 넘어요",
+  "tip": "보라색 포털에 들어가면 짝이 되는 포털로 이동해요. 뒤쪽 레버를 작동하세요.",
+  "sky": [
+   "#26224e",
+   "#684778"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [],
+  "gates": [
+   {
+    "x": 822,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "lv"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 422,
+    "w": 206,
+    "type": "toxic"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [
+   {
+    "id": "lv",
+    "x": 735,
+    "y": 474,
+    "mode": "toggle"
+   }
+  ],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": [
+   {
+    "id": "p0",
+    "x": 258,
+    "y": 459,
+    "target": "p1",
+    "color": "violet"
+   },
+   {
+    "id": "p1",
+    "x": 674,
+    "y": 459,
+    "target": "p0",
+    "color": "violet"
+   }
+  ]
+ },
+ {
+  "world": 3,
+  "name": "두 번의 도약",
+  "subtitle": "두 쌍의 순간이동 포털",
+  "tip": "포털은 같은 색끼리 연결돼요. 뒤쪽 스위치를 눌러보세요.",
+  "sky": [
+   "#26224e",
+   "#684778"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [
+   {
+    "id": "w",
+    "x": 786,
+    "w": 58,
+    "type": "water",
+    "mode": "latch"
+   }
+  ],
+  "gates": [
+   {
+    "x": 844,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "w"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 344,
+    "w": 115,
+    "type": "fire"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": [
+   {
+    "id": "p0",
+    "x": 244,
+    "y": 459,
+    "target": "p1",
+    "color": "violet"
+   },
+   {
+    "id": "p1",
+    "x": 512,
+    "y": 459,
+    "target": "p0",
+    "color": "violet"
+   },
+   {
+    "id": "p2",
+    "x": 596,
+    "y": 459,
+    "target": "p3",
+    "color": "pink"
+   },
+   {
+    "id": "p3",
+    "x": 744,
+    "y": 459,
+    "target": "p2",
+    "color": "pink"
+   }
+  ]
+ },
+ {
+  "world": 3,
+  "name": "상자를 남겨두고",
+  "subtitle": "상자는 직접 스위치에 놓아야 해요",
+  "tip": "상자는 첫 번째 구역에 남겨두고, 두 친구는 포털로 넘어가세요.",
+  "sky": [
+   "#26224e",
+   "#684778"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [
+   {
+    "x": 162
+   }
+  ],
+  "plates": [
+   {
+    "id": "box",
+    "x": 315,
+    "w": 58,
+    "type": "box",
+    "mode": "hold"
+   }
+  ],
+  "gates": [
+   {
+    "x": 829,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "box"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 565,
+    "w": 81,
+    "type": "toxic"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": [
+   {
+    "id": "p0",
+    "x": 470,
+    "y": 459,
+    "target": "p1",
+    "color": "violet"
+   },
+   {
+    "id": "p1",
+    "x": 691,
+    "y": 459,
+    "target": "p0",
+    "color": "violet"
+   }
+  ]
+ },
+ {
+  "world": 3,
+  "name": "얼음과 수정",
+  "subtitle": "불꽃으로 벽을 녹여 포털 열기",
+  "tip": "먼저 얼음 장벽을 녹인 뒤 포털을 이용해 건너편 레버를 찾아보세요.",
+  "sky": [
+   "#26224e",
+   "#684778"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [],
+  "gates": [
+   {
+    "x": 841,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "lv"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 590,
+    "w": 69,
+    "type": "toxic"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [
+   {
+    "id": "lv",
+    "x": 760,
+    "y": 474,
+    "mode": "toggle"
+   }
+  ],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [
+   {
+    "x": 184,
+    "w": 230
+   }
+  ],
+  "iceBlocks": [
+   {
+    "x": 392,
+    "y": 393,
+    "w": 40,
+    "h": 139
+   }
+  ],
+  "portals": [
+   {
+    "id": "p0",
+    "x": 505,
+    "y": 459,
+    "target": "p1",
+    "color": "violet"
+   },
+   {
+    "id": "p1",
+    "x": 704,
+    "y": 459,
+    "target": "p0",
+    "color": "violet"
+   }
+  ]
+ },
+ {
+  "world": 3,
+  "name": "수정 속의 빛",
+  "subtitle": "포털을 지나 빛의 방향 바꾸기",
+  "tip": "포털로 건너간 뒤 거울을 회전시켜 센서에 빛을 보내세요.",
+  "sky": [
+   "#26224e",
+   "#684778"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [],
+  "gates": [
+   {
+    "x": 839,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "s1"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 350,
+    "w": 183,
+    "type": "toxic"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [
+   {
+    "id": "m1",
+    "x": 712,
+    "y": 468,
+    "state": 0
+   }
+  ],
+  "emitters": [
+   {
+    "id": "e1",
+    "x": 633,
+    "y": 468,
+    "mirror": "m1"
+   }
+  ],
+  "sensors": [
+   {
+    "id": "s1",
+    "x": 712,
+    "y": 340,
+    "mirror": "m1"
+   }
+  ],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": [
+   {
+    "id": "p0",
+    "x": 230,
+    "y": 459,
+    "target": "p1",
+    "color": "violet"
+   },
+   {
+    "id": "p1",
+    "x": 599,
+    "y": 459,
+    "target": "p0",
+    "color": "violet"
+   }
+  ]
+ },
+ {
+  "world": 3,
+  "name": "수정의 심장",
+  "subtitle": "레버·거울·포털을 모두 활용",
+  "tip": "수정 포털을 건너서 레버를 내리고, 거울도 켜서 출구 봉인을 풀어보세요.",
+  "sky": [
+   "#26224e",
+   "#684778"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [],
+  "gates": [
+   {
+    "x": 839,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "lv",
+     "s1"
+    ],
+    "mode": "latch"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 388,
+    "w": 173,
+    "type": "toxic"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [
+   {
+    "id": "lv",
+    "x": 650,
+    "y": 474,
+    "mode": "toggle"
+   }
+  ],
+  "mirrors": [
+   {
+    "id": "m1",
+    "x": 732,
+    "y": 472,
+    "state": 0
+   }
+  ],
+  "emitters": [
+   {
+    "id": "e1",
+    "x": 648,
+    "y": 472,
+    "mirror": "m1"
+   }
+  ],
+  "sensors": [
+   {
+    "id": "s1",
+    "x": 732,
+    "y": 330,
+    "mirror": "m1"
+   }
+  ],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": [
+   {
+    "id": "p0",
+    "x": 248,
+    "y": 459,
+    "target": "p1",
+    "color": "violet"
+   },
+   {
+    "id": "p1",
+    "x": 619,
+    "y": 459,
+    "target": "p0",
+    "color": "violet"
+   }
+  ]
+ },
+ {
+  "world": 4,
+  "name": "10초의 문",
+  "subtitle": "발판을 밟으면 시간이 흐른다",
+  "tip": "스위치에서 발을 떼면 10초 뒤 문이 닫혀요. 두 캐릭터가 함께 돌파하세요.",
+  "sky": [
+   "#282a4d",
+   "#605568"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [
+   {
+    "id": "timer",
+    "x": 395,
+    "w": 58,
+    "type": "any",
+    "mode": "timer",
+    "duration": 10
+   }
+  ],
+  "gates": [
+   {
+    "x": 783,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "timer"
+    ],
+    "mode": "hold"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 590,
+    "w": 70,
+    "type": "fire"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 4,
+  "name": "시계 바늘",
+  "subtitle": "레버와 시간제한 문",
+  "tip": "레버를 작동시키고 타이머 발판도 눌러 문을 통과하세요.",
+  "sky": [
+   "#282a4d",
+   "#605568"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [
+   {
+    "id": "timer",
+    "x": 561,
+    "w": 58,
+    "type": "any",
+    "mode": "timer",
+    "duration": 9
+   }
+  ],
+  "gates": [
+   {
+    "x": 803,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "lv",
+     "timer"
+    ],
+    "mode": "hold"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 665,
+    "w": 67,
+    "type": "water"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [
+   {
+    "id": "lv",
+    "x": 292,
+    "y": 474,
+    "mode": "toggle"
+   }
+  ],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 4,
+  "name": "움직이는 시간",
+  "subtitle": "시간제한 승강기와 스위치",
+  "tip": "승강기로 올라간 뒤 위쪽 스위치를 누르세요. 마지막 문에는 시간 제한이 있어요.",
+  "sky": [
+   "#282a4d",
+   "#605568"
+  ],
+  "platforms": [
+   {
+    "x": 669,
+    "y": 350,
+    "w": 99
+   }
+  ],
+  "moving": [
+   {
+    "kind": "elevator",
+    "x": 496,
+    "y": 507,
+    "w": 125,
+    "targetY": 360,
+    "speed": 0.026,
+    "switch": "start"
+   }
+  ],
+  "crates": [],
+  "plates": [
+   {
+    "id": "start",
+    "x": 225,
+    "w": 58,
+    "type": "any",
+    "mode": "latch"
+   },
+   {
+    "id": "high",
+    "x": 694,
+    "w": 58,
+    "type": "water",
+    "mode": "latch",
+    "y": 350
+   },
+   {
+    "id": "timer",
+    "x": 750,
+    "w": 58,
+    "type": "any",
+    "mode": "timer",
+    "duration": 11
+   }
+  ],
+  "gates": [
+   {
+    "x": 832,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "high",
+     "timer"
+    ],
+    "mode": "hold"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 390,
+    "w": 64,
+    "type": "toxic"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 4,
+  "name": "찰나의 광선",
+  "subtitle": "빛을 맞히고 시간제한 통과",
+  "tip": "먼저 거울을 작동시킨 후 시간제한 발판을 눌러 출구로 이동하세요.",
+  "sky": [
+   "#282a4d",
+   "#605568"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [
+   {
+    "id": "t",
+    "x": 656,
+    "w": 58,
+    "type": "any",
+    "mode": "timer",
+    "duration": 8
+   }
+  ],
+  "gates": [
+   {
+    "x": 816,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "s1",
+     "t"
+    ],
+    "mode": "hold"
+   }
+  ],
+  "hazards": [],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [
+   {
+    "id": "m1",
+    "x": 423,
+    "y": 466,
+    "state": 0
+   }
+  ],
+  "emitters": [
+   {
+    "id": "e1",
+    "x": 220,
+    "y": 466,
+    "mirror": "m1"
+   }
+  ],
+  "sensors": [
+   {
+    "id": "s1",
+    "x": 423,
+    "y": 320,
+    "mirror": "m1"
+   }
+  ],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 4,
+  "name": "쌍둥이 시간",
+  "subtitle": "두 개의 타이머를 동기화!",
+  "tip": "불꽃과 물방울이 각자의 발판에 서면, 문이 9초 동안 열려요.",
+  "sky": [
+   "#282a4d",
+   "#605568"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [],
+  "plates": [
+   {
+    "id": "f",
+    "x": 370,
+    "w": 58,
+    "type": "fire",
+    "mode": "timer",
+    "duration": 9
+   },
+   {
+    "id": "w",
+    "x": 590,
+    "w": 58,
+    "type": "water",
+    "mode": "timer",
+    "duration": 9
+   }
+  ],
+  "gates": [
+   {
+    "x": 802,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "f",
+     "w"
+    ],
+    "mode": "hold"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 464,
+    "w": 72,
+    "type": "toxic"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [],
+  "mirrors": [],
+  "emitters": [],
+  "sensors": [],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": []
+ },
+ {
+  "world": 4,
+  "name": "두 원소의 운명",
+  "subtitle": "지금까지 배운 모든 협동 기믹",
+  "tip": "상자를 누르고, 거울을 돌리고, 레버를 내린 뒤 시간 발판으로 최후의 문을 여세요.",
+  "sky": [
+   "#282a4d",
+   "#605568"
+  ],
+  "platforms": [],
+  "moving": [],
+  "crates": [
+   {
+    "x": 152
+   }
+  ],
+  "plates": [
+   {
+    "id": "box",
+    "x": 301,
+    "w": 58,
+    "type": "box",
+    "mode": "hold"
+   },
+   {
+    "id": "timer",
+    "x": 730,
+    "w": 58,
+    "type": "any",
+    "mode": "timer",
+    "duration": 13
+   }
+  ],
+  "gates": [
+   {
+    "x": 822,
+    "y": 286,
+    "h": 246,
+    "requires": [
+     "box",
+     "lv",
+     "s1",
+     "timer"
+    ],
+    "mode": "hold"
+   }
+  ],
+  "hazards": [
+   {
+    "x": 466,
+    "w": 54,
+    "type": "water"
+   }
+  ],
+  "gems": [
+   {
+    "x": 230,
+    "y": 483,
+    "type": "fire"
+   },
+   {
+    "x": 700,
+    "y": 483,
+    "type": "water"
+   }
+  ],
+  "levers": [
+   {
+    "id": "lv",
+    "x": 559,
+    "y": 474,
+    "mode": "toggle"
+   }
+  ],
+  "mirrors": [
+   {
+    "id": "m1",
+    "x": 652,
+    "y": 469,
+    "state": 0
+   }
+  ],
+  "emitters": [
+   {
+    "id": "e1",
+    "x": 448,
+    "y": 469,
+    "mirror": "m1"
+   }
+  ],
+  "sensors": [
+   {
+    "id": "s1",
+    "x": 652,
+    "y": 338,
+    "mirror": "m1"
+   }
+  ],
+  "ice": [],
+  "iceBlocks": [],
+  "portals": []
+ }
+]);
+
+// V5: one secret stage for each fully completed temple.
+LEVELS.push(...[{"world":0,"bonus":true,"name":"잊힌 숲의 성소","subtitle":"나무 상자와 물의 봉인을 연결하자","tip":"상자를 황금 발판에 고정한 뒤 물방울이 파란 스위치를 작동시키세요. 두 가지 조건을 모으면 문이 열립니다.","crates":[{"x":200}],"plates":[{"id":"box","x":352,"w":65,"type":"box","mode":"hold"},{"id":"water","x":648,"w":65,"type":"water","mode":"latch"}],"gates":[{"x":788,"y":300,"h":232,"requires":["box","water"],"mode":"latch"}],"hazards":[{"x":482,"w":84,"type":"toxic"}],"platforms":[{"x":467,"y":428,"w":118},{"x":610,"y":431,"w":114}],"gems":[{"x":381,"y":384,"type":"fire"},{"x":678,"y":387,"type":"water"}],"clues":["상자가 발판에 고정되어 있으면 첫 번째 봉인이 유지돼요.","독액 위는 발판에서 점프해 건너세요. 파란 스위치는 물방울만 누를 수 있어요.","상자를 x=352 부근에 놓고 물방울을 x=648 부근의 파란 발판까지 보내 두 봉인을 모두 충족하세요."]},{"world":1,"bonus":true,"name":"사라진 광휘","subtitle":"두 센서와 오래된 레버","tip":"양쪽 거울이 모두 빛을 위로 보내도록 돌리고, 오른쪽 레버를 켜세요.","mirrors":[{"id":"m1","x":315,"y":470,"state":0},{"id":"m2","x":562,"y":469,"state":0}],"emitters":[{"id":"e1","x":168,"y":470,"mirror":"m1"},{"id":"e2","x":432,"y":469,"mirror":"m2"}],"sensors":[{"id":"s1","x":315,"y":318,"mirror":"m1"},{"id":"s2","x":562,"y":323,"mirror":"m2"}],"levers":[{"id":"l1","x":706,"y":483,"mode":"toggle"}],"gates":[{"x":804,"y":290,"h":242,"requires":["s1","s2","l1"],"mode":"latch"}],"hazards":[{"x":428,"w":84,"type":"fire"}],"platforms":[{"x":419,"y":417,"w":112}],"gems":[{"x":352,"y":369,"type":"fire"},{"x":618,"y":382,"type":"water"}],"clues":["거울을 돌릴 때 빛의 마지막 방향이 바뀌는지 확인하세요.","두 광센서가 함께 밝아져야 해요. 레버는 불꽃 E, 물방울 ↓로 켤 수 있어요.","x=315, 562의 거울을 위쪽으로 반사되게 바꾸고, 오른쪽 x=706 레버까지 켜서 출구의 봉인을 푸세요."]},{"world":2,"bonus":true,"name":"푸른 빙하의 문","subtitle":"불꽃이 녹이고 물방울이 누른다","tip":"불꽃이 얼음 장벽을 녹여 길을 열어준 다음, 물방울이 멀리 있는 스위치를 밟으세요.","ice":[{"x":160,"w":420}],"iceBlocks":[{"x":415,"y":393,"w":55,"h":139}],"plates":[{"id":"w","x":692,"w":58,"type":"water","mode":"latch"}],"gates":[{"x":800,"y":290,"h":242,"requires":["w"],"mode":"latch"}],"hazards":[{"x":572,"w":83,"type":"water"}],"platforms":[{"x":539,"y":422,"w":122}],"gems":[{"x":342,"y":450,"type":"fire"},{"x":717,"y":470,"type":"water"}],"clues":["얼음 바닥에서는 방향키에서 손을 떼어도 조금 더 미끄러져요.","불꽃은 가까운 얼음벽을 녹일 수 있어요. 물방울은 물웅덩이를 지나갈 수 있어요.","불꽃을 x=415의 얼음 장벽 가까이 보내고, 열린 통로를 통해 물방울을 x=692 발판으로 보내세요."]},{"world":3,"bonus":true,"name":"쌍둥이 수정문","subtitle":"포털을 함께 통과해 두 봉인을 열자","tip":"보라색 포털을 이용해 독액을 건너고, 각자의 색 발판을 작동시키세요.","portals":[{"id":"a","x":267,"y":459,"color":"purple","target":"b"},{"id":"b","x":595,"y":459,"color":"purple","target":"a"}],"plates":[{"id":"f","x":675,"w":58,"type":"fire","mode":"latch"},{"id":"w","x":742,"w":58,"type":"water","mode":"latch"}],"gates":[{"x":825,"y":288,"h":244,"requires":["f","w"],"mode":"latch"}],"hazards":[{"x":432,"w":133,"type":"toxic"}],"platforms":[{"x":433,"y":423,"w":134}],"gems":[{"x":315,"y":412,"type":"fire"},{"x":668,"y":393,"type":"water"}],"clues":["포털은 목적지의 오른쪽 바닥에 도착하고, 서로 다른 캐릭터도 이용할 수 있어요.","두 발판은 색깔이 달라요. 도착한 뒤 각자 맞는 발판을 밟아야 해요.","x=267 포털로 두 캐릭터를 건너가게 한 다음 불꽃은 x=675, 물방울은 x=742 발판을 각각 밟으세요."]},{"world":4,"bonus":true,"name":"마지막 모래시계","subtitle":"상자를 고정하고 시간 안에 달리기","tip":"상자를 발판에 두고, 오른쪽 레버로 잠깐 열리는 문을 작동시키세요. 시간 안에 두 출구로 달려가세요!","crates":[{"x":190}],"plates":[{"id":"box","x":331,"w":62,"type":"box","mode":"hold"},{"id":"w","x":692,"w":58,"type":"water","mode":"latch"}],"levers":[{"id":"timer","x":601,"y":480,"mode":"timer","duration":12}],"gates":[{"x":805,"y":286,"h":246,"requires":["box","timer","w"],"mode":"hold"}],"hazards":[{"x":461,"w":78,"type":"toxic"},{"x":632,"w":51,"type":"fire"}],"platforms":[{"x":452,"y":424,"w":113},{"x":624,"y":421,"w":92}],"gems":[{"x":356,"y":401,"type":"fire"},{"x":719,"y":385,"type":"water"}],"clues":["황금 발판의 상자는 떠나도 눌린 상태로 남아요.","파란 스위치는 한 번 밟으면 고정돼요. 레버가 켜진 동안에만 마지막 문이 열려요.","상자를 x=331에 놓고 물방울로 x=692 발판을 먼저 활성화하세요. 돌아와 x=601 레버를 켠 뒤 12초 안에 함께 출구로 가세요."]}]);
+
+/* V5 EXPERT: fully reauthored 35-stage progression. */
+const HARD_CAMPAIGN=[{"name":"상자의 첫걸음","subtitle":"기본 조작 · 상자 1개와 출구 봉인","tip":"상자를 황금 발판 위에 놓은 다음, 두 원소가 각자의 문에 도착하세요.","sky":["#152947","#345474"],"crates":[{"x":213}],"plates":[{"id":"box","x":405,"w":64,"type":"box","mode":"hold"}],"gates":[{"x":715,"y":82,"h":450,"requires":["box"],"mode":"latch"}],"hazards":[{"x":530,"w":88,"type":"water"},{"x":778,"w":61,"type":"fire"}],"platforms":[{"x":510,"y":427,"w":125},{"x":760,"y":430,"w":105}],"gems":[{"x":330,"y":389,"type":"fire"},{"x":563,"y":378,"type":"water"}],"world":0,"difficulty":1,"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '기본 조작 · 상자 1개와 출구 봉인'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 1개. 스위치와 문이 연결되는 순서를 확인하세요.","상자를 황금 발판 위에 놓은 다음, 두 원소가 각자의 문에 도착하세요."]},{"name":"각자의 발판","subtitle":"2인 협동 · 동시에 누르고 레버 조작","tip":"불꽃·물방울이 각자의 발판을 동시에 밟고 레버를 켜면 봉인이 풀립니다.","sky":["#1b3150","#345e7e"],"plates":[{"id":"f","x":253,"w":58,"type":"fire","mode":"hold"},{"id":"w","x":472,"w":58,"type":"water","mode":"hold"}],"gates":[{"x":793,"y":82,"h":450,"requires":["f","w","lv"],"mode":"latch"}],"hazards":[{"x":354,"w":77,"type":"water"},{"x":593,"w":66,"type":"fire"}],"platforms":[{"x":344,"y":427,"w":117},{"x":580,"y":414,"w":110}],"gems":[{"x":426,"y":392,"type":"fire"},{"x":656,"y":371,"type":"water"}],"world":0,"difficulty":2,"levers":[{"id":"lv","x":666,"y":476,"mode":"toggle"}],"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '2인 협동 · 동시에 누르고 레버 조작'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 레버. 스위치와 문이 연결되는 순서를 확인하세요.","불꽃·물방울이 각자의 발판을 동시에 밟고 레버를 켜면 봉인이 풀립니다."]},{"name":"릴레이 ① 빨강 다음 파랑","subtitle":"상자 잠금 → 색깔 순서 2단계","tip":"상자로 첫 문을 열고 빨간 번호 발판 → 파란 번호 발판 순서로 밟으세요.","sky":["#192b4b","#405878"],"crates":[{"x":184}],"plates":[{"id":"box","x":309,"w":62,"type":"box","mode":"hold"},{"id":"r1","x":547,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":703,"w":46,"type":"water","mode":"sequence"},{"id":"water","x":755,"w":46,"type":"water","mode":"latch"}],"gates":[{"x":458,"y":82,"h":450,"requires":["box"],"mode":"hold"},{"x":823,"y":82,"h":450,"requires":["relay","water"],"mode":"latch"}],"hazards":[{"x":478,"w":61,"type":"toxic"},{"x":627,"w":52,"type":"fire"}],"moving":[{"kind":"horizontal","x":532,"y":451,"w":84,"range":37,"speed":0.021}],"platforms":[{"x":481,"y":427,"w":119},{"x":620,"y":412,"w":95}],"gems":[{"x":535,"y":394,"type":"fire"},{"x":752,"y":384,"type":"water"}],"world":0,"difficulty":3,"sequences":[{"id":"relay","order":["r1","r2"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '상자 잠금 → 색깔 순서 2단계'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 1개 · 움직이는 발판 · 번호 순서 빨강 → 파랑. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","상자로 첫 문을 열고 빨간 번호 발판 → 파란 번호 발판 순서로 밟으세요."]},{"name":"두 층의 승강기","subtitle":"승강기를 타고 위·아래 장치 연결","tip":"공용 발판으로 첫 문을 연 뒤 승강기를 타고 파란 위쪽 발판을 눌러주세요. 바닥 레버도 켜야 합니다.","sky":["#23334f","#50627d"],"plates":[{"id":"start","x":244,"w":59,"type":"any","mode":"latch"},{"id":"high","x":737,"w":47,"type":"water","mode":"latch","y":347}],"gates":[{"x":457,"y":82,"h":450,"requires":["start"],"mode":"latch"},{"x":831,"y":82,"h":450,"requires":["high","lv"],"mode":"latch"}],"moving":[{"kind":"elevator","x":509,"y":505,"w":126,"targetY":349,"speed":0.032,"switch":"start"}],"hazards":[{"x":347,"w":91,"type":"toxic"},{"x":650,"w":51,"type":"water"}],"platforms":[{"x":402,"y":421,"w":92},{"x":711,"y":347,"w":117}],"gems":[{"x":570,"y":318,"type":"fire"},{"x":759,"y":311,"type":"water"}],"world":0,"difficulty":4,"levers":[{"id":"lv","x":683,"y":476,"mode":"toggle"}],"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '승강기를 타고 위·아래 장치 연결'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 움직이는 발판 · 레버. 스위치와 문이 연결되는 순서를 확인하세요.","공용 발판으로 첫 문을 연 뒤 승강기를 타고 파란 위쪽 발판을 눌러주세요. 바닥 레버도 켜야 합니다."]},{"name":"릴레이 ② 세 번의 교대","subtitle":"상자문 → 빨강·파랑·빨강 → 동시 협동","tip":"상자로 왼쪽 문을 고정하고 번호 스위치를 빨강→파랑→빨강 순서로 누른 뒤 색 발판을 함께 밟으세요.","sky":["#1d2d4e","#465d7b"],"crates":[{"x":171}],"plates":[{"id":"box","x":305,"w":55,"type":"box","mode":"hold"},{"id":"f","x":555,"w":48,"type":"fire","mode":"hold"},{"id":"w","x":691,"w":48,"type":"water","mode":"hold"},{"id":"r1","x":494,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":610,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":755,"w":46,"type":"fire","mode":"sequence"}],"gates":[{"x":431,"y":82,"h":450,"requires":["box"],"mode":"hold"},{"x":823,"y":82,"h":450,"requires":["relay","f","w"],"mode":"latch"}],"hazards":[{"x":437,"w":42,"type":"water"},{"x":657,"w":28,"type":"toxic"}],"platforms":[{"x":450,"y":421,"w":104},{"x":631,"y":410,"w":95}],"gems":[{"x":497,"y":381,"type":"fire"},{"x":672,"y":371,"type":"water"}],"world":0,"difficulty":5,"sequences":[{"id":"relay","order":["r1","r2","r3"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '상자문 → 빨강·파랑·빨강 → 동시 협동'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 1개 · 번호 순서 빨강 → 파랑 → 빨강. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","상자로 왼쪽 문을 고정하고 번호 스위치를 빨강→파랑→빨강 순서로 누른 뒤 색 발판을 함께 밟으세요."]},{"name":"숲의 최종 시험","subtitle":"2개 문 · 승강기 · 릴레이 3단계","tip":"상자와 승강기로 높은 파란 발판을 켠 다음, 빨강→파랑→빨강 순서 발판과 동시 스위치를 해결하세요.","sky":["#192740","#49456c"],"crates":[{"x":158}],"plates":[{"id":"box","x":299,"w":57,"type":"box","mode":"hold"},{"id":"upper","x":662,"w":50,"type":"water","mode":"latch","y":347},{"id":"f","x":691,"w":43,"type":"fire","mode":"hold"},{"id":"w","x":763,"w":43,"type":"water","mode":"hold"},{"id":"r1","x":539,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":673,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":776,"w":46,"type":"fire","mode":"sequence"}],"gates":[{"x":454,"y":82,"h":450,"requires":["box"],"mode":"latch"},{"x":828,"y":82,"h":450,"requires":["upper","relay","f","w"],"mode":"latch"}],"moving":[{"kind":"elevator","x":496,"y":505,"w":116,"targetY":352,"speed":0.032,"switch":"box"}],"hazards":[{"x":388,"w":73,"type":"toxic"},{"x":617,"w":48,"type":"fire"}],"platforms":[{"x":626,"y":347,"w":119},{"x":442,"y":417,"w":78}],"gems":[{"x":557,"y":327,"type":"fire"},{"x":697,"y":314,"type":"water"}],"world":0,"difficulty":6,"sequences":[{"id":"relay","order":["r1","r2","r3"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '2개 문 · 승강기 · 릴레이 3단계'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 1개 · 움직이는 발판 · 번호 순서 빨강 → 파랑 → 빨강. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","상자와 승강기로 높은 파란 발판을 켠 다음, 빨강→파랑→빨강 순서 발판과 동시 스위치를 해결하세요."]},{"world":1,"name":"빛과 파란 봉인","subtitle":"거울 1개 · 물방울 보조 발판","tip":"거울 빛을 위쪽 센서로 보내고, 물방울이 파란 발판을 눌러야 합니다.","sky":["#211c52","#315b92"],"platforms":[{"x":547,"y":420,"w":127}],"moving":[],"crates":[],"plates":[{"id":"w","x":704,"w":54,"type":"water","mode":"latch"}],"gates":[{"x":795,"y":82,"h":450,"requires":["s1","w"],"mode":"latch"}],"hazards":[{"x":557,"w":100,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[{"id":"m1","x":438,"y":465,"state":0}],"emitters":[{"id":"e1","x":215,"y":465,"mirror":"m1"}],"sensors":[{"id":"s1","x":438,"y":320,"mirror":"m1"}],"ice":[],"iceBlocks":[],"portals":[],"difficulty":4,"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '거울 1개 · 물방울 보조 발판'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 거울 1개. 스위치와 문이 연결되는 순서를 확인하세요.","거울 빛을 위쪽 센서로 보내고, 물방울이 파란 발판을 눌러야 합니다."]},{"world":1,"name":"세 갈래 빛의 조건","subtitle":"거울 2개 + 레버 1개","tip":"두 거울을 모두 위로 향하게 돌리고 오른쪽 레버까지 켜세요.","sky":["#211c52","#315b92"],"platforms":[{"x":464,"y":419,"w":130}],"moving":[],"crates":[],"plates":[],"gates":[{"x":804,"y":82,"h":450,"requires":["s1","s2","lv"],"mode":"latch"}],"hazards":[{"x":474,"w":98,"type":"fire"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[{"id":"lv","x":716,"y":476,"mode":"toggle"}],"mirrors":[{"id":"m1","x":362,"y":465,"state":0},{"id":"m2","x":626,"y":465,"state":0}],"emitters":[{"id":"e1","x":190,"y":465,"mirror":"m1"},{"id":"e2","x":465,"y":465,"mirror":"m2"}],"sensors":[{"id":"s1","x":362,"y":325,"mirror":"m1"},{"id":"s2","x":626,"y":302,"mirror":"m2"}],"ice":[],"iceBlocks":[],"portals":[],"difficulty":5,"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '거울 2개 + 레버 1개'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 거울 2개 · 레버. 스위치와 문이 연결되는 순서를 확인하세요.","두 거울을 모두 위로 향하게 돌리고 오른쪽 레버까지 켜세요."]},{"world":1,"name":"상자 뒤에 숨은 빛","subtitle":"앞문은 상자 · 뒷문은 거울과 불꽃","tip":"왼쪽 황금 스위치에 상자를 고정해야 가운데 문이 열립니다. 이후 빛과 빨간 발판을 연결하세요.","sky":["#211c52","#315b92"],"platforms":[{"x":638,"y":427,"w":113}],"moving":[],"crates":[{"x":175}],"plates":[{"id":"box","x":311,"w":57,"type":"box","mode":"hold"},{"id":"f","x":737,"w":51,"type":"fire","mode":"latch"}],"gates":[{"x":442,"y":82,"h":450,"requires":["box"],"mode":"hold"},{"x":825,"y":82,"h":450,"requires":["s1","f"],"mode":"latch"}],"hazards":[{"x":650,"w":86,"type":"water"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[{"id":"m1","x":570,"y":468,"state":0}],"emitters":[{"id":"e1","x":420,"y":468,"mirror":"m1"}],"sensors":[{"id":"s1","x":570,"y":335,"mirror":"m1"}],"ice":[],"iceBlocks":[],"portals":[],"difficulty":5,"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '앞문은 상자 · 뒷문은 거울과 불꽃'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 1개 · 거울 1개. 스위치와 문이 연결되는 순서를 확인하세요.","왼쪽 황금 스위치에 상자를 고정해야 가운데 문이 열립니다. 이후 빛과 빨간 발판을 연결하세요."]},{"world":1,"name":"올려 보내고 내려 보내고","subtitle":"한 거울은 아래쪽, 다른 거울은 위쪽","tip":"첫 거울은 아래쪽 센서로, 두 번째 거울은 위쪽 센서로 빛을 보내세요. 순서 발판도 눌러야 합니다.","sky":["#211c52","#315b92"],"platforms":[{"x":554,"y":425,"w":110},{"x":247,"y":404,"w":95}],"moving":[],"crates":[],"plates":[{"id":"r1","x":253,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":745,"w":46,"type":"water","mode":"sequence"}],"gates":[{"x":816,"y":82,"h":450,"requires":["s1","s2","relay"],"mode":"latch"}],"hazards":[{"x":572,"w":86,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[{"id":"m1","x":472,"y":433,"state":1},{"id":"m2","x":671,"y":469,"state":0}],"emitters":[{"id":"e1","x":252,"y":433,"mirror":"m1"},{"id":"e2","x":538,"y":469,"mirror":"m2"}],"sensors":[{"id":"s1","x":472,"y":509,"mirror":"m1"},{"id":"s2","x":671,"y":319,"mirror":"m2"}],"ice":[],"iceBlocks":[],"portals":[],"difficulty":6,"sequences":[{"id":"relay","order":["r1","r2"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '한 거울은 아래쪽, 다른 거울은 위쪽'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 거울 2개 · 번호 순서 빨강 → 파랑. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","첫 거울은 아래쪽 센서로, 두 번째 거울은 위쪽 센서로 빛을 보내세요. 순서 발판도 눌러야 합니다."]},{"world":1,"name":"광선 교대 작전","subtitle":"거울 · 레버 · 2인 릴레이","tip":"먼저 빨간 번호 발판을 밟고, 파란 발판으로 이어가세요. 거울과 레버도 모두 켜야 합니다.","sky":["#211c52","#315b92"],"platforms":[{"x":523,"y":425,"w":108}],"moving":[],"crates":[],"plates":[{"id":"r1","x":300,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":734,"w":46,"type":"water","mode":"sequence"}],"gates":[{"x":815,"y":82,"h":450,"requires":["s1","lv","relay"],"mode":"latch"}],"hazards":[{"x":530,"w":90,"type":"fire"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[{"id":"lv","x":654,"y":474,"mode":"toggle"}],"mirrors":[{"id":"m1","x":434,"y":466,"state":0}],"emitters":[{"id":"e1","x":220,"y":466,"mirror":"m1"}],"sensors":[{"id":"s1","x":434,"y":326,"mirror":"m1"}],"ice":[],"iceBlocks":[],"portals":[],"difficulty":6,"sequences":[{"id":"relay","order":["r1","r2"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '거울 · 레버 · 2인 릴레이'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 거울 1개 · 레버 · 번호 순서 빨강 → 파랑. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","먼저 빨간 번호 발판을 밟고, 파란 발판으로 이어가세요. 거울과 레버도 모두 켜야 합니다."]},{"world":1,"name":"빛의 최종 연쇄","subtitle":"거울 2개 + 순서 4개 + 동시 스위치","tip":"거울 2개를 반사시키고 번호 발판을 빨강→파랑→빨강→파랑 순서로 누른 다음 두 색 스위치를 함께 밟으세요.","sky":["#211c52","#315b92"],"platforms":[{"x":451,"y":417,"w":123}],"moving":[],"crates":[],"plates":[{"id":"f","x":647,"w":42,"type":"fire","mode":"hold"},{"id":"w","x":729,"w":42,"type":"water","mode":"hold"},{"id":"r1","x":218,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":410,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":605,"w":46,"type":"fire","mode":"sequence"},{"id":"r4","x":774,"w":46,"type":"water","mode":"sequence"}],"gates":[{"x":825,"y":82,"h":450,"requires":["s1","s2","relay","f","w"],"mode":"latch"}],"hazards":[{"x":469,"w":93,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[{"id":"m1","x":319,"y":464,"state":0},{"id":"m2","x":556,"y":464,"state":0}],"emitters":[{"id":"e1","x":163,"y":464,"mirror":"m1"},{"id":"e2","x":418,"y":464,"mirror":"m2"}],"sensors":[{"id":"s1","x":319,"y":342,"mirror":"m1"},{"id":"s2","x":556,"y":340,"mirror":"m2"}],"ice":[],"iceBlocks":[],"portals":[],"difficulty":7,"sequences":[{"id":"relay","order":["r1","r2","r3","r4"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '거울 2개 + 순서 4개 + 동시 스위치'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 거울 2개 · 번호 순서 빨강 → 파랑 → 빨강 → 파랑. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","거울 2개를 반사시키고 번호 발판을 빨강→파랑→빨강→파랑 순서로 누른 다음 두 색 스위치를 함께 밟으세요."]},{"world":2,"name":"미끄러지는 상자","subtitle":"빙판에 상자 고정 + 파란 발판","tip":"빙판 위 상자를 황금 발판에 올린 뒤 파란 발판을 누르세요. 두 장치가 모두 켜져야 합니다.","sky":["#123750","#497996"],"platforms":[{"x":594,"y":415,"w":112}],"moving":[],"crates":[{"x":195}],"plates":[{"id":"box","x":438,"w":59,"type":"box","mode":"hold"},{"id":"w","x":716,"w":52,"type":"water","mode":"latch"}],"gates":[{"x":802,"y":82,"h":450,"requires":["box","w"],"mode":"latch"}],"hazards":[{"x":606,"w":90,"type":"fire"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[],"emitters":[],"sensors":[],"ice":[{"x":165,"w":430}],"iceBlocks":[],"portals":[],"difficulty":5,"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '빙판에 상자 고정 + 파란 발판'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 1개. 스위치와 문이 연결되는 순서를 확인하세요.","빙판 위 상자를 황금 발판에 올린 뒤 파란 발판을 누르세요. 두 장치가 모두 켜져야 합니다."]},{"world":2,"name":"불꽃의 열쇠","subtitle":"녹는 벽 · 빨간 발판 → 파란 발판","tip":"불꽃이 얼음벽을 녹여 물방울의 길을 열어주세요. 두 색 스위치를 작동해야 문이 열립니다.","sky":["#123750","#497996"],"platforms":[{"x":729,"y":429,"w":91}],"moving":[],"crates":[],"plates":[{"id":"f","x":322,"w":50,"type":"fire","mode":"latch"},{"id":"w","x":666,"w":50,"type":"water","mode":"latch"}],"gates":[{"x":820,"y":82,"h":450,"requires":["f","w"],"mode":"latch"}],"hazards":[{"x":740,"w":63,"type":"water"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[],"emitters":[],"sensors":[],"ice":[{"x":205,"w":275}],"iceBlocks":[{"id":"ice1","x":471,"y":393,"w":56,"h":139}],"portals":[],"difficulty":6,"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '녹는 벽 · 빨간 발판 → 파란 발판'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 불꽃으로 녹이는 빙벽. 스위치와 문이 연결되는 순서를 확인하세요.","불꽃이 얼음벽을 녹여 물방울의 길을 열어주세요. 두 색 스위치를 작동해야 문이 열립니다."]},{"world":2,"name":"두 개의 무거운 상자","subtitle":"상자 2개를 각각 다른 발판에","tip":"앞쪽 상자부터 밀어 첫 발판에, 뒤쪽 상자를 두 번째 발판에 놓으세요. 불꽃은 빙벽도 녹여야 합니다.","sky":["#123750","#497996"],"platforms":[{"x":635,"y":422,"w":118}],"moving":[],"crates":[{"x":145},{"x":218}],"plates":[{"id":"b1","x":350,"w":52,"type":"box","mode":"hold"},{"id":"b2","x":429,"w":52,"type":"box","mode":"hold"},{"id":"w","x":739,"w":48,"type":"water","mode":"latch"}],"gates":[{"x":525,"y":82,"h":450,"requires":["b1","b2"],"mode":"hold"},{"x":833,"y":82,"h":450,"requires":["ice1","w"],"mode":"latch"}],"hazards":[{"x":653,"w":76,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[],"emitters":[],"sensors":[],"ice":[{"x":170,"w":370}],"iceBlocks":[{"id":"ice1","x":575,"y":393,"w":48,"h":139}],"portals":[],"difficulty":7,"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '상자 2개를 각각 다른 발판에'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 2개 · 불꽃으로 녹이는 빙벽. 스위치와 문이 연결되는 순서를 확인하세요.","앞쪽 상자부터 밀어 첫 발판에, 뒤쪽 상자를 두 번째 발판에 놓으세요. 불꽃은 빙벽도 녹여야 합니다."]},{"world":2,"name":"얼음 위의 순서","subtitle":"순서 3단계 + 두 색 동시 스위치","tip":"미끄러지는 빙판에서 빨강→파랑→빨강 번호 발판을 차례로 누르고 두 색 스위치를 동시에 누르세요.","sky":["#123750","#497996"],"platforms":[{"x":465,"y":424,"w":116}],"moving":[],"crates":[],"plates":[{"id":"f","x":358,"w":49,"type":"fire","mode":"hold"},{"id":"w","x":631,"w":49,"type":"water","mode":"hold"},{"id":"r1","x":270,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":589,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":747,"w":46,"type":"fire","mode":"sequence"}],"gates":[{"x":825,"y":82,"h":450,"requires":["relay","f","w"],"mode":"latch"}],"hazards":[{"x":477,"w":88,"type":"fire"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[],"emitters":[],"sensors":[],"ice":[{"x":210,"w":390},{"x":635,"w":135}],"iceBlocks":[],"portals":[],"difficulty":7,"sequences":[{"id":"relay","order":["r1","r2","r3"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '순서 3단계 + 두 색 동시 스위치'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 번호 순서 빨강 → 파랑 → 빨강. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","미끄러지는 빙판에서 빨강→파랑→빨강 번호 발판을 차례로 누르고 두 색 스위치를 동시에 누르세요."]},{"world":2,"name":"두 원소의 높은 약속","subtitle":"승강기를 둘 다 타고 위쪽 릴레이","tip":"엘리베이터를 작동한 뒤 물방울이 위쪽 파란 발판 → 불꽃이 위쪽 빨간 발판 순서로 밟으세요.","sky":["#123750","#497996"],"platforms":[{"x":684,"y":344,"w":121}],"moving":[{"kind":"elevator","x":501,"y":505,"w":127,"targetY":351,"speed":0.032,"switch":"start"}],"crates":[],"plates":[{"id":"start","x":258,"w":56,"type":"any","mode":"latch"},{"id":"high","x":700,"w":44,"type":"water","mode":"latch","y":344},{"id":"r1","x":703,"w":46,"type":"water","mode":"sequence","y":344},{"id":"r2","x":763,"w":46,"type":"fire","mode":"sequence","y":344}],"gates":[{"x":841,"y":82,"h":450,"requires":["high","relay"],"mode":"latch"}],"hazards":[{"x":642,"w":79,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[],"emitters":[],"sensors":[],"ice":[{"x":170,"w":380}],"iceBlocks":[],"portals":[],"difficulty":7,"sequences":[{"id":"relay","order":["r1","r2"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '승강기를 둘 다 타고 위쪽 릴레이'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 움직이는 발판 · 번호 순서 파랑 → 빨강. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","엘리베이터를 작동한 뒤 물방울이 위쪽 파란 발판 → 불꽃이 위쪽 빨간 발판 순서로 밟으세요."]},{"world":2,"name":"빙하의 왕관","subtitle":"상자 2개 · 얼음벽 · 릴레이 3단계","tip":"상자 두 개로 첫 문을 연 뒤 불꽃이 빙벽을 녹이세요. 맞은편에서 빨강→파랑→빨강 순서로 봉인을 해제하세요.","sky":["#123750","#497996"],"platforms":[{"x":606,"y":417,"w":115}],"moving":[],"crates":[{"x":150},{"x":214}],"plates":[{"id":"b1","x":319,"w":53,"type":"box","mode":"hold"},{"id":"b2","x":403,"w":52,"type":"box","mode":"hold"},{"id":"r1","x":553,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":704,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":773,"w":46,"type":"fire","mode":"sequence"}],"gates":[{"x":529,"y":82,"h":450,"requires":["b1","b2"],"mode":"hold"},{"x":833,"y":82,"h":450,"requires":["ice1","relay"],"mode":"latch"}],"hazards":[{"x":619,"w":81,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[],"emitters":[],"sensors":[],"ice":[{"x":160,"w":250},{"x":500,"w":185}],"iceBlocks":[{"id":"ice1","x":460,"y":393,"w":47,"h":139}],"portals":[],"difficulty":8,"sequences":[{"id":"relay","order":["r1","r2","r3"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '상자 2개 · 얼음벽 · 릴레이 3단계'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 2개 · 불꽃으로 녹이는 빙벽 · 번호 순서 빨강 → 파랑 → 빨강. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","상자 두 개로 첫 문을 연 뒤 불꽃이 빙벽을 녹이세요. 맞은편에서 빨강→파랑→빨강 순서로 봉인을 해제하세요."]},{"world":3,"name":"보랏빛 협동문","subtitle":"포털 이동 후 동시 스위치와 레버","tip":"두 사람이 포털을 통과해 각각의 색 발판을 누르고 레버를 켜세요.","sky":["#26224e","#684778"],"platforms":[{"x":402,"y":423,"w":169}],"moving":[],"crates":[],"plates":[{"id":"f","x":695,"w":45,"type":"fire","mode":"hold"},{"id":"w","x":764,"w":42,"type":"water","mode":"hold"}],"gates":[{"x":825,"y":82,"h":450,"requires":["f","w","lv"],"mode":"latch"}],"hazards":[{"x":403,"w":164,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[{"id":"lv","x":735,"y":474,"mode":"toggle"}],"mirrors":[],"emitters":[],"sensors":[],"ice":[],"iceBlocks":[],"portals":[{"id":"p0","x":258,"y":459,"target":"p1","color":"violet"},{"id":"p1","x":674,"y":459,"target":"p0","color":"violet"}],"difficulty":6,"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '포털 이동 후 동시 스위치와 레버'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 이동 포털 · 레버. 스위치와 문이 연결되는 순서를 확인하세요.","두 사람이 포털을 통과해 각각의 색 발판을 누르고 레버를 켜세요."]},{"world":3,"name":"두 포털을 잇는 암호","subtitle":"포털 2쌍과 색 순서 3단계","tip":"빨간 번호 발판을 밟고 첫 포털로 이동, 파란 번호 발판을 밟고 두 번째 포털을 지나 마지막 빨간 발판을 누르세요.","sky":["#26224e","#684778"],"platforms":[{"x":329,"y":418,"w":142},{"x":631,"y":417,"w":95}],"moving":[],"crates":[],"plates":[{"id":"r1","x":177,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":545,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":785,"w":46,"type":"fire","mode":"sequence"},{"id":"w","x":786,"w":43,"type":"water","mode":"latch"}],"gates":[{"x":849,"y":82,"h":450,"requires":["relay","w"],"mode":"latch"}],"hazards":[{"x":338,"w":130,"type":"fire"},{"x":648,"w":63,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[],"emitters":[],"sensors":[],"ice":[],"iceBlocks":[],"portals":[{"id":"p0","x":244,"y":459,"target":"p1","color":"violet"},{"id":"p1","x":512,"y":459,"target":"p0","color":"violet"},{"id":"p2","x":596,"y":459,"target":"p3","color":"pink"},{"id":"p3","x":744,"y":459,"target":"p2","color":"pink"}],"difficulty":7,"sequences":[{"id":"relay","order":["r1","r2","r3"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '포털 2쌍과 색 순서 3단계'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 이동 포털 · 번호 순서 빨강 → 파랑 → 빨강. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","빨간 번호 발판을 밟고 첫 포털로 이동, 파란 번호 발판을 밟고 두 번째 포털을 지나 마지막 빨간 발판을 누르세요."]},{"world":3,"name":"포털 너머의 레버","subtitle":"상자문을 열고 포털로 건너기","tip":"상자로 첫 번째 문을 열고 포털을 이용해 오른쪽으로 이동하세요. 레버와 파란 발판을 같이 켜야 합니다.","sky":["#26224e","#684778"],"platforms":[{"x":551,"y":425,"w":140}],"moving":[],"crates":[{"x":168}],"plates":[{"id":"box","x":311,"w":52,"type":"box","mode":"hold"},{"id":"w","x":770,"w":43,"type":"water","mode":"latch"}],"gates":[{"x":438,"y":82,"h":450,"requires":["box"],"mode":"hold"},{"x":833,"y":82,"h":450,"requires":["lv","w"],"mode":"latch"}],"hazards":[{"x":563,"w":122,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[{"id":"lv","x":727,"y":476,"mode":"toggle"}],"mirrors":[],"emitters":[],"sensors":[],"ice":[],"iceBlocks":[],"portals":[{"id":"p0","x":470,"y":459,"target":"p1","color":"violet"},{"id":"p1","x":691,"y":459,"target":"p0","color":"violet"}],"difficulty":7,"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '상자문을 열고 포털로 건너기'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 1개 · 이동 포털 · 레버. 스위치와 문이 연결되는 순서를 확인하세요.","상자로 첫 번째 문을 열고 포털을 이용해 오른쪽으로 이동하세요. 레버와 파란 발판을 같이 켜야 합니다."]},{"world":3,"name":"녹이고 건너고 잠금 해제","subtitle":"상자·빙벽·포털·두 색 장치","tip":"상자를 스위치에 놓고 불꽃으로 얼음을 녹이세요. 포털 건너편에서 레버와 파란 발판을 작동시켜요.","sky":["#26224e","#684778"],"platforms":[{"x":579,"y":421,"w":130}],"moving":[],"crates":[{"x":168}],"plates":[{"id":"box","x":290,"w":53,"type":"box","mode":"hold"},{"id":"w","x":779,"w":43,"type":"water","mode":"latch"}],"gates":[{"x":483,"y":82,"h":450,"requires":["box","ice1"],"mode":"hold"},{"x":843,"y":82,"h":450,"requires":["lv","w"],"mode":"latch"}],"hazards":[{"x":589,"w":110,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[{"id":"lv","x":751,"y":476,"mode":"toggle"}],"mirrors":[],"emitters":[],"sensors":[],"ice":[{"x":184,"w":230}],"iceBlocks":[{"id":"ice1","x":389,"y":393,"w":47,"h":139}],"portals":[{"id":"p0","x":505,"y":459,"target":"p1","color":"violet"},{"id":"p1","x":704,"y":459,"target":"p0","color":"violet"}],"difficulty":8,"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '상자·빙벽·포털·두 색 장치'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 1개 · 불꽃으로 녹이는 빙벽 · 이동 포털 · 레버. 스위치와 문이 연결되는 순서를 확인하세요.","상자를 스위치에 놓고 불꽃으로 얼음을 녹이세요. 포털 건너편에서 레버와 파란 발판을 작동시켜요."]},{"world":3,"name":"수정 너머 반사되는 빛","subtitle":"거울 2개 + 레버 + 순서 2단계","tip":"포털에 들어가기 전 빨간 발판을 누른 뒤 건너편에서 파란 발판을 누르세요. 거울 두 개와 레버도 작동해야 합니다.","sky":["#26224e","#684778"],"platforms":[{"x":345,"y":423,"w":191}],"moving":[],"crates":[],"plates":[{"id":"r1","x":176,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":781,"w":46,"type":"water","mode":"sequence"}],"gates":[{"x":847,"y":82,"h":450,"requires":["s1","s2","lv","relay"],"mode":"latch"}],"hazards":[{"x":359,"w":176,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[{"id":"lv","x":790,"y":476,"mode":"toggle"}],"mirrors":[{"id":"m1","x":660,"y":467,"state":0},{"id":"m2","x":747,"y":467,"state":0}],"emitters":[{"id":"e1","x":567,"y":465,"mirror":"m1"},{"id":"e2","x":708,"y":465,"mirror":"m2"}],"sensors":[{"id":"s1","x":660,"y":315,"mirror":"m1"},{"id":"s2","x":747,"y":326,"mirror":"m2"}],"ice":[],"iceBlocks":[],"portals":[{"id":"p0","x":230,"y":459,"target":"p1","color":"violet"},{"id":"p1","x":599,"y":459,"target":"p0","color":"violet"}],"difficulty":8,"sequences":[{"id":"relay","order":["r1","r2"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '거울 2개 + 레버 + 순서 2단계'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 거울 2개 · 이동 포털 · 레버 · 번호 순서 빨강 → 파랑. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","포털에 들어가기 전 빨간 발판을 누른 뒤 건너편에서 파란 발판을 누르세요. 거울 두 개와 레버도 작동해야 합니다."]},{"world":3,"name":"수정의 연쇄 심장","subtitle":"순서 4단계 · 거울 2개 · 시한 레버","tip":"빨강→파랑→빨강→파랑 순서 암호를 포털 양쪽에서 완성하고, 거울과 시한 레버까지 작동하세요.","sky":["#26224e","#684778"],"platforms":[{"x":393,"y":418,"w":179}],"moving":[],"crates":[],"plates":[{"id":"r1","x":144,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":205,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":679,"w":46,"type":"fire","mode":"sequence"},{"id":"r4","x":779,"w":46,"type":"water","mode":"sequence"}],"gates":[{"x":848,"y":82,"h":450,"requires":["s1","s2","relay","timer"],"mode":"hold"}],"hazards":[{"x":401,"w":163,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[{"id":"timer","x":817,"y":476,"mode":"timer","duration":5.0}],"mirrors":[{"id":"m1","x":681,"y":467,"state":0},{"id":"m2","x":775,"y":467,"state":0}],"emitters":[{"id":"e1","x":586,"y":465,"mirror":"m1"},{"id":"e2","x":706,"y":465,"mirror":"m2"}],"sensors":[{"id":"s1","x":681,"y":327,"mirror":"m1"},{"id":"s2","x":775,"y":318,"mirror":"m2"}],"ice":[],"iceBlocks":[],"portals":[{"id":"p0","x":248,"y":459,"target":"p1","color":"violet"},{"id":"p1","x":619,"y":459,"target":"p0","color":"violet"}],"difficulty":9,"sequences":[{"id":"relay","order":["r1","r2","r3","r4"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '순서 4단계 · 거울 2개 · 시한 레버'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 거울 2개 · 이동 포털 · 레버 · 번호 순서 빨강 → 파랑 → 빨강 → 파랑. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","빨강→파랑→빨강→파랑 순서 암호를 포털 양쪽에서 완성하고, 거울과 시한 레버까지 작동하세요."]},{"world":4,"name":"초읽기 이전의 준비","subtitle":"암호 2단계 + 시간 4초","tip":"빨강→파랑 순서를 누르고 시한 발판을 밟으면 4초 동안 문이 열립니다. 두 사람이 같이 이동하세요.","sky":["#282a4d","#605568"],"platforms":[{"x":571,"y":423,"w":125}],"moving":[],"crates":[],"plates":[{"id":"timer","x":416,"w":57,"type":"any","mode":"timer","duration":4.2},{"id":"r1","x":204,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":341,"w":46,"type":"water","mode":"sequence"}],"gates":[{"x":786,"y":82,"h":450,"requires":["relay","timer"],"mode":"hold"}],"hazards":[{"x":580,"w":108,"type":"fire"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[],"emitters":[],"sensors":[],"ice":[],"iceBlocks":[],"portals":[],"difficulty":7,"sequences":[{"id":"relay","order":["r1","r2"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '암호 2단계 + 시간 4초'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 번호 순서 빨강 → 파랑. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","빨강→파랑 순서를 누르고 시한 발판을 밟으면 4초 동안 문이 열립니다. 두 사람이 같이 이동하세요."]},{"world":4,"name":"되돌릴 수 없는 시계","subtitle":"레버 · 순서 3개 · 짧은 시간","tip":"레버를 켜고 번호 발판을 빨강→파랑→빨강 순서로 누르세요. 시간 발판은 마지막에 밟아야 합니다.","sky":["#282a4d","#605568"],"platforms":[{"x":644,"y":418,"w":91}],"moving":[],"crates":[],"plates":[{"id":"timer","x":576,"w":53,"type":"any","mode":"timer","duration":3.2},{"id":"r1","x":212,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":472,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":733,"w":46,"type":"fire","mode":"sequence"}],"gates":[{"x":811,"y":82,"h":450,"requires":["lv","relay","timer"],"mode":"hold"}],"hazards":[{"x":659,"w":69,"type":"water"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[{"id":"lv","x":283,"y":476,"mode":"toggle"}],"mirrors":[],"emitters":[],"sensors":[],"ice":[],"iceBlocks":[],"portals":[],"difficulty":8,"sequences":[{"id":"relay","order":["r1","r2","r3"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '레버 · 순서 3개 · 짧은 시간'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 레버 · 번호 순서 빨강 → 파랑 → 빨강. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","레버를 켜고 번호 발판을 빨강→파랑→빨강 순서로 누르세요. 시간 발판은 마지막에 밟아야 합니다."]},{"world":4,"name":"시한부 고층 작전","subtitle":"2인용 승강기 · 높은 발판 2개 · 시간","tip":"두 사람이 승강기로 올라가 각각 높은 스위치를 작동한 후, 내려와 시한 발판을 눌러 탈출하세요.","sky":["#282a4d","#605568"],"platforms":[{"x":667,"y":348,"w":143},{"x":375,"y":420,"w":123}],"moving":[{"kind":"elevator","x":501,"y":505,"w":124,"targetY":351,"speed":0.032,"switch":"start"}],"crates":[],"plates":[{"id":"start","x":214,"w":57,"type":"any","mode":"latch"},{"id":"high","x":691,"w":44,"type":"water","mode":"latch","y":348},{"id":"red","x":754,"w":43,"type":"fire","mode":"latch","y":348},{"id":"timer","x":785,"w":45,"type":"any","mode":"timer","duration":4.0}],"gates":[{"x":841,"y":82,"h":450,"requires":["high","red","timer"],"mode":"hold"}],"hazards":[{"x":385,"w":107,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[],"emitters":[],"sensors":[],"ice":[],"iceBlocks":[],"portals":[],"difficulty":8,"sequences":[],"bonus":false,"clues":["이번 퍼즐의 핵심은 '2인용 승강기 · 높은 발판 2개 · 시간'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 움직이는 발판. 스위치와 문이 연결되는 순서를 확인하세요.","두 사람이 승강기로 올라가 각각 높은 스위치를 작동한 후, 내려와 시한 발판을 눌러 탈출하세요."]},{"world":4,"name":"빛이 꺼지기 전","subtitle":"거울 2개 · 순서 암호 · 제한 시간","tip":"거울 두 개를 맞춘 뒤 빨강→파랑→빨강 순서를 누르세요. 마지막에 시한 발판을 밟고 함께 탈출합니다.","sky":["#282a4d","#605568"],"platforms":[{"x":554,"y":417,"w":113}],"moving":[],"crates":[],"plates":[{"id":"timer","x":753,"w":51,"type":"any","mode":"timer","duration":3.0},{"id":"r1","x":237,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":675,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":729,"w":46,"type":"fire","mode":"sequence"}],"gates":[{"x":836,"y":82,"h":450,"requires":["s1","s2","relay","timer"],"mode":"hold"}],"hazards":[{"x":568,"w":85,"type":"toxic"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[{"id":"m1","x":414,"y":467,"state":0},{"id":"m2","x":628,"y":467,"state":0}],"emitters":[{"id":"e1","x":215,"y":465,"mirror":"m1"},{"id":"e2","x":512,"y":465,"mirror":"m2"}],"sensors":[{"id":"s1","x":414,"y":323,"mirror":"m1"},{"id":"s2","x":628,"y":327,"mirror":"m2"}],"ice":[],"iceBlocks":[],"portals":[],"difficulty":9,"sequences":[{"id":"relay","order":["r1","r2","r3"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '거울 2개 · 순서 암호 · 제한 시간'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 거울 2개 · 번호 순서 빨강 → 파랑 → 빨강. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","거울 두 개를 맞춘 뒤 빨강→파랑→빨강 순서를 누르세요. 마지막에 시한 발판을 밟고 함께 탈출합니다."]},{"world":4,"name":"쌍둥이 모래시계","subtitle":"동시 시한 스위치 + 순서 3단계","tip":"빨강→파랑→빨강 순서 퍼즐을 해결하고 서로 다른 색의 3초 시한 발판을 함께 누르세요.","sky":["#282a4d","#605568"],"platforms":[{"x":441,"y":416,"w":124}],"moving":[],"crates":[],"plates":[{"id":"f","x":376,"w":55,"type":"fire","mode":"timer","duration":3.2},{"id":"w","x":593,"w":55,"type":"water","mode":"timer","duration":3.2},{"id":"r1","x":219,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":568,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":726,"w":46,"type":"fire","mode":"sequence"}],"gates":[{"x":817,"y":82,"h":450,"requires":["f","w","relay"],"mode":"hold"}],"hazards":[{"x":454,"w":98,"type":"toxic"},{"x":661,"w":45,"type":"fire"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[],"mirrors":[],"emitters":[],"sensors":[],"ice":[],"iceBlocks":[],"portals":[],"difficulty":9,"sequences":[{"id":"relay","order":["r1","r2","r3"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '동시 시한 스위치 + 순서 3단계'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 번호 순서 빨강 → 파랑 → 빨강. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","빨강→파랑→빨강 순서 퍼즐을 해결하고 서로 다른 색의 3초 시한 발판을 함께 누르세요."]},{"world":4,"name":"두 원소의 마지막 관문","subtitle":"상자 2개 + 거울 2개 + 순서 4단계 + 4초","tip":"상자 둘로 앞문을 열고, 반대편에서 두 거울·네 단계 순서 암호를 해결하세요. 마지막 시한 레버로 함께 탈출!","sky":["#282a4d","#605568"],"platforms":[{"x":480,"y":412,"w":130},{"x":643,"y":419,"w":98}],"moving":[],"crates":[{"x":154},{"x":215}],"plates":[{"id":"b1","x":289,"w":56,"type":"box","mode":"hold"},{"id":"b2","x":374,"w":53,"type":"box","mode":"hold"},{"id":"r1","x":552,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":609,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":711,"w":46,"type":"fire","mode":"sequence"},{"id":"r4","x":780,"w":46,"type":"water","mode":"sequence"}],"gates":[{"x":452,"y":82,"h":450,"requires":["b1","b2"],"mode":"hold"},{"x":841,"y":82,"h":450,"requires":["s1","s2","relay","timer"],"mode":"hold"}],"hazards":[{"x":476,"w":73,"type":"toxic"},{"x":649,"w":42,"type":"fire"}],"gems":[{"x":230,"y":483,"type":"fire"},{"x":700,"y":483,"type":"water"}],"levers":[{"id":"timer","x":770,"y":476,"mode":"timer","duration":4.0}],"mirrors":[{"id":"m1","x":554,"y":467,"state":0},{"id":"m2","x":687,"y":467,"state":0}],"emitters":[{"id":"e1","x":473,"y":465,"mirror":"m1"},{"id":"e2","x":605,"y":465,"mirror":"m2"}],"sensors":[{"id":"s1","x":554,"y":328,"mirror":"m1"},{"id":"s2","x":687,"y":324,"mirror":"m2"}],"ice":[],"iceBlocks":[],"portals":[],"difficulty":10,"sequences":[{"id":"relay","order":["r1","r2","r3","r4"]}],"bonus":false,"clues":["이번 퍼즐의 핵심은 '상자 2개 + 거울 2개 + 순서 4단계 + 4초'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 2개 · 거울 2개 · 레버 · 번호 순서 빨강 → 파랑 → 빨강 → 파랑. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","상자 둘로 앞문을 열고, 반대편에서 두 거울·네 단계 순서 암호를 해결하세요. 마지막 시한 레버로 함께 탈출!"]},{"world":0,"bonus":true,"name":"비밀의 숲: 세 개의 서약","subtitle":"상자 2개 · 릴레이 3단계 · 공동 봉인","tip":"상자 두 개를 서로 다른 발판에 올린 뒤, 빨강→파랑→빨강 순서로 눌러 마지막 두 색 스위치를 동시에 밟으세요.","crates":[{"x":144},{"x":214}],"plates":[{"id":"b1","x":312,"w":53,"type":"box","mode":"hold"},{"id":"b2","x":388,"w":51,"type":"box","mode":"hold"},{"id":"f","x":702,"w":45,"type":"fire","mode":"hold"},{"id":"w","x":781,"w":44,"type":"water","mode":"hold"},{"id":"r1","x":534,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":642,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":751,"w":46,"type":"fire","mode":"sequence"}],"gates":[{"x":466,"y":82,"h":450,"requires":["b1","b2"],"mode":"hold"},{"x":842,"y":82,"h":450,"requires":["relay","f","w"],"mode":"latch"}],"hazards":[{"x":575,"w":60,"type":"toxic"}],"platforms":[{"x":544,"y":418,"w":120}],"gems":[{"x":381,"y":384,"type":"fire"},{"x":678,"y":387,"type":"water"}],"clues":["이번 퍼즐의 핵심은 '상자 2개 · 릴레이 3단계 · 공동 봉인'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 2개 · 번호 순서 빨강 → 파랑 → 빨강. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","상자 두 개를 서로 다른 발판에 올린 뒤, 빨강→파랑→빨강 순서로 눌러 마지막 두 색 스위치를 동시에 밟으세요."],"difficulty":8,"sequences":[{"id":"relay","order":["r1","r2","r3"]}]},{"world":1,"bonus":true,"name":"비밀의 빛: 삼중 반사","subtitle":"거울 3개 · 중간문 · 암호 4단계","tip":"왼쪽 거울 2개로 첫 문을 열고, 세 번째 거울과 4단계 번호 스위치·레버로 최종 봉인을 풉니다.","mirrors":[{"id":"m1","x":235,"y":467,"state":0},{"id":"m2","x":425,"y":467,"state":0},{"id":"m3","x":688,"y":467,"state":0}],"emitters":[{"id":"e1","x":126,"y":465,"mirror":"m1"},{"id":"e2","x":304,"y":465,"mirror":"m2"},{"id":"e3","x":599,"y":465,"mirror":"m3"}],"sensors":[{"id":"s1","x":235,"y":322,"mirror":"m1"},{"id":"s2","x":425,"y":333,"mirror":"m2"},{"id":"s3","x":688,"y":324,"mirror":"m3"}],"levers":[{"id":"lv","x":751,"y":476,"mode":"toggle"}],"gates":[{"x":535,"y":82,"h":450,"requires":["s1","s2"],"mode":"latch"},{"x":841,"y":82,"h":450,"requires":["s3","lv","relay"],"mode":"latch"}],"hazards":[{"x":456,"w":94,"type":"fire"}],"platforms":[{"x":446,"y":417,"w":122}],"gems":[{"x":352,"y":369,"type":"fire"},{"x":618,"y":382,"type":"water"}],"clues":["이번 퍼즐의 핵심은 '거울 3개 · 중간문 · 암호 4단계'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 거울 3개 · 레버 · 번호 순서 빨강 → 파랑 → 빨강 → 파랑. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","왼쪽 거울 2개로 첫 문을 열고, 세 번째 거울과 4단계 번호 스위치·레버로 최종 봉인을 풉니다."],"difficulty":9,"plates":[{"id":"r1","x":180,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":346,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":604,"w":46,"type":"fire","mode":"sequence"},{"id":"r4","x":775,"w":46,"type":"water","mode":"sequence"}],"sequences":[{"id":"relay","order":["r1","r2","r3","r4"]}]},{"world":2,"bonus":true,"name":"비밀의 얼음: 융해 승강기","subtitle":"상자 · 빙벽 · 승강기 · 색깔 릴레이","tip":"상자로 첫 문을 연 뒤 불꽃으로 빙벽을 녹이세요. 승강기 위의 파란 스위치와 색깔 순서 암호가 탈출 열쇠예요.","ice":[{"x":160,"w":420}],"iceBlocks":[{"id":"ice1","x":471,"y":393,"w":50,"h":139}],"plates":[{"id":"box","x":293,"w":55,"type":"box","mode":"hold"},{"id":"high","x":738,"w":47,"type":"water","mode":"latch","y":351},{"id":"r1","x":519,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":707,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":791,"w":46,"type":"fire","mode":"sequence"}],"gates":[{"x":445,"y":82,"h":450,"requires":["box"],"mode":"hold"},{"x":845,"y":82,"h":450,"requires":["ice1","high","relay"],"mode":"latch"}],"hazards":[{"x":603,"w":85,"type":"toxic"}],"platforms":[{"x":598,"y":419,"w":115},{"x":713,"y":351,"w":114}],"gems":[{"x":342,"y":450,"type":"fire"},{"x":717,"y":470,"type":"water"}],"clues":["이번 퍼즐의 핵심은 '상자 · 빙벽 · 승강기 · 색깔 릴레이'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 1개 · 불꽃으로 녹이는 빙벽 · 움직이는 발판 · 번호 순서 빨강 → 파랑 → 빨강. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","상자로 첫 문을 연 뒤 불꽃으로 빙벽을 녹이세요. 승강기 위의 파란 스위치와 색깔 순서 암호가 탈출 열쇠예요."],"difficulty":9,"crates":[{"x":158}],"sequences":[{"id":"relay","order":["r1","r2","r3"]}],"moving":[{"kind":"elevator","x":563,"y":505,"w":117,"targetY":357,"speed":0.032,"switch":"box"}]},{"world":3,"bonus":true,"name":"비밀의 수정: 공간 암호","subtitle":"두 쌍의 포털 · 순서 4단계 · 2개 문","tip":"첫 레버를 켜고 보라 포털을 건너 파란 번호 스위치를 밟으세요. 다음 포털 너머에서 빨강·파랑을 이어 눌러 암호를 완성하세요.","portals":[{"id":"p0","x":237,"y":459,"target":"p1","color":"violet"},{"id":"p1","x":441,"y":459,"target":"p0","color":"violet"},{"id":"p2","x":544,"y":459,"target":"p3","color":"pink"},{"id":"p3","x":709,"y":459,"target":"p2","color":"pink"}],"plates":[{"id":"r1","x":148,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":485,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":756,"w":46,"type":"fire","mode":"sequence"},{"id":"r4","x":797,"w":46,"type":"water","mode":"sequence"}],"gates":[{"x":524,"y":82,"h":450,"requires":["lv"],"mode":"latch"},{"x":848,"y":82,"h":450,"requires":["relay"],"mode":"latch"}],"hazards":[{"x":330,"w":112,"type":"toxic"},{"x":629,"w":80,"type":"fire"}],"platforms":[{"x":323,"y":414,"w":132},{"x":622,"y":422,"w":102}],"gems":[{"x":315,"y":412,"type":"fire"},{"x":668,"y":393,"type":"water"}],"clues":["이번 퍼즐의 핵심은 '두 쌍의 포털 · 순서 4단계 · 2개 문'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 이동 포털 · 레버 · 번호 순서 빨강 → 파랑 → 빨강 → 파랑. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","첫 레버를 켜고 보라 포털을 건너 파란 번호 스위치를 밟으세요. 다음 포털 너머에서 빨강·파랑을 이어 눌러 암호를 완성하세요."],"difficulty":10,"levers":[{"id":"lv","x":191,"y":476,"mode":"toggle"}],"sequences":[{"id":"relay","order":["r1","r2","r3","r4"]}]},{"world":4,"bonus":true,"name":"마지막 비밀: 원소의 계약","subtitle":"상자 2개 · 거울 2개 · 암호 4단계 · 시간제한","tip":"두 상자로 중앙 봉인을 열고, 두 거울과 네 단계 순서 퍼즐을 완성하세요. 3.5초 시한 레버를 켜고 두 사람이 출구로 달려가야 합니다.","crates":[{"x":142},{"x":210}],"plates":[{"id":"b1","x":297,"w":54,"type":"box","mode":"hold"},{"id":"b2","x":377,"w":53,"type":"box","mode":"hold"},{"id":"r1","x":560,"w":46,"type":"fire","mode":"sequence"},{"id":"r2","x":614,"w":46,"type":"water","mode":"sequence"},{"id":"r3","x":714,"w":46,"type":"fire","mode":"sequence"},{"id":"r4","x":790,"w":46,"type":"water","mode":"sequence"}],"levers":[{"id":"timer","x":781,"y":476,"mode":"timer","duration":3.5}],"gates":[{"x":456,"y":82,"h":450,"requires":["b1","b2"],"mode":"hold"},{"x":846,"y":82,"h":450,"requires":["s1","s2","relay","timer"],"mode":"hold"}],"hazards":[{"x":490,"w":62,"type":"toxic"},{"x":661,"w":47,"type":"fire"}],"platforms":[{"x":483,"y":410,"w":129},{"x":651,"y":421,"w":101}],"gems":[{"x":356,"y":401,"type":"fire"},{"x":719,"y":385,"type":"water"}],"clues":["이번 퍼즐의 핵심은 '상자 2개 · 거울 2개 · 암호 4단계 · 시간제한'입니다. 먼저 장치와 문의 위치를 살펴보세요.","사용할 장치: 상자 2개 · 거울 2개 · 레버 · 번호 순서 빨강 → 파랑 → 빨강 → 파랑. 번호 발판은 정해진 순서를 틀리면 처음부터 다시 눌러야 합니다.","두 상자로 중앙 봉인을 열고, 두 거울과 네 단계 순서 퍼즐을 완성하세요. 3.5초 시한 레버를 켜고 두 사람이 출구로 달려가야 합니다."],"difficulty":10,"mirrors":[{"id":"m1","x":557,"y":467,"state":0},{"id":"m2","x":705,"y":467,"state":0}],"emitters":[{"id":"e1","x":490,"y":465,"mirror":"m1"},{"id":"e2","x":638,"y":465,"mirror":"m2"}],"sensors":[{"id":"s1","x":557,"y":318,"mirror":"m1"},{"id":"s2","x":705,"y":324,"mirror":"m2"}],"sequences":[{"id":"relay","order":["r1","r2","r3","r4"]}]}];
+HARD_CAMPAIGN.forEach((newLevel,i)=>{LEVELS[i]=newLevel});
+const c=document.getElementById('game'),ctx=c.getContext('2d');const $=id=>document.getElementById(id);
+let current=0,chosenWorld=0,mode='menu',elapsed=0,deaths=0,last=0,frame=0,particles=[],flash=0,level=null,players=[],unlocked=1,sound=false,audio=null,bests={},hintPulse=0,hintStep=0,hintsUsed=0,resetThisFrame=false,lastPlayed=0;
+// Teacher: paste your deployed Google Apps Script /exec URL here once for all devices.
+// It is optional. The offline leaderboard works even when this is empty.
+const RANKING_API_URL = '';
+const EXPERT_PROGRESS_KEY='element_temple_v5_expert_progress';
+const LEADERBOARD_LOCAL_KEY='element_temple_v5_expert_leaderboard_v1';
+const LEADERBOARD_CONFIG_KEY='element_temple_v5_expert_board_url';
+function newRun(){return{id:'run-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,12),seconds:0,finished:false,submitted:false,score:null,legacy:false};}
+let run=newRun(),runSaveTick=0,leaderSort='gold',leaderTab='local',localBoard=[],onlineBoard=[],onlineStatus='',onlineBusy=false;
+let configuredBoardUrl='';
+try{const prog=JSON.parse(localStorage.getItem(EXPERT_PROGRESS_KEY)||'null');unlocked=Math.max(1,Math.min(30,prog?.unlocked||1));bests=prog?.bests||{};lastPlayed=Number.isInteger(prog?.lastPlayed)?prog.lastPlayed:Math.max(0,unlocked-1);
+ if(prog?.run&&typeof prog.run==='object'&&Number.isFinite(prog.run.seconds)&&prog.run.seconds>=0){run={...run,...prog.run};}
+ else if(Object.keys(bests).length){run.legacy=true;run.seconds=Object.values(bests).reduce((v,b)=>v+(Number(b.time)||0),0);}}
+catch{}
+try{const raw=JSON.parse(localStorage.getItem(LEADERBOARD_LOCAL_KEY)||'[]');if(Array.isArray(raw))localBoard=raw.filter(validBoardRecord).slice(0,300);}catch{}
+try{configuredBoardUrl=localStorage.getItem(LEADERBOARD_CONFIG_KEY)||'';}catch{}
+function saveProgress(){try{localStorage.setItem(EXPERT_PROGRESS_KEY,JSON.stringify({version:6,unlocked,bests,lastPlayed,run}));}catch{}}
+function saveBoard(){try{localStorage.setItem(LEADERBOARD_LOCAL_KEY,JSON.stringify(localBoard));}catch{}}
+
+const MAIN_COUNT=30,BONUS_COUNT=5,MEDAL_ICON=['','🥉','🥈','🥇'];
+const GOLD_TIME=[100,130,165,180,195,240,170,190,210,225,240,270,200,215,270,255,270,315,210,230,250,285,300,325,240,255,300,315,330,410,310,370,365,380,450];
+function bestRank(entry){if(!entry)return 0;return Math.max(1,Math.min(3,entry.rank||((entry.deaths===0&&entry.gems>=2&&entry.time<=65)?3:(entry.gems>=1?2:1))));}
+function rankOf(i,sec,gems,errors,hints){const target=GOLD_TIME[i]||120;if(errors===0&&hints===0&&gems===2&&sec<=target)return 3;if(errors<=2&&hints<=1&&gems>=1&&sec<=target*1.85)return 2;return 1;}
+function rankText(n){return ['','동메달','은메달','금메달'][n]||'동메달';}
+function worldComplete(w){for(let j=w*6;j<w*6+6;j++)if(!bests[j])return false;return true;}
+function bonusIndex(w){return MAIN_COUNT+w;}
+function isOpenLevel(i){return i<MAIN_COUNT?i<unlocked:(i<MAIN_COUNT+BONUS_COUNT&&worldComplete(i-MAIN_COUNT));}
+function completedCount(){return Array.from({length:MAIN_COUNT},(_,i)=>!!bests[i]).filter(Boolean).length;}
+function allGemCount(){return Object.values(bests).reduce((sum,b)=>sum+(b.gems||0),0);}
+function medalsEarned(n){return Object.values(bests).filter(b=>bestRank(b)>=n).length;}
+// Rank only a completed 35/35 expedition. Gold medals are the first tiebreaker criterion.
+function allStagesComplete(){return Array.from({length:35},(_,i)=>!!bests[i]).every(Boolean);}
+function countGold(){return Array.from({length:35},(_,i)=>bestRank(bests[i])===3).filter(Boolean).length;}
+function longTime(t){const s=Math.max(0,Math.round(Number(t)||0)),h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h>0?`${h}시간 ${String(m).padStart(2,'0')}분 ${String(s%60).padStart(2,'0')}초`:`${m}분 ${String(s%60).padStart(2,'0')}초`;}
+function smallTime(t){const s=Math.max(0,Math.round(Number(t)||0)),h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h>0?`${h}:${String(m).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`:`${String(m).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;}
+function validBoardRecord(r){return !!r&&typeof r==='object'&&typeof r.id==='string'&&r.id.length<=80&&typeof r.p1==='string'&&r.p1.trim().length>0&&r.p1.length<=32&&typeof r.p2==='string'&&r.p2.trim().length>0&&r.p2.length<=32&&Number.isFinite(Number(r.time))&&Number(r.time)>=0&&Number(r.time)<10000000&&Number.isInteger(Number(r.gold))&&Number(r.gold)>=0&&Number(r.gold)<=35;}
+function sortBoard(entries){return entries.filter(validBoardRecord).sort((a,b)=>leaderSort==='gold'?Number(b.gold)-Number(a.gold)||Number(a.time)-Number(b.time)||String(a.createdAt||'').localeCompare(String(b.createdAt||'')):Number(a.time)-Number(b.time)||Number(b.gold)-Number(a.gold)||String(a.createdAt||'').localeCompare(String(b.createdAt||'')));}
+function boardPosition(entries,idx){if(idx===0)return 1;const here=entries[idx],prev=entries[idx-1];return Number(here.gold)===Number(prev.gold)&&Number(here.time)===Number(prev.time)?boardPosition(entries,idx-1):idx+1;}
+function scoreSnapshot(){return{time:Math.round(run.seconds),gold:countGold(),completed:35,createdAt:new Date().toISOString(),legacy:!!run.legacy};}
+function ensureFinishedRun(){if(!run.finished&&allStagesComplete()){run.finished=true;run.score=scoreSnapshot();saveProgress();}return run.finished&&allStagesComplete();}
+function officialScore(){return run.score||scoreSnapshot();}
+function registrationScreen(){if(!ensureFinishedRun()){showLeaderboard('local');return;}mode='register';clearInputs();const sc=officialScore();show(`<div class="lb-register"><span class="badge">🎊 35 / 35 STAGES COMPLETE</span><div class="mascots">🏆🔥💧🏆</div><h2>완주 성공! 팀 이름을 남겨 주세요</h2><p>불꽃과 물방울을 조작한 <b>두 사람의 이름 또는 별명</b>을 각각 적어 순위표에 등록하세요.</p><div class="lb-scoreline"><div><strong>${sc.gold} / 35</strong><small>🥇 금메달</small></div><div><strong>${smallTime(sc.time)}</strong><small>⏱️ 총 플레이 시간</small></div><div><strong>35 / 35</strong><small>✅ 모든 단계 완료</small></div></div>${sc.legacy?'<div class="lb-warning">이전 EXPERT 기록에서 이어온 진행도이므로 총시간에 이전 단계 최고 기록 합계가 포함돼요. 완전히 동일한 조건의 경쟁을 원한다면 새로운 도전으로 시작하세요.</div>':''}<div class="lb-players"><label class="lb-field">🔥 불꽃 플레이어<input id="lb-p1" autocomplete="off" maxlength="14" placeholder="첫 번째 이름/별명" aria-label="불꽃 플레이어 이름" /></label><label class="lb-field">💧 물방울 플레이어<input id="lb-p2" autocomplete="off" maxlength="14" placeholder="두 번째 이름/별명" aria-label="물방울 플레이어 이름" /></label></div><div class="lb-warning">공개 온라인 순위표를 사용할 경우 개인정보 보호를 위해 <b>본명 대신 별명</b>을 사용하는 것을 추천해요. 학교명·학번 등은 입력하지 마세요.</div><div id="lb-error" class="lb-error" role="alert"></div><div class="actions"><button class="bigbtn" data-action="submitTeam">🏆 두 사람의 기록 등록</button><button class="secondary" data-action="rankings">순위표 먼저 보기</button><button class="secondary" data-action="stats">나중에 등록</button></div></div>`);}
+function submitTeam(){if(!ensureFinishedRun())return;const p1=($('lb-p1')?.value||'').trim().replace(/[\u0000-\u001f\u007f]/g,''),p2=($('lb-p2')?.value||'').trim().replace(/[\u0000-\u001f\u007f]/g,'');const err=$('lb-error');if(!p1||!p2||Array.from(p1).length>14||Array.from(p2).length>14){err.textContent='두 플레이어의 이름 또는 별명을 각각 1~14자로 입력해 주세요.';return;}const sc=officialScore();const rec={id:run.id,p1,p2,gold:sc.gold,time:sc.time,createdAt:sc.createdAt||new Date().toISOString(),legacy:!!sc.legacy,completed:35};
+ const existing=localBoard.findIndex(x=>x.id===rec.id);if(existing>=0)localBoard[existing]=rec;else localBoard.push(rec);localBoard=sortBoard(localBoard).slice(0,300);saveBoard();run.submitted=true;saveProgress();if(getBoardUrl())postOnline(rec);showLeaderboard(getBoardUrl()?'online':'local');}
+function getBoardUrl(){return (configuredBoardUrl||RANKING_API_URL||'').trim();}
+function isBoardUrl(raw){return /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec(?:\?[^#]*)?$/.test(raw);}
+function saveBoardUrl(){const field=$('lb-api-url');const msg=$('lb-config-error');const v=(field?.value||'').trim();if(v&&!isBoardUrl(v)){if(msg)msg.textContent='Google Apps Script 배포 주소(https://script.google.com/macros/s/.../exec)를 입력해 주세요.';return;}configuredBoardUrl=v;try{localStorage.setItem(LEADERBOARD_CONFIG_KEY,v);}catch{}onlineBoard=[];onlineStatus='';showLeaderboard(v?'online':'local');}
+function tableRows(entries){let lastPosition=0;return entries.slice(0,100).map((r,idx)=>{const position=idx&&Number(r.gold)===Number(entries[idx-1].gold)&&Number(r.time)===Number(entries[idx-1].time)?lastPosition:idx+1;lastPosition=position;const emblem=position===1?'🥇':position===2?'🥈':position===3?'🥉':String(position);const own=r.id===run.id?'lb-me':'';return `<tr class="${own}"><td><b>${emblem}</b></td><td class="lb-team">${escapeHtml(r.p1)} <span style="color:#9bc6e9">&amp;</span> ${escapeHtml(r.p2)} ${own?'⭐':''}</td><td style="color:#ffe09f;font-weight:900">${Number(r.gold)}</td><td>${smallTime(r.time)}</td><td><small>${escapeHtml(String(r.createdAt||'').slice(0,10))}${r.legacy?' · 기존':''}</small></td></tr>`;}).join('');}
+function renderLeaderboard(){mode='leaderboard';clearInputs();const enabled=!!getBoardUrl();const remote=leaderTab==='online';const entries=sortBoard(remote?onlineBoard:localBoard);const status=remote?(enabled?onlineStatus||'온라인 순위표의 새로고침을 누르면 서버 기록을 불러올 수 있어요.':'온라인 순위표를 연결하려면 아래에 Apps Script 주소를 저장해 주세요.'):'이 기기에 저장된 완주 팀들의 순위표예요.';const sc=run.finished?officialScore():null;const finish=ensureFinishedRun();show(`<div class="lb-board"><div class="lb-head"><span class="badge">CO-OP HALL OF FAME</span><h2>🏆 두 원소의 명예의 전당</h2><p>총 <b>35개 스테이지</b>를 모두 완료한 2인 팀만 등록할 수 있어요.</p></div><div class="lb-tabs"><button class="lb-tab ${!remote?'active':''}" data-board="local">💻 이 기기 순위</button><button class="lb-tab ${remote?'active':''}" data-board="online">🌍 온라인 순위</button></div><div class="lb-sort"><button class="lb-sortbtn ${leaderSort==='gold'?'active':''}" data-sort="gold">🥇 금메달 우선</button><button class="lb-sortbtn ${leaderSort==='time'?'active':''}" data-sort="time">⏱️ 빠른 시간 우선</button></div><div class="lb-table-wrap">${entries.length?`<table class="lb-table"><thead><tr><th>등수</th><th>함께한 2명</th><th>금메달</th><th>총시간</th><th>등록일</th></tr></thead><tbody>${tableRows(entries)}</tbody></table>`:`<div class="lb-none">${remote&&onlineBusy?'🔄 온라인 기록을 불러오고 있어요...':'아직 등록된 완주 팀이 없어요. 처음으로 35단계를 클리어해 보세요! 🏆'}</div>`}</div><div class="lb-foot">${escapeHtml(status)}<br>기본 순위: <b>금메달 많은 팀 → 총시간 짧은 팀</b> · 완전 동률 공동 등수 · 총시간은 플레이 중인 시간(재도전 포함), 일시정지·메뉴 시간 제외 · 완주 시점 기록 고정<br>서로 다른 기기 간 자동 공유는 온라인 순위표 연결이 필요해요.</div><div class="actions">${remote&&enabled?'<button class="secondary" data-action="refreshOnline">🔄 온라인 새로고침</button>':''}${!remote&&entries.length?'<button class="secondary" data-action="exportCSV">📄 CSV 내보내기</button>':''}${finish&&!run.submitted?'<button class="bigbtn" data-action="registerTeam">🏆 완주 기록 등록</button>':''}<button class="secondary" data-action="newRunAsk">👥 새 팀 도전</button><button class="secondary" data-action="back">게임으로</button></div><details class="lb-settings"><summary>⚙️ 교사용 온라인 순위표 연결 (선택)</summary><div class="lb-setup">제공된 <b>apps_script_leaderboard.gs</b>를 Google 스프레드시트의 Apps Script에 붙여 넣고 웹 앱으로 배포한 뒤 /exec 주소를 입력하세요. 이 브라우저에만 설정하려면 아래에 저장하고, 모든 학생 기기에 자동 적용하려면 HTML 상단의 <code>RANKING_API_URL</code>에 주소를 넣어 배포하세요.</div><input id="lb-api-url" class="lb-url" inputmode="url" placeholder="https://script.google.com/macros/s/.../exec" value="${escapeHtml(getBoardUrl())}" /><p id="lb-config-error" class="lb-error"></p><div class="actions"><button class="secondary" data-action="saveOnlineUrl">주소 저장 / 변경</button></div></details></div>`);}
+function showLeaderboard(tab){if(tab)leaderTab=tab;if(leaderTab==='online'&&getBoardUrl()&&onlineBoard.length===0&&!onlineBusy){onlineStatus='온라인 기록을 불러오는 중...';readOnline();}renderLeaderboard();}
+function readOnline(){const endpoint=getBoardUrl();if(!isBoardUrl(endpoint)||onlineBusy)return;onlineBusy=true;onlineStatus='온라인 순위표 불러오는 중...';if(mode==='leaderboard')renderLeaderboard();const old=document.querySelector('script[data-online-rank]');if(old)old.remove();const tag=document.createElement('script');tag.dataset.onlineRank='true';let done=false;const timeout=setTimeout(()=>{if(!done){done=true;onlineBusy=false;onlineStatus='서버 응답이 없어요. 주소와 웹 앱 공개 권한을 확인해 주세요.';tag.remove();if(mode==='leaderboard')renderLeaderboard();}},9000);
+ window.__FWLBReturn=(payload)=>{if(done)return;done=true;clearTimeout(timeout);tag.remove();onlineBusy=false;if(payload&&payload.ok&&Array.isArray(payload.records)){onlineBoard=payload.records.filter(validBoardRecord);onlineStatus=`온라인 ${onlineBoard.length}팀 기록을 확인했어요.`;}else{onlineStatus='서버가 올바른 순위 데이터를 반환하지 않았어요.';}if(mode==='leaderboard')renderLeaderboard();};
+ tag.onerror=()=>{if(done)return;done=true;clearTimeout(timeout);onlineBusy=false;onlineStatus='온라인 연결 실패. 웹 앱 URL이나 접근 권한을 확인해 주세요.';tag.remove();if(mode==='leaderboard')renderLeaderboard();};
+ tag.src=endpoint+(endpoint.includes('?')?'&':'?')+'mode=list&callback=__FWLBReturn&v='+Date.now();document.head.appendChild(tag);}
+function postOnline(r){const url=getBoardUrl();if(!isBoardUrl(url))return;onlineStatus='서버로 기록을 전송했어요. 새로고침하여 등록 여부를 확인하세요.';const frame=document.createElement('iframe');frame.name='firewater_submit_'+Date.now();frame.style.display='none';frame.title='순위 전송';document.body.appendChild(frame);const form=document.createElement('form');form.method='POST';form.action=url;form.target=frame.name;form.style.display='none';for(const [k,v]of Object.entries(r)){const input=document.createElement('input');input.name=k;input.value=String(v);form.appendChild(input);}document.body.appendChild(form);form.submit();setTimeout(()=>{form.remove();frame.remove();onlineBoard=[];onlineBusy=false;if(leaderTab==='online')readOnline();},3000);}
+function askNewRun(){mode='newRunConfirm';show(`<span class="badge">새 협동 팀 시작</span><div class="mascots">🔥 💧</div><h2>새로운 두 사람의 도전을 시작할까요?</h2><p>기존 EXPERT 스테이지 진행도와 개인 메달 기록, 누적 플레이 시간은 초기화됩니다. <b>이미 등록한 순위표 기록은 그대로 남아요.</b></p><div class="actions"><button class="secondary" data-action="rankings">취소</button><button class="bigbtn" data-action="newRunConfirm">새 팀 도전 시작</button></div>`);}
+function confirmNewRun(){bests={};unlocked=1;lastPlayed=0;run=newRun();runSaveTick=0;saveProgress();loadLevel(0);intro();}
+function exportRankingCSV(){const records=sortBoard(localBoard);const cols=[['등수','불꽃 플레이어','물방울 플레이어','금메달 개수','총 플레이 시간(초)','등록일','기록 유형']];records.forEach((r,i)=>cols.push([String(boardPosition(records,i)),r.p1,r.p2,String(r.gold),String(r.time),r.createdAt||'',r.legacy?'기존 기록 합산':'실제 누적 시간']));const csv='\uFEFF'+cols.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='물불게임_팀순위표.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+
+
+const key={fireLeft:false,fireRight:false,fireJump:false,waterLeft:false,waterRight:false,waterJump:false};
+const inputMap={KeyA:'fireLeft',KeyD:'fireRight',KeyW:'fireJump',ArrowLeft:'waterLeft',ArrowRight:'waterRight',ArrowUp:'waterJump'};
+function clearInputs(){Object.keys(key).forEach(k=>key[k]=false);document.querySelectorAll('.touchkey').forEach(b=>b.classList.remove('down'));}
+function musical(freq=550,len=.09,wave='sine',vol=.08){if(!sound)return;try{audio ||=new(window.AudioContext||window.webkitAudioContext)();const o=audio.createOscillator(),g=audio.createGain();o.type=wave;o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(freq*.78,audio.currentTime+len);g.gain.setValueAtTime(vol,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+len);o.connect(g).connect(audio.destination);o.start();o.stop(audio.currentTime+len+.01);}catch{}}
+function soundCue(name){if(!sound)return;
+ const cfg={jump:[460,.105,'triangle',.09],land:[150,.08,'sine',.055],gem:[910,.13,'sine',.09],gate:[370,.22,'triangle',.07],lever:[690,.12,'square',.035],portal:[840,.24,'sine',.065],melt:[640,.21,'triangle',.06],fail:[180,.18,'sawtooth',.05]};
+ const a=cfg[name];if(a)musical(...a);
+ if(name==='win'){musical(650,.17,'sine',.06);try{if(audio){const t=audio.currentTime+.15;const o=audio.createOscillator(),g=audio.createGain();o.type='triangle';o.frequency.setValueAtTime(920,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.075,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+.24);o.connect(g).connect(audio.destination);o.start(t);o.stop(t+.25);}}catch{}}
+}
+function landingDust(x,y,color,power=1){if(reduceMotion)return;for(let j=0;j<7;j++)particles.push({kind:'dust',x,y:y+Math.random()*2,vx:(j-3)*(.34+power*.22),vy:-Math.random()*(.3+power),r:1+Math.random()*2.8,life:17+Math.random()*10,color});}
+const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function mkPlayer(type,x){return{type,x,y:FLOOR-35,w:28,h:35,portalCooldown:0,vx:0,vy:0,grounded:false,groundId:'floor',jumpLock:false,buffer:0,coyote:0,invuln:0,trail:[],spawnX:x,spawnY:FLOOR-35,ready:false,facing:1,lean:0,stepPhase:0,landSquash:0,wasGrounded:false,blinkOffset:Math.random()*260,dustTimer:0};}
+function loadLevel(i){if(!Number.isInteger(i)||i<0||i>=LEVELS.length)return;current=i;chosenWorld=LEVELS[i].world;hintStep=0;hintsUsed=0;resetThisFrame=false;document.documentElement.style.setProperty('--worldaccent',WORLDS[chosenWorld].accent);document.documentElement.style.setProperty('--worldglow',WORLDS[chosenWorld].accent+'22');const src=LEVELS[i];level={...src,levers:(src.levers||[]).map(a=>({...a,active:false,remaining:0})),mirrors:(src.mirrors||[]).map(a=>({...a,state:a.state||0})),emitters:(src.emitters||[]).map(a=>({...a})),sensors:(src.sensors||[]).map(a=>({...a,on:false})),ice:(src.ice||[]).map(a=>({...a})),iceBlocks:(src.iceBlocks||[]).map(a=>({...a,melted:false})),portals:(src.portals||[]).map(a=>({...a})),sequences:(src.sequences||[]).map(a=>({...a,progress:0,completed:false})),beamLines:[],platforms:(src.platforms||[]).map(a=>({...a})),moving:(src.moving||[]).map((m,i)=>({...m,id:'move'+i,baseX:m.x,baseY:m.y,actualX:m.x,actualY:m.y,dx:0,dy:0,phase:m.phase||0})),crates:(src.crates||[]).map((p,i)=>({...p,id:'crate'+i,spawnX:p.x,initialX:p.x,y:p.y??FLOOR-37,w:p.w||39,h:p.h||37,dx:0,dy:0,vy:0,grounded:true,groundId:'floor'})),plates:(src.plates||[]).map(p=>({...p,active:false,latched:false,remaining:0,wasActive:false})),gates:(src.gates||[]).map(g=>({...g,open:false,latched:false})),gems:(src.gems||[]).map(g=>({...g,collected:false}))};players=[mkPlayer('fire',62),mkPlayer('water',115)];elapsed=0;deaths=0;particles=[];flash=0;frame=0;clearInputs();$('levelNumber').textContent=i<MAIN_COUNT?`${WORLDS[chosenWorld].icon} ${chosenWorld+1}-${i%6+1} · ${i+1}/30`:`${WORLDS[chosenWorld].icon} SECRET · ${chosenWorld+1}-★`; $('levelName').textContent=src.name;$('gameLabel').innerHTML=escapeHtml(src.tip);updateLight();updateHud();}
+function escapeHtml(t){return t.replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));}
+function updateHud(){$('gemsLabel').textContent=`${level.gems.filter(g=>g.collected).length} / ${level.gems.length}`;$('deathsLabel').textContent=deaths;$('timeLabel').textContent=formatTime(elapsed);$('totalTimerLabel').textContent=smallTime(run.seconds);$('hintsLabel').textContent=hintsUsed;}
+function formatTime(t){let s=Math.floor(t),m=Math.floor(s/60);return`${String(m).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;}
+function show(html){const full=html.includes('class="lb-board"')||html.includes('class="lb-register"');const overlay=$('overlay');if(full&&overlay.parentElement!==document.body)document.body.appendChild(overlay);else if(!full&&overlay.parentElement!==$('frame'))$('frame').appendChild(overlay);document.body.classList.toggle('lb-fullscreen',full);$('modal').innerHTML=html;overlay.hidden=false;}function hide(){const overlay=$('overlay');overlay.hidden=true;document.body.classList.remove('lb-fullscreen');if(overlay.parentElement!==$('frame'))$('frame').appendChild(overlay);}
+function startGame(){mode='playing';hide();clearInputs();last=performance.now();}
+function pause(){if(mode!=='playing')return;mode='paused';clearInputs();show(`<span class="badge">잠시 쉬어가기</span><div class="mascots">🔥 💧</div><h2>일시정지</h2><p>두 친구가 당신을 기다리고 있어요.</p><div class="actions"><button class="bigbtn" data-action="resume">계속하기 ▶</button><button class="secondary" data-action="levels">스테이지 선택</button></div><p class="helper"><b>Esc / P</b> 일시정지 · <b>R</b> 재시작</p>`);}
+function intro(){mode='menu';clearInputs();show(`<span class="badge">V5 EXPERT · 고난도 개편 · 35개 퍼즐</span><div class="mascots">🔥 💧</div><h2>다섯 신전의 비밀 · EXPERT</h2><p>난이도를 전면 개편한 30단계와 비밀 퍼즐 5개. 초반부터 익힌 기믹을 뒤로 갈수록 여러 개 결합해 협동해야 해요!</p><div class="hint">🔥 <b>A / D 이동 · W 점프 · E 장치</b><br>💧 <b>← / → 이동 · ↑ 점프 · ↓ 장치</b><br>💡 <b>H 힌트 · R 재시작 · Esc/P 일시정지</b><br>🔢 번호 발판은 순서대로 밟기 · 잘못 누르면 처음부터!<br>🏅 금·은·동 메달에 도전해 보세요.</div><div class="actions"><button class="bigbtn" data-action="continue">모험 계속하기 ✨</button><button class="secondary" data-action="levels">신전·스테이지</button><button class="secondary" data-action="stats">기록·메달 🏅</button><button class="secondary" data-action="rankings">🏆 팀 순위표</button>${ensureFinishedRun()&&!run.submitted?'<button class="bigbtn" data-action="registerTeam">🎊 완주 기록 등록</button>':''}</div><p class="helper">같은 사이트에 저장된 EXPERT 전용 기록 · 기존 V5 저장 기록 보존 · 인터넷 없이 플레이 · 2인 키보드·터치 조작</p>`);}
+function levelSelect(){mode='select';clearInputs();const tabs=WORLDS.map((w,j)=>`<button class="world-tab ${j===chosenWorld?'active':''}" data-world="${j}">${w.icon}<br>${w.name.replace('의 신전','')}</button>`).join('');const items=LEVELS.slice(chosenWorld*6,chosenWorld*6+6).map((L,j)=>{const i=chosenWorld*6+j,locked=i>=unlocked,medal=bestRank(bests[i]);return `<button class="lvl ${locked?'locked':''} ${i===current?'selected':''}" data-level="${i}" ${locked?'disabled':''}><b>${locked?'🔒':medal?MEDAL_ICON[medal]:'✦'} ${j+1}</b>${escapeHtml(L.name)}<small style="display:block;color:#ffdc9a;font-size:10px">난이도 ${L.difficulty}/10 ${'★'.repeat(Math.min(5,Math.ceil(L.difficulty/2)))}</small>${bests[i]?`<small style="display:block;color:#c4e5fb;font-size:10px">${formatTime(bests[i].time)} 최고</small>`:''}</button>`;}).join('');const unlockedBonus=worldComplete(chosenWorld),bi=bonusIndex(chosenWorld);const completed=Array.from({length:6},(_,i)=>!!bests[chosenWorld*6+i]).filter(Boolean).length;const badge=bestRank(bests[bi]);show(`<span class="badge">TEMPLE SELECT · ${completedCount()}/30 기본 단계 완료</span><h2>신전 선택</h2><div class="world-tabs">${tabs}</div><p class="world-sub">${WORLDS[chosenWorld].icon} ${WORLDS[chosenWorld].name} · ${WORLDS[chosenWorld].desc} · 단계마다 난이도 상승</p><div class="v5-progress"><div style="width:${completed/6*100}%"></div></div><div class="levels">${items}</div><button class="v5-bonus" data-level="${bi}" ${unlockedBonus?'':'disabled'}>${unlockedBonus?`🌟 비밀 스테이지 도전 ${badge?MEDAL_ICON[badge]:''} — ${escapeHtml(LEVELS[bi].name)}`:`🔒 비밀 스테이지 — 이 신전 6단계를 모두 클리어하면 열려요 (${completed}/6)`}</button><div class="actions"><button class="secondary" data-action="stats">🏅 전체 기록</button><button class="secondary" data-action="back">메인 메뉴로</button></div>`);}
+function showStats(){mode='stats';clearInputs();const total=Object.keys(bests).length;const allGold=medalsEarned(3),allSilver=medalsEarned(2),allBronze=medalsEarned(1);const rows=WORLDS.map((w,j)=>{const n=Array.from({length:6},(_,i)=>!!bests[j*6+i]).filter(Boolean).length;const bi=bonusIndex(j),bonus=bests[bi];return `<div class="v5-worldstats">${w.icon} <b>${w.name}</b> — ${n}/6 클리어 ${worldComplete(j)?`· 비밀 ${bonus?MEDAL_ICON[bestRank(bonus)]:'해금'}`:'· 비밀 잠김'}<div class="v5-progress"><div style="width:${n/6*100}%"></div></div></div>`;}).join('');show(`<span class="badge">ADVENTURE RECORD</span><h2>나의 협동 기록 🏅</h2><div class="v5-statgrid"><div><strong>${completedCount()}/30</strong><small>기본 퍼즐</small></div><div><strong>${Object.keys(bests).filter(k=>+k>=30).length}/5</strong><small>비밀 퍼즐</small></div><div><strong>${allGold}</strong><small>금메달 수</small></div><div><strong>${allSilver}</strong><small>은메달 이상</small></div><div><strong>${allBronze}</strong><small>획득한 메달</small></div><div><strong>${allGemCount()}</strong><small>최고 기록의 보석 합</small></div></div><div class="v5-stats-scroll">${rows}</div><p class="helper">🏁 이번 도전 누적 플레이 시간: <b>${longTime(run.seconds)}</b>${run.finished?' · 전체 완주 기록 확정':''}</p><p class="helper">🥇 제한 시간 이내 · 보석 2개 · 실수·힌트 0회<br>🥈 여유 시간 내 · 보석 1개 이상 · 실수 2회 이내 · 힌트 1회 이내<br>🥉 나머지 클리어 · 메달과 최단 시간은 따로 저장</p><div class="actions"><button class="bigbtn" data-action="levels">스테이지로</button><button class="secondary" data-action="rankings">🏆 팀 순위표</button>${ensureFinishedRun()&&!run.submitted?'<button class="bigbtn" data-action="registerTeam">완주 기록 등록</button>':''}<button class="secondary" data-action="back">메인으로</button><button class="secondary" data-action="resetAsk">진행 초기화</button></div>`);}
+function askReset(){mode='confirmReset';show(`<span class="badge">진행 기록 초기화</span><h2>모든 EXPERT 기록을 지울까요?</h2><p>스테이지 해금, 메달, 최고 기록과 이번 도전 누적 시간이 초기화됩니다. 이미 순위표에 등록한 팀들의 기록은 유지됩니다.</p><div class="actions"><button class="secondary" data-action="stats">취소</button><button class="bigbtn" data-action="resetConfirm">초기화 확인</button></div>`);}
+function doReset(){confirmNewRun();}
+function hintText(i){const s=LEVELS[i];if(s.clues)return s.clues;const mechanisms=[];if(s.crates?.length)mechanisms.push(`상자 ${s.crates.length}개를 밀어 발판을 누를 수 있어요.`);if(s.mirrors?.length)mechanisms.push(`거울 ${s.mirrors.length}개는 가까이서 E 또는 ↓로 회전해요.`);if(s.levers?.length)mechanisms.push(`레버 ${s.levers.length}개는 가까이서 E 또는 ↓로 조작해요.`);if(s.iceBlocks?.length)mechanisms.push('불꽃이 얼음 장벽 근처로 가면 녹일 수 있어요.');if(s.portals?.length)mechanisms.push('같은 색 포털의 두 입구가 연결돼요.');if(s.sequences?.length)mechanisms.push('번호 발판을 1번부터 순서대로 눌러야 해요. 틀린 번호를 밟으면 암호가 초기화돼요.');if(s.moving?.length)mechanisms.push('움직이는 발판 위에 올라타 타이밍을 맞춰 이동하세요.');if(s.plates?.length)mechanisms.push(`색깔 발판 ${s.plates.length}개를 잘 살펴보세요.`);const req=[...new Set((s.gates||[]).flatMap(g=>g.requires))];const objs=[...(s.plates||[]),...(s.levers||[]),...(s.sensors||[])];const conditions=req.map(k=>{const o=objs.find(o=>o.id===k);if(!o)return k;return o.type==='fire'?'빨강 발판':o.type==='water'?'파랑 발판':o.type==='box'?'상자 발판':o.type==='any'?'공용 발판':('sensor'===o.type?'광센서':s.levers?.some(l=>l.id===k)?'레버':'광센서');});return [s.subtitle||'두 캐릭터가 협력하여 장치를 살펴보세요.',mechanisms.join(' ')||'위험 지형은 점프로 통과하고 각자의 색을 확인하세요.',`필요한 장치: ${conditions.join(' + ')||'경로 찾기'}. ${s.tip}`];}
+function showHint(next=false){if(mode!=='playing'&&mode!=='hint')return;if(mode==='playing'){mode='hint';clearInputs();}if(hintStep===0||next&&hintStep<3){hintStep++;hintsUsed++;updateHud();}const steps=hintText(current);show(`<span class="badge">💡 ${current<30?`STAGE ${current+1}`:`SECRET ${chosenWorld+1}`} · 단계별 힌트</span><h2>단서 ${hintStep} / 3</h2><p>힌트를 사용할수록 메달 평가에 반영돼요. 게임 시간은 멈춰요.</p><div class="v5-hint-step"><strong>${['','① 관찰하기','② 장치 이해하기','③ 해결 방향'][hintStep]}</strong><div>${escapeHtml(steps[hintStep-1])}</div></div><div class="actions">${hintStep<3?'<button class="secondary" data-action="hintNext">다음 단서 보기 →</button>':''}<button class="bigbtn" data-action="resume">게임으로 돌아가기</button></div>`);}
+function onComplete(){if(mode!=='playing')return;mode='completed';clearInputs();const gemCount=level.gems.filter(g=>g.collected).length;const grade=rankOf(current,elapsed,gemCount,deaths,hintsUsed);if(current<MAIN_COUNT&&current+2>unlocked)unlocked=Math.min(MAIN_COUNT,current+2);const lastBest=bests[current]||null;const entry={time:lastBest?Math.min(lastBest.time,+elapsed.toFixed(2)):+elapsed.toFixed(2),gems:Math.max(lastBest?.gems||0,gemCount),deaths:lastBest?Math.min(lastBest.deaths??99,deaths):deaths,rank:Math.max(bestRank(lastBest),grade),hints:lastBest?Math.min(lastBest.hints??3,hintsUsed):hintsUsed,clears:(lastBest?.clears||0)+1};bests[current]=entry;const isFinal=current===29;const bonus=current>=MAIN_COUNT;lastPlayed=bonus?Math.max(0,unlocked-1):!isFinal?current+1:current;const newlyFinished=!run.finished&&allStagesComplete();if(newlyFinished){run.finished=true;run.score=scoreSnapshot();}saveProgress();if(newlyFinished){soundCue('win');registrationScreen();return;}for(let k=0;k<40;k++)particles.push({x:500+Math.random()*250-125,y:230+Math.random()*170,vx:Math.random()*7-3.5,vy:-(2+Math.random()*4),life:45+Math.random()*60,color:['#fcca74','#60d9fc','#ffa477','#fff4c8'][k%4],r:2+Math.random()*4});soundCue('win');const next=!bonus&&!isFinal?'<button class="bigbtn" data-action="next">다음 스테이지 →</button>':'';const bonusOpen=worldComplete(chosenWorld);const bonusBtn=!bonus&&bonusOpen?`<button class="secondary" data-action="bonus">🌟 ${WORLDS[chosenWorld].name} 비밀 스테이지</button>`:'';show(`<span class="badge">${bonus?'SECRET STAGE CLEAR!':`STAGE ${current+1} CLEAR!`}</span><div class="mascots">${MEDAL_ICON[grade]} 🎉</div><h2>${bonus?'숨겨진 비밀을 풀었어!':'두 친구가 해냈어요!'}</h2><p>이번 도전: <b>${rankText(grade)}</b> · 최고: <b>${MEDAL_ICON[entry.rank]} ${rankText(entry.rank)}</b><br>시간 <b>${formatTime(elapsed)}</b> · 보석 <b>${gemCount}/${level.gems.length}</b> · 실수 <b>${deaths}</b> · 힌트 <b>${hintsUsed}</b></p><p class="helper">🥇 목표시간 ${formatTime(GOLD_TIME[current])} 이내 + 보석 2개 + 실수 0 + 힌트 0</p><div class="actions">${next}${bonusBtn}<button class="secondary" data-action="retry">다시 도전</button><button class="secondary" data-action="levels">스테이지 선택</button></div>`);}
+function burst(x,y,color,n=10){for(let i=0;i<n;i++)particles.push({x,y,vx:(Math.random()-.5)*5,vy:(Math.random()-.5)*5-1,life:20+Math.random()*25,r:1.6+Math.random()*3,color});if(particles.length>240)particles.splice(0,particles.length-240);}
+function reset(type){const p=players.find(a=>a.type===type),col=type==='fire'?'#ff9860':'#64d8ff';const x=p.x+14,y=p.y+17,nextDeaths=deaths+1,oldTime=elapsed,oldHints=hintsUsed,oldHintStep=hintStep;
+ soundCue('fail');
+ // Traditional co-op puzzle rule: losing either character resets all puzzle machinery.
+ loadLevel(current);deaths=nextDeaths;elapsed=oldTime;hintsUsed=oldHints;hintStep=oldHintStep;resetThisFrame=true;flash=.19;burst(x,y,col,20);updateHud();
+}
+function overlaps(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;}
+function plateOn(p){return p.active||p.latched||p.remaining>0;}
+function triggerOn(id){return level.plates.some(p=>p.id===id&&plateOn(p))||level.levers.some(l=>l.id===id&&(l.active||l.remaining>0))||level.sensors.some(s=>s.id===id&&s.on)||level.iceBlocks.some(b=>b.id===id&&b.melted)||level.sequences.some(s=>s.id===id&&s.completed);}
+function interact(type){if(mode!=='playing')return;const p=players.find(z=>z.type===type),x=p.x+p.w/2,y=p.y+p.h/2;let targets=[...level.levers.map(a=>({kind:'lever',a})),...level.mirrors.map(a=>({kind:'mirror',a}))].map(o=>({...o,dist:Math.hypot((o.a.x-x),(o.a.y-y))})).filter(o=>o.dist<100).sort((a,b)=>a.dist-b.dist);if(!targets.length){burst(x,y,'#fff1a4',4);return;}const t=targets[0];if(t.kind==='mirror'){t.a.state=1-t.a.state;soundCue('lever');burst(t.a.x,t.a.y,'#fff1a4',11);}else{if(t.a.mode==='timer'){t.a.remaining=t.a.duration||8;t.a.active=true;}else t.a.active=!t.a.active;soundCue('lever');burst(t.a.x,t.a.y,'#ffe9a4',12);}updateLight();updatePlates(0);}
+function updateLight(){level.beamLines=[];for(const s of level.sensors)s.on=false;for(const e of level.emitters){const m=level.mirrors.find(z=>z.id===e.mirror);if(!m)continue;level.beamLines.push({x1:e.x,y1:e.y,x2:m.x,y2:m.y});const endY=m.state===1?55:Math.min(529,m.y+130);const s=level.sensors.find(z=>z.mirror===m.id);if(s&&Math.abs(s.x-m.x)<7&&((s.y<m.y&&m.state===1)||(s.y>m.y&&m.state===0))&&Math.abs(s.y-m.y)>45){s.on=true;level.beamLines.push({x1:m.x,y1:m.y,x2:s.x,y2:s.y});}else level.beamLines.push({x1:m.x,y1:m.y,x2:m.x,y2:endY});}}
+
+function colliders(){return [...level.gates.filter(g=>!g.open).map(g=>({x:g.x,y:g.y,w:25,h:g.h})),...level.iceBlocks.filter(b=>!b.melted).map(b=>({x:b.x,y:b.y,w:b.w,h:b.h}))];}
+function validCrateMove(b,delta){const next={...b,x:b.x+delta};if(next.x<5||next.x+next.w>W-5)return false;for(const wall of colliders())if(overlaps(next,wall))return false;for(const other of level.crates)if(other!==b&&overlaps(next,other))return false;return true;}
+function tryPush(b,dx){if(Math.abs(dx)<.001)return true;const distance=Math.abs(dx),dir=Math.sign(dx);let remaining=distance;while(remaining>0){const step=Math.min(remaining,2.5)*dir;if(!validCrateMove(b,step))return false;b.x+=step;b.dx+=step;remaining-=Math.abs(step);}return true;}
+function getSurfaces(includeCrates=true,ignore=null){let arr=[{id:'floor',x:0,y:FLOOR,w:W}];arr.push(...level.platforms.map((a,i)=>({id:'plat'+i,x:a.x,y:a.y,w:a.w})));arr.push(...level.moving.map(a=>({id:a.id,x:a.actualX,y:a.actualY,w:a.w})));if(includeCrates)arr.push(...level.crates.filter(a=>a!==ignore).map(a=>({id:a.id,x:a.x,y:a.y,w:a.w})));return arr;}
+function carry(a){if(!a.groundId)return;let s=level.moving.find(m=>m.id===a.groundId);if(s){a.x+=s.dx;a.y+=s.dy;return;}s=level.crates.find(b=>b.id===a.groundId);if(s){a.x+=s.dx;a.y+=s.dy;}}
+function advancePlatforms(dt){for(const m of level.moving){const ox=m.actualX,oy=m.actualY;if(m.kind==='elevator'){
+  let active=!m.switch||level.plates.some(p=>p.id===m.switch&&plateOn(p));
+  if(active){m.phase+=m.speed*dt;m.actualY=m.baseY-(m.baseY-m.targetY)*(.5-.5*Math.cos(m.phase));}
+  else{m.phase=0;m.actualY=m.baseY;}
+ }else{m.phase+=m.speed*dt;m.actualX=m.baseX+Math.sin(m.phase)*(m.range||0);}
+ m.dx=m.actualX-ox;m.dy=m.actualY-oy;
+ }}
+function updatePlayer(p,dt){const control=p.type==='fire'?'fire':'water',dir=(key[control+'Right']?1:0)-(key[control+'Left']?1:0);
+ const wasGrounded=p.grounded,fallV=p.vy; if(dir)p.facing=dir;p.stepPhase+=Math.abs(p.vx)*dt*.12;p.landSquash*=Math.pow(.77,dt);p.lean+=(p.vx*.035-p.lean)*Math.min(.17*dt,1);p.dustTimer-=dt;
+ carry(p);p.coyote=p.grounded?7:Math.max(0,p.coyote-dt);
+ if(key[control+'Jump']&&!p.jumpLock){p.buffer=7;p.jumpLock=true;}if(!key[control+'Jump'])p.jumpLock=false;
+ if(p.buffer>0&&p.coyote>0){p.vy=JUMP;p.grounded=false;p.groundId=null;p.coyote=0;p.buffer=0;soundCue('jump');burst(p.x+14,p.y+32,p.type==='fire'?'#ffbd69':'#92e6ff',6);p.landSquash=-.22;}
+ p.buffer=Math.max(0,p.buffer-dt);
+ const icy=p.grounded&&p.y+p.h>=FLOOR-8&&level.ice.some(z=>p.x+p.w>z.x&&p.x<z.x+z.w);p.vx+=dir*(icy?.42:.78)*dt;if(!dir)p.vx*=Math.pow(icy?.979:.78,dt);p.vx=Math.max(-SPEED,Math.min(SPEED,p.vx));if(Math.abs(p.vx)<.045)p.vx=0;
+ const xBefore=p.x;p.x+=p.vx*dt;
+ // Push actual physics crates from the side, but never from above or below.
+ for(const b of level.crates){if(!overlaps(p,b))continue;const dx=p.x-xBefore;if(Math.abs(dx)<.01)continue;const isSide= (dx>0&&xBefore+p.w<=b.x+5)||(dx<0&&xBefore>=b.x+b.w-5);
+ if(isSide){let overlap=dx>0?p.x+p.w-b.x:(b.x+b.w-p.x);if(tryPush(b,Math.sign(dx)*overlap)){p.x=dx>0?b.x-p.w:b.x+b.w;}else{p.x=dx>0?b.x-p.w:b.x+b.w;p.vx=0;}}
+ }
+ for(const wall of colliders()){if(!overlaps(p,wall))continue;if(p.x>=xBefore){p.x=wall.x-p.w;}else{p.x=wall.x+wall.w;}p.vx=0;}
+ p.x=Math.max(8,Math.min(W-p.w-8,p.x));
+ const beforeTop=p.y,beforeBottom=p.y+p.h;
+ p.vy=Math.min(15,p.vy+GRAVITY*dt);p.y+=p.vy*dt;p.grounded=false;p.groundId=null;
+ // Solid crate ceilings. Flat platforms remain intentionally one-way.
+ if(p.vy<0)for(const b of level.crates){if(p.x+p.w>b.x+3&&p.x<b.x+b.w-3&&beforeTop>=b.y+b.h-6&&p.y<=b.y+b.h){p.y=b.y+b.h;p.vy=0;}}
+ if(p.vy>=0){let chosen=null;for(const s of getSurfaces()){if(p.x+p.w>s.x+3&&p.x<s.x+s.w-3&&beforeBottom<=s.y+Math.max(6,Math.abs(s.dy||0)+4)&&p.y+p.h>=s.y){if(!chosen||s.y<chosen.y)chosen=s;}}
+ if(chosen){p.y=chosen.y-p.h;p.vy=0;p.grounded=true;p.groundId=chosen.id;}}
+ if(!wasGrounded&&p.grounded&&fallV>2){p.landSquash=Math.min(.30,.09+fallV*.012);landingDust(p.x+14,p.y+p.h,p.type==='fire'?'#ffc48e':'#b8eeff',Math.min(fallV/10,1.4));if(fallV>5)soundCue('land');}if(p.grounded&&Math.abs(p.vx)>2.1&&p.dustTimer<=0){p.dustTimer=7;landingDust(p.x+14-p.facing*7,p.y+p.h,p.type==='fire'?'#ffc48e':'#b8eeff',.17);}
+ if(p.y>H+35){reset(p.type);return;}
+ p.invuln=Math.max(0,p.invuln-dt/60);
+ if(p.invuln<=0){const feet={x:p.x+6,y:p.y+p.h-10,w:p.w-12,h:13};const bad=level.hazards.find(h=>h.type!==p.type&&overlaps(feet,{x:h.x,y:FLOOR-10,w:h.w,h:21}));if(bad){reset(p.type);return;}}
+ // A fire character melts touchable ice barriers.
+ if(p.type==='fire'){for(const b of level.iceBlocks){if(!b.melted&&p.x+p.w>b.x-48&&p.x<b.x+b.w+36&&p.y+p.h>b.y-24){b.melted=true;soundCue('melt');burst(b.x+b.w/2,b.y+b.h*.45,'#b7f7ff',28);}}}
+ // Linked portals teleport each character independently, with cooldown to avoid ping-pong.
+ p.portalCooldown=Math.max(0,p.portalCooldown-dt);
+ if(p.portalCooldown<=0){for(const port of level.portals){if(overlaps({x:p.x+5,y:p.y+7,w:p.w-10,h:p.h-9},{x:port.x,y:port.y,w:48,h:73})){const dst=level.portals.find(z=>z.id===port.target);if(dst){burst(p.x+14,p.y+18,'#dfb7ff',15);p.x=Math.min(W-p.w-9,dst.x+52);p.y=dst.y+73-p.h;p.vx=0;p.vy=0;p.portalCooldown=95;burst(p.x+14,p.y+18,'#dfb7ff',15);soundCue('portal');}break;}}}
+ p.trail.push({x:p.x+p.w/2,y:p.y+p.h*.48});if(p.trail.length>9)p.trail.shift();
+ for(const gem of level.gems){if(!gem.collected&&gem.type===p.type){const dx=p.x+p.w/2-gem.x,dy=p.y+p.h/2-gem.y;if(dx*dx+dy*dy<37*37){gem.collected=true;soundCue('gem');burst(gem.x,gem.y,p.type==='fire'?'#ffc67c':'#93e9ff',14);updateHud();}}}
+}
+function updateCrate(b,dt){carry(b);const prevY=b.y,prevBottom=b.y+b.h;b.vy=Math.min(12,b.vy+GRAVITY*dt);b.y+=b.vy*dt;b.grounded=false;b.groundId=null;
+ let chosen=null;for(const s of getSurfaces(false)){if(b.x+b.w>s.x+4&&b.x<s.x+s.w-4&&prevBottom<=s.y+7&&b.y+b.h>=s.y){if(!chosen||s.y<chosen.y)chosen=s;}}
+ for(const other of level.crates){if(other===b)continue;if(b.x+b.w>other.x+5&&b.x<other.x+other.w-5&&prevBottom<=other.y+6&&b.y+b.h>=other.y){if(!chosen||other.y<chosen.y)chosen={id:other.id,y:other.y};}}
+ if(chosen){b.y=chosen.y-b.h;b.vy=0;b.grounded=true;b.groundId=chosen.id;}
+ if(b.y>H+30){b.x=b.spawnX??b.initialX;b.y=FLOOR-b.h;b.vy=0;}
+ b.dy=b.y-prevY;
+}
+function updatePlates(dt){for(const p of level.plates){const y=p.y??FLOOR;const onTop=(a)=>a.x+a.w>p.x+7&&a.x<p.x+p.w-7&&Math.abs(a.y+a.h-y)<12;
+ const characters=p.type==='box'?false:players.some(a=>(p.type==='any'||p.type===a.type)&&onTop(a));const boxes=(p.type==='box'||p.type==='any')&&level.crates.some(onTop);
+ p.active=characters||boxes;if(p.active){if(p.mode==='latch')p.latched=true;if(p.mode==='timer')p.remaining=p.duration||5;}else if(p.remaining>0)p.remaining=Math.max(0,p.remaining-dt/60);
+ }
+ // Sequence panels activate only on a new press: both players must actually traverse the route in order.
+ for(const seq of level.sequences){if(seq.completed)continue;
+   const events=level.plates.filter(p=>p.mode==='sequence'&&seq.order.includes(p.id)&&p.active&&!p.wasActive);
+   for(const p of events){if(seq.order[seq.progress]===p.id){seq.progress++;soundCue('lever');burst(p.x+p.w/2,(p.y??FLOOR)-3,'#ffe2ad',13);if(seq.progress>=seq.order.length){seq.completed=true;soundCue('gate');}}
+     else{seq.progress=p.id===seq.order[0]?1:0;burst(p.x+p.w/2,(p.y??FLOOR)-3,'#ff8675',9);}}
+ }
+ for(const p of level.plates)p.wasActive=p.active;
+ for(const g of level.gates){const before=g.open;const all=g.requires.every(id=>triggerOn(id));if(all&&g.mode==='latch')g.latched=true;
+ if(g.mode==='hold'&&players.every(p=>p.x+p.w/2>=g.x+26))g.latched=true;
+ let desired=g.latched||all;
+ // Never close a gate through a character or crate.
+ if(!desired){const area={x:g.x,y:g.y,w:25,h:g.h};if(players.some(p=>overlaps(p,area))||level.crates.some(b=>overlaps(b,area)))desired=true;}
+ g.open=desired;
+ if(g.open&&!before){soundCue('gate');burst(g.x+12,g.y+70,'#a7e9fa',17);}
+ }}
+function update(dt){const parts=Math.ceil(dt),sub=dt/parts;for(let k=0;k<parts;k++){
+ elapsed+=sub/60;if(!run.finished){run.seconds+=sub/60;runSaveTick+=sub/60;if(runSaveTick>=5){runSaveTick=0;saveProgress();}}frame+=sub;
+ level.crates.forEach(b=>{b.dx=0;b.dy=0;});advancePlatforms(sub);
+ for(const p of players){updatePlayer(p,sub);if(resetThisFrame)break;}
+ if(resetThisFrame){resetThisFrame=false;break;}
+ for(const b of level.crates)updateCrate(b,sub);
+ updateLight();
+ for(const lv of level.levers){if(lv.mode==='timer'&&lv.remaining>0){lv.remaining=Math.max(0,lv.remaining-sub/60);lv.active=lv.remaining>0;}}
+ updatePlates(sub);
+ for(const p of players){const doorX=p.type==='fire'?884:942;p.ready=(Math.abs(p.x+p.w/2-doorX)<22&&p.y+p.h>=FLOOR-6);}
+ if(players.every(p=>p.ready)&&level.gates.every(g=>g.open)){onComplete();break;}
+ if(flash>0)flash=Math.max(0,flash-.018*sub);
+ }
+ if(Math.floor(elapsed*2)!==Math.floor((elapsed-dt/60)*2))updateHud();
+}
+
+function rounded(x,y,w,h,r,fill){ctx.fillStyle=fill;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill();}
+function text(s,x,y,size,color='#fff',align='left',weight=800){ctx.save();ctx.fillStyle=color;ctx.textAlign=align;ctx.textBaseline='middle';ctx.font=`${weight} ${size}px system-ui,-apple-system,'Malgun Gothic',sans-serif`;ctx.fillText(s,x,y);ctx.restore();}
+
+function polygon(points,fill,stroke=null,sw=1){ctx.beginPath();ctx.moveTo(points[0][0],points[0][1]);for(let j=1;j<points.length;j++)ctx.lineTo(points[j][0],points[j][1]);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=sw;ctx.stroke();}}
+function halo(x,y,r,color){let glow=ctx.createRadialGradient(x,y,1,x,y,r);glow.addColorStop(0,color);glow.addColorStop(1,'#00000000');ctx.fillStyle=glow;ctx.fillRect(x-r,y-r,r*2,r*2);}
+function line(x1,y1,x2,y2,color,width=2){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}
+function gear(cx,cy,r,count=12,rot=0,alpha=.6){ctx.save();ctx.translate(cx,cy);ctx.rotate(rot);ctx.globalAlpha=alpha;ctx.fillStyle='#6c6671';ctx.strokeStyle='#bfae9c';ctx.lineWidth=4;for(let k=0;k<count;k++){ctx.save();ctx.rotate(k*2*Math.PI/count);rounded(r-5,-7,18,14,2,'#847879');ctx.restore();}ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.lineWidth=10;ctx.stroke();ctx.beginPath();ctx.arc(0,0,r*.56,0,7);ctx.lineWidth=4;ctx.stroke();for(let i=0;i<6;i++){let a=i*Math.PI/3;line(Math.cos(a)*r*.6,Math.sin(a)*r*.6,Math.cos(a)*r*.96,Math.sin(a)*r*.96,'#a08f86',3);}ctx.restore();}
+function scenicForest(){
+ halo(746,173,320,'#8be1ac28');for(let k=0;k<7;k++){let x=65+k*155,y=360+(k%3)*24;ctx.fillStyle='#173c466e';ctx.beginPath();ctx.moveTo(x-100,492);ctx.quadraticCurveTo(x-35,y-85,x,y);ctx.quadraticCurveTo(x+50,y-80,x+115,490);ctx.fill();}
+ for(let j=0;j<11;j++){let x=j*111+10+(j%2)*20;let h=200+j%4*48;rounded(x,490-h,15+(j%3)*5,h+35,7,'#173c3f8a');polygon([[x-40,490-h+76],[x+7,490-h-45],[x+58,490-h+76]],'#1c494866');polygon([[x-35,490-h+32],[x+8,490-h-80],[x+53,490-h+32]],'#2d615455');}
+ for(let j=0;j<9;j++){let x=(j*139+80)%960;ctx.strokeStyle='#7bc89835';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,0);ctx.bezierCurveTo(x+30,45,x-20,95,x+15,125+j%3*10);ctx.stroke();for(let k=0;k<3;k++){let y=42+k*22;polygon([[x+9,y],[x+31,y+5],[x+12,y+13]],'#7fca9565');}}
+}
+function scenicLight(){
+ halo(772,150,350,'#ffe1ad35');ctx.save();ctx.globalAlpha=.56;ctx.strokeStyle='#ffe8bb5e';for(let i=0;i<11;i++){let a=(i/11)*Math.PI*2+frame*.00018;line(772,155,772+Math.cos(a)*550,155+Math.sin(a)*550,'#f6e2ba1e',28);}ctx.restore();
+ for(let j=0;j<8;j++){let x=52+j*145;rounded(x,205,65,328,10,'#263c60a9');rounded(x-11,192,86,19,4,'#69758d88');rounded(x-17,179,97,12,4,'#ad998073');rounded(x+5,213,11,310,3,'#c5a98826');}
+ for(let j=0;j<4;j++){let x=109+j*253;rounded(x,248,80,189,[40,40,3,3],'#263a6188');rounded(x+8,259,64,168,[32,32,3,3],'#47708c33');for(let k=0;k<4;k++){let cc=['#e3a97a55','#9ce1e555','#dbc69f55','#a5a7e455'][k];polygon([[x+40,267+k*38],[x+11,283+k*38],[x+40,300+k*38],[x+69,283+k*38]],cc);}}
+}
+function scenicIce(){
+ halo(746,158,330,'#c3e9ff30');for(let j=0;j<8;j++){let x=j*160-90;polygon([[x,456],[x+88,209+(j%3)*34],[x+200,456]],'#43698a6b');polygon([[x+46,327],[x+88,209+(j%3)*34],[x+132,327],[x+91,301]],'#c4eef166');}
+ for(let k=0;k<20;k++){let x=k*57-20,y=-10-(k%4)*10,len=32+(k*17)%99;polygon([[x-17,y],[x+22,y],[x+2,y+len]],k%3?'#b6eafa44':'#93d8f36b','#b7eaff33');}
+ for(let j=0;j<5;j++){let x=160+j*212;polygon([[x,532],[x+26,376-j%2*25],[x+55,532]],'#96cddc33');}
+}
+function scenicCrystal(){
+ halo(690,168,380,'#dca9ff38');for(let i=0;i<11;i++){let x=65+i*94,y=450+(i%3)*18;polygon([[x-33,y],[x-12,290-(i%3)*31],[x+25,252-(i%3)*24],[x+46,y]],i%2?'#6a70b075':'#8f64b56c','#bca3ff2a',2);polygon([[x-12,290-(i%3)*31],[x+25,252-(i%3)*24],[x+14,y]],'#c1a0ff24');}
+ for(let j=0;j<10;j++){let x=59+j*103;let yy=90+(j%4)*42;polygon([[x,yy],[x+12,yy-19],[x+25,yy],[x+11,yy+23]],'#dbc3ff24','#d5a9ff2e');}
+}
+function scenicTime(){
+ halo(740,165,350,'#eebc8a30');for(let j=0;j<7;j++){let x=37+j*166;rounded(x,252,76,275,7,'#4c3b4a95');rounded(x-12,234,100,22,5,'#7d645e81');for(let k=0;k<7;k++)rounded(x+9+k%2*33,274+k*31,15,8,3,'#a77f6e30');}
+ for(let i=0;i<5;i++){let x=138+i*215,y=202+(i%2)*70;gear(x,y,57+i%2*20,12,frame*.0015*(i%2?-1:1),'#a9a0a0');}
+ for(let i=0;i<4;i++){let x=100+i*253;ctx.strokeStyle='#d4aa8055';ctx.lineWidth=4;ctx.beginPath();ctx.arc(x,152,40,0,7);ctx.stroke();line(x,152,x+23*Math.sin(frame*.004+i),152-20*Math.cos(frame*.004+i),'#f8d3a669',3);line(x,152,x-17*Math.cos(frame*.002+i),152+13*Math.sin(frame*.002+i),'#f8d3a669',2);}
+}
+function background(){const palettes=[['#102c3b','#42685a','#071c2e'],['#172748','#4b6685','#12243f'],['#16334f','#648bad','#173953'],['#251c47','#645285','#201a42'],['#38283e','#716070','#211e37']];const cs=palettes[chosenWorld];
+ const gr=ctx.createLinearGradient(0,0,0,H);gr.addColorStop(0,cs[0]);gr.addColorStop(.73,cs[1]);gr.addColorStop(1,cs[2]);ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
+ halo(738,128,360,['#8bedad26','#fff4bb30','#d8faff37','#e5b3ff32','#ffc89930'][chosenWorld]);
+ // subtle parallax twinkles, with deterministic world-scoped positions
+ for(let i=0;i<55;i++){let xx=(i*193+39+chosenWorld*17)%W,yy=(i*89+17)%365;let bright=.17+.28*Math.abs(Math.sin(frame*.014+i*3));ctx.globalAlpha=bright;ctx.fillStyle=chosenWorld===4?'#ffe4ad':'#d8ecff';ctx.beginPath();ctx.arc(xx,yy,1+(i%4===0?1:0),0,7);ctx.fill();}ctx.globalAlpha=1;
+ // far away cliff ridges
+ polygon([[0,420],...Array.from({length:24},(_,i)=>[i*46,360+34*Math.sin(i*.7)+i%3*7]),[1000,590],[0,590]],'#091f3655');
+ [scenicForest,scenicLight,scenicIce,scenicCrystal,scenicTime][chosenWorld]();
+ polygon([[0,478],...Array.from({length:26},(_,i)=>[i*42,467+18*Math.sin(i*.62)+11*Math.cos(i*.33)]),[1000,590],[0,590]],'#07182e57');
+ // Decorative chapter engraving, behind the actual playfield
+ ctx.globalAlpha=.88;text(`${WORLDS[chosenWorld].icon} ${WORLDS[chosenWorld].name} · ${current%6+1}`,29,92,13,'#eaf8ff',800);text(level.subtitle,29,118,17,'#ffe2a5',900);ctx.globalAlpha=1;
+}
+function drawGround(){const cs=[['#22483d','#67bd97'],['#354460','#eac58b'],['#244e66','#9bdef6'],['#3a355d','#bfa9f8'],['#483c4d','#dfb188']][chosenWorld];
+ ctx.fillStyle=cs[0];ctx.fillRect(0,FLOOR,W,H-FLOOR);let grad=ctx.createLinearGradient(0,FLOOR,0,FLOOR+45);grad.addColorStop(0,cs[1]);grad.addColorStop(.2,cs[0]);grad.addColorStop(1,'#10283a');ctx.fillStyle=grad;ctx.fillRect(0,FLOOR,W,36);
+ ctx.globalAlpha=.65;line(0,FLOOR+5,W,FLOOR+5,cs[1],3);ctx.globalAlpha=.42;for(let i=0;i<23;i++){let x=i*49,off=i%2*18;line(x,FLOOR+20,x+32,FLOOR+20,'#9fb5bd',3);line(x+off,FLOOR+37,x+off+26,FLOOR+37,'#93a9bb',2);line(x+off,FLOOR+55,x+off+30,FLOOR+55,'#d3bbac',1);}ctx.globalAlpha=1;
+}
+function drawPlatform(s,moving=false){const x=moving?s.actualX:s.x,y=moving?s.actualY:s.y,w=s.w;const colors=[['#4e9278','#aceec6'],['#9d8d74','#ffe1ae'],['#73b5ca','#e0f8ff'],['#8d74c4','#e7cbff'],['#a18684','#f8d7ac']][chosenWorld],core=colors[0],trim=colors[1];
+ ctx.save();ctx.shadowColor='#0009';ctx.shadowOffsetY=5;ctx.shadowBlur=10;rounded(x,y,w,15,5,'#18313c');ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+ rounded(x,y-6,w,12,6,moving?'#90d5c8':core);rounded(x+4,y-4,w-8,4,3,trim);rounded(x+6,y+9,w-12,5,2,'#173444');for(let i=16;i<w-12;i+=34){rounded(x+i,y+12,13,8,2,'#29485a');if(moving)rounded(x+i,y-3,5,4,2,'#fff9');}ctx.restore();
+}
+function drawHazard(h){const colors={fire:['#fc6e48','#ffb75e','#7b2c3b'],water:['#3db8f9','#82eaff','#175b8b'],toxic:['#6cca6b','#adf27a','#2e733c']},co=colors[h.type];const y=FLOOR-9;
+ rounded(h.x,y,h.w,15,5,co[2]);ctx.save();ctx.beginPath();ctx.rect(h.x,y-7,h.w,25);ctx.clip();ctx.beginPath();ctx.moveTo(h.x,y+3);for(let x=h.x;x<=h.x+h.w+5;x+=5)ctx.lineTo(x,y+3+3*Math.sin(x*.09+frame*.085));ctx.lineTo(h.x+h.w,y+25);ctx.lineTo(h.x,y+25);ctx.closePath();ctx.fillStyle=co[0];ctx.fill();
+ for(let j=0;j<5;j++){let x=h.x+10+((j*31+(frame*.7)*(j%2?1:-1))%(Math.max(1,h.w-20))+(Math.max(1,h.w-20)))%(Math.max(1,h.w-20));let dy=3+Math.sin(frame*.06+j)*3;ctx.globalAlpha=.6;ctx.fillStyle=co[1];ctx.beginPath();ctx.arc(x,y+dy,2+j%2,0,7);ctx.fill();}ctx.globalAlpha=1;ctx.restore();}
+
+function drawGem(g){if(g.collected)return;const col=g.type==='fire'?'#ffbd7c':'#89e8ff',outer=g.type==='fire'?'#e36f54':'#2798d8';let bob=Math.sin(frame*.07+(g.type==='fire'?0:2))*5;ctx.save();ctx.translate(g.x,g.y+bob);ctx.rotate(Math.sin(frame*.023)*.12);ctx.shadowBlur=24;ctx.shadowColor=col;polygon([[0,-16],[13,-5],[10,7],[0,17],[-10,7],[-13,-5]],outer);polygon([[0,-14],[11,-4],[0,13],[-11,-4]],col);polygon([[0,-14],[0,13],[-10,-4]],'#ffffff66');polygon([[0,-14],[10,-4],[0,1]],'#fff8');ctx.shadowBlur=0;let shine=(Math.sin(frame*.065+g.x)*.5+.5);ctx.strokeStyle=`rgba(255,255,255,${.2+shine*.65})`;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(-19,0);ctx.lineTo(-12,0);ctx.moveTo(15,0);ctx.lineTo(22,0);ctx.moveTo(0,-23);ctx.lineTo(0,-18);ctx.stroke();ctx.restore();}
+function drawDoor(type,x){const fire=type==='fire',p=players.find(q=>q.type===type),ready=p.ready,col=fire?'#ffb478':'#83deff',base=fire?'#593845':'#294966',y=FLOOR-78;
+ ctx.save();ctx.shadowColor=col;ctx.shadowBlur=ready?25:9;rounded(x-28,y,56,78,[29,29,4,4],'#41526d');ctx.shadowBlur=0;rounded(x-23,y+5,46,74,[24,24,3,3],base);ctx.strokeStyle=ready?col:'#839bb7';ctx.lineWidth=3;ctx.beginPath();ctx.roundRect(x-24,y+3,48,76,[25,25,3,3]);ctx.stroke();
+ const orb=ctx.createRadialGradient(x,y+42,3,x,y+43,31);orb.addColorStop(0,ready?col:fire?'#ff9d5270':'#6fd6fc77');orb.addColorStop(1,'#111a3600');ctx.fillStyle=orb;ctx.fillRect(x-24,y+12,48,66);
+ ctx.globalAlpha=ready?.95:.62;ctx.fillStyle=col;ctx.beginPath();ctx.ellipse(x,y+46,10,22,0,0,7);ctx.fill();ctx.globalAlpha=1;
+ text(fire?'🔥':'💧',x,y+25,21,'#fff','center');text(fire?'불꽃':'물방울',x,y-14,13,'#fff','center');if(ready){ctx.strokeStyle=col;ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y+43,15+Math.sin(frame*.1)*2,0,7);ctx.stroke();}ctx.restore();}
+function drawPlayer(p){
+ const fire=p.type==='fire',main=fire?'#fa8c4f':'#64d5fc',light=fire?'#ffe4a3':'#e4fdff',dark=fire?'#bc524b':'#3294be';
+ if(p.invuln>0&&Math.floor(frame*.3)%2===0)return;
+ ctx.save();for(let i=0;i<p.trail.length;i+=2){const a=p.trail[i];ctx.globalAlpha=(i/p.trail.length)*.13;ctx.fillStyle=main;ctx.beginPath();ctx.ellipse(a.x,a.y,10,13,0,0,7);ctx.fill();}ctx.globalAlpha=1;
+ const x=p.x+p.w/2,y=p.y+p.h/2;if(p.grounded){ctx.fillStyle='#08172575';ctx.beginPath();ctx.ellipse(x,p.y+p.h+2,15+Math.abs(p.vx),3.4,0,0,7);ctx.fill();}
+ ctx.translate(x,y);const walking=p.grounded&&Math.abs(p.vx)>.7;const swing=walking?Math.sin(p.stepPhase*2.3)*Math.min(1.0,Math.abs(p.vx)/3.5):0;
+ const fly=p.grounded?0:(p.vy<0?-1:1);const bob=p.grounded?Math.sin(frame*.068+p.blinkOffset)*.75:0;
+ ctx.translate(0,bob);ctx.rotate(p.lean*.26);ctx.scale(1+p.landSquash,1-p.landSquash);
+ ctx.scale(p.facing,1);
+ // tiny animated legs and shoes
+ ctx.fillStyle=dark;rounded(-10+swing*2,13,8,6+Math.abs(swing)*2,3,dark);rounded(3-swing*2,13,8,6+Math.abs(swing)*2,3,dark);
+ ctx.fillStyle=light;rounded(-11+swing*2,17,10,4,2,light);rounded(3-swing*2,17,10,4,2,light);
+ // visible arms; bob while running or reaching forward in air
+ ctx.strokeStyle=dark;ctx.lineWidth=4.2;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(-9,1);ctx.lineTo(-13,(walking?-4+swing*4:5)-fly*3);ctx.moveTo(9,1);ctx.lineTo(13,(walking?-4-swing*4:5)-fly*3);ctx.stroke();
+ ctx.shadowColor=main;ctx.shadowBlur=17;
+ if(fire){
+  const flicker=reduceMotion?0:Math.sin(frame*.17+p.blinkOffset)*2.1;
+  ctx.fillStyle='#ffab58';ctx.beginPath();ctx.moveTo(-12,10);ctx.bezierCurveTo(-19,-3,-10,-9,-7,-19+flicker);ctx.bezierCurveTo(-2,-14,0,-20,5,-24+flicker);ctx.bezierCurveTo(7,-15,19,-12,15,6);ctx.quadraticCurveTo(10,19,0,17);ctx.quadraticCurveTo(-9,19,-12,10);ctx.fill();
+  ctx.fillStyle='#f16e4a';ctx.beginPath();ctx.moveTo(5,-21+flicker);ctx.bezierCurveTo(18,-12,18,-2,12,13);ctx.quadraticCurveTo(6,19,2,16);ctx.bezierCurveTo(9,2,5,-10,5,-21+flicker);ctx.fill();
+  ctx.fillStyle='#ffe0a0';ctx.beginPath();ctx.ellipse(-2,5,10,11,-.15,0,7);ctx.fill();
+ }else{
+  const wobble=reduceMotion?0:Math.sin(frame*.13+p.blinkOffset)*1.1;
+  ctx.fillStyle='#65d6f7';ctx.beginPath();ctx.moveTo(1,-24+wobble);ctx.bezierCurveTo(-5,-12,-17,-6,-15,7);ctx.bezierCurveTo(-12,21,15,21,16,6);ctx.bezierCurveTo(18,-5,7,-16,1,-24+wobble);ctx.fill();
+  ctx.fillStyle='#368ed0';ctx.beginPath();ctx.moveTo(1,-24+wobble);ctx.bezierCurveTo(13,-5,13,5,8,16);ctx.bezierCurveTo(20,11,15,-6,1,-24+wobble);ctx.fill();
+  ctx.fillStyle='#b4f2ff';ctx.beginPath();ctx.ellipse(-6,7,6,8,.18,0,7);ctx.fill();
+ }
+ ctx.shadowBlur=0;
+ // bright, expressive face: animated wink, cheek and curved smile
+ ctx.fillStyle=fire?'#663541':'#24485d';let blink=(frame+p.blinkOffset)%245>236;for(let xx of [-5.8,6]){if(blink){ctx.strokeStyle=fire?'#663541':'#24485d';ctx.lineWidth=1.9;ctx.beginPath();ctx.moveTo(xx-2,1);ctx.lineTo(xx+2,1);ctx.stroke();}else{ctx.beginPath();ctx.ellipse(xx,0,2.1,3,0,0,7);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(xx-.8,-1,0.8,0,7);ctx.fill();ctx.fillStyle=fire?'#663541':'#24485d';}}
+ ctx.fillStyle=fire?'#f28e81':'#6fc5ec';ctx.globalAlpha=.56;ctx.beginPath();ctx.ellipse(-10,6,3.1,1.7,0,0,7);ctx.ellipse(10,6,3.1,1.7,0,0,7);ctx.fill();ctx.globalAlpha=1;
+ ctx.strokeStyle=fire?'#874c4b':'#397894';ctx.lineWidth=1.6;ctx.lineCap='round';ctx.beginPath();ctx.arc(.3,5.2,3.2,.15,Math.PI-.15);ctx.stroke();
+ ctx.restore();
+ // distinct player label tucked above the physical character
+ ctx.save();ctx.fillStyle=fire?'#ffc18c':'#9febff';ctx.textAlign='center';ctx.font='900 11px system-ui';ctx.fillText(fire?'1P':'2P',x,p.y-13);ctx.restore();
+}
+function drawParticles(){ctx.save();for(let i=particles.length-1;i>=0;i--){let p=particles[i];p.x+=p.vx;p.y+=p.vy;p.vx*=.992;p.vy+=p.kind==='dust'?.027:.08;p.life--;let alpha=Math.min(1,p.life/14);ctx.globalAlpha=alpha;ctx.fillStyle=p.color;if(p.kind==='dust'){ctx.beginPath();ctx.ellipse(p.x,p.y,p.r*1.5,p.r*.65,0,0,7);ctx.fill();}else{ctx.shadowBlur=5;ctx.shadowColor=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();}if(p.life<=0)particles.splice(i,1);}ctx.globalAlpha=1;ctx.shadowBlur=0;ctx.restore();}
+function drawCrate(b){ctx.save();const x=b.x,y=b.y;ctx.shadowColor='#060f1b';ctx.shadowBlur=6;ctx.shadowOffsetY=3;rounded(x,y,b.w,b.h,5,'#6d422f');ctx.shadowBlur=0;ctx.shadowOffsetY=0;rounded(x+3,y+3,b.w-6,b.h-6,4,'#bb8356');rounded(x+7,y+7,b.w-14,b.h-14,2,'#916143');ctx.strokeStyle='#efc88e';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x+8,y+8);ctx.lineTo(x+b.w-8,y+b.h-8);ctx.moveTo(x+b.w-8,y+8);ctx.lineTo(x+8,y+b.h-8);ctx.stroke();rounded(x+3,y+2,b.w-6,5,2,'#dfaf74');ctx.restore();}
+function drawPlate(p){const y=p.y??FLOOR,col=p.type==='fire'?'#ff9a64':p.type==='water'?'#6bd7ff':p.type==='box'?'#ffd572':'#dbbaff',active=plateOn(p);
+ ctx.save();ctx.shadowBlur=active?17:0;ctx.shadowColor=col;rounded(p.x,y-9,p.w,9,4,active?col:'#526d7e');ctx.shadowBlur=0;rounded(p.x+7,y-15,p.w-14,6,3,active?col:'#adbed0');ctx.restore();
+ const ss=level.sequences.find(s=>s.order.includes(p.id));const plateLabel=p.mode==='sequence'?(p.type==='fire'?'🔥':'💧')+(ss?ss.order.indexOf(p.id)+1:'?'):(p.type==='fire'?'🔥':p.type==='water'?'💧':p.type==='box'?'📦':'⚡');text(plateLabel,p.x+p.w/2,y-32,19,'#fff','center');if(p.latched)text('✓',p.x+p.w/2,y-53,16,'#d7ffd4','center');if(p.mode==='timer'&&p.remaining>0)text(p.remaining.toFixed(1)+'초',p.x+p.w/2,y-57,14,'#fff1a3','center');}
+function drawGate(g){let col=g.requires.includes('f')&&g.requires.includes('w')?'#dbb0ff':g.requires.some(t=>t==='box')?'#ffcc7c':g.requires.some(t=>t==='high'||t==='upper')?'#a6ddff':'#72d9ff';if(g.open){ctx.globalAlpha=.20;rounded(g.x,g.y,25,g.h,6,col);ctx.globalAlpha=1;for(let i=0;i<5;i++){ctx.globalAlpha=.2+.28*Math.sin(frame*.07+i);ctx.fillStyle=col;ctx.fillRect(g.x+12,g.y+18+i*44,2,14);}ctx.globalAlpha=1;return;}ctx.shadowColor=col;ctx.shadowBlur=13;rounded(g.x,g.y,25,g.h,6,'#294360');ctx.shadowBlur=0;rounded(g.x+8,g.y+5,9,g.h-10,3,col);for(let y=g.y+16;y<g.y+g.h-6;y+=32)rounded(g.x-5,y,35,8,3,'#304f70');rounded(g.x-7,g.y-6,39,13,5,'#819bb5');text('◆',g.x+12,g.y-22,18,col,'center');}
+function drawElevator(m){const x=m.actualX,y=m.actualY;ctx.save();const isOn=!m.switch||level.plates.some(p=>p.id===m.switch&&plateOn(p));ctx.setLineDash([5,7]);ctx.strokeStyle='#a2eaf078';ctx.lineWidth=3;for(const railX of [x+17,x+m.w-17]){ctx.beginPath();ctx.moveTo(railX,m.targetY-22);ctx.lineTo(railX,m.baseY+22);ctx.stroke();}ctx.setLineDash([]);ctx.shadowColor='#94e9e3';ctx.shadowBlur=isOn?15:0;rounded(x,y,m.w,16,6,'#274a5f');rounded(x,y-5,m.w,11,5,isOn?'#86dce2':'#637b8c');rounded(x+8,y-3,m.w-16,5,3,isOn?'#d6ffeb':'#acc4d0');ctx.shadowBlur=0;for(let i=0;i<3;i++)text('◆',x+17+i*(m.w-34)/2,y+6,10,'#d0edf2','center');ctx.restore();}
+function drawIce(){for(const s of level.ice){rounded(s.x,FLOOR-11,s.w,15,4,'#91d8ee');rounded(s.x+3,FLOOR-9,s.w-6,6,3,'#e3fdff');ctx.save();ctx.strokeStyle='#9adaff';ctx.globalAlpha=.6;for(let x=s.x+24;x<s.x+s.w;x+=34){ctx.beginPath();ctx.moveTo(x,FLOOR-7);ctx.lineTo(x+9,FLOOR+3);ctx.stroke();}ctx.restore();}for(const b of level.iceBlocks){if(b.melted)continue;ctx.save();ctx.shadowBlur=17;ctx.shadowColor='#6dd6ff';rounded(b.x,b.y,b.w,b.h,7,'#8eddf5');rounded(b.x+6,b.y+7,b.w-12,b.h-14,5,'#c2f3ff');ctx.strokeStyle='#78b6d3';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(b.x+10,b.y+22);ctx.lineTo(b.x+b.w-10,b.y+65);ctx.lineTo(b.x+12,b.y+104);ctx.stroke();ctx.restore();text('🔥',b.x+b.w/2,b.y-15,16,'#fff','center');}}
+function drawLight(){for(const e of level.emitters){ctx.save();ctx.shadowBlur=12;ctx.shadowColor='#ffe7a0';rounded(e.x-9,e.y-12,20,24,7,'#baa574');rounded(e.x-4,e.y-7,14,13,5,'#fff1c0');ctx.restore();}
+ for(const ray of level.beamLines){ctx.save();ctx.strokeStyle='#ffedb2';ctx.lineWidth=3;ctx.shadowBlur=18;ctx.shadowColor='#fff0b4';ctx.beginPath();ctx.moveTo(ray.x1,ray.y1);ctx.lineTo(ray.x2,ray.y2);ctx.stroke();ctx.restore();}
+ for(const s of level.sensors){ctx.save();ctx.shadowBlur=s.on?21:0;ctx.shadowColor='#ffe8a0';rounded(s.x-14,s.y-14,28,28,7,s.on?'#ffe6a5':'#50647c');rounded(s.x-8,s.y-8,16,16,4,s.on?'#fff9ca':'#a2a6be');ctx.restore();text(s.on?'✓':'◇',s.x,s.y-28,14,s.on?'#fff2c3':'#c2d0ec','center');}
+ for(const m of level.mirrors){ctx.save();ctx.translate(m.x,m.y);ctx.shadowBlur=9;ctx.shadowColor='#c9f1fa';rounded(-15,-18,30,36,8,'#47657e');ctx.lineWidth=5;ctx.strokeStyle='#e7ffff';ctx.beginPath();if(m.state===1){ctx.moveTo(-11,11);ctx.lineTo(11,-11);}else{ctx.moveTo(-11,-11);ctx.lineTo(11,11);}ctx.stroke();ctx.restore();text('E / ↓',m.x,m.y-39,12,'#fff5d3','center');}}
+function drawLevers(){for(const l of level.levers){const on=l.active||l.remaining>0;ctx.save();ctx.shadowBlur=on?12:0;ctx.shadowColor='#ffeaaa';rounded(l.x-19,l.y+8,38,20,7,'#576c7f');rounded(l.x-11,l.y+17,22,8,4,'#d1a66d');ctx.strokeStyle=on?'#ffe39b':'#a9b9c9';ctx.lineWidth=6;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(l.x,l.y+10);ctx.lineTo(l.x+(on?14:-12),l.y-11);ctx.stroke();ctx.restore();text(l.mode==='timer'&&l.remaining>0?l.remaining.toFixed(1)+'초':on?'ON':'E / ↓',l.x,l.y-30,12,on?'#fff0a1':'#e8f0f9','center');}}
+function drawPortals(){for(const p of level.portals){const col=p.color==='pink'?'#ffb1e6':'#b8a5ff';ctx.save();ctx.translate(p.x+24,p.y+35);ctx.shadowColor=col;ctx.shadowBlur=26;ctx.strokeStyle=col;ctx.lineWidth=7;ctx.beginPath();ctx.ellipse(0,0,23,35,0,0,7);ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle=p.color==='pink'?'#a742894e':'#6146ab5c';ctx.beginPath();ctx.ellipse(0,0,18,31,0,0,7);ctx.fill();for(let k=0;k<3;k++){ctx.strokeStyle=k===0?'#fff7':col;ctx.globalAlpha=.64-k*.15;ctx.lineWidth=1.7;ctx.beginPath();ctx.ellipse(0,0,9+k*4,17+k*5,frame*.008*(k%2?1:-1)+k,0,Math.PI*1.55);ctx.stroke();}ctx.globalAlpha=1;for(let k=0;k<4;k++){let a=frame*.027+k*1.57;ctx.fillStyle=col;ctx.beginPath();ctx.arc(Math.cos(a)*14,Math.sin(a)*24,1.7,0,7);ctx.fill();}ctx.restore();text('✦',p.x+24,p.y-12,16,col,'center');}}
+function drawTheme(){ctx.save();if(chosenWorld===0){for(let i=0;i<19;i++){let x=(i*137+83)%980,y=116+(i*67)%330;ctx.globalAlpha=.25+.21*Math.sin(frame*.025+i);ctx.fillStyle='#b9f4b5';ctx.beginPath();ctx.arc(x+Math.sin(frame*.009+i)*4,y+Math.sin(frame*.014+i)*7,1.5+i%3*.4,0,7);ctx.fill();}}
+ if(chosenWorld===1){for(let i=0;i<6;i++){let x=112+i*176;ctx.globalAlpha=.09;ctx.fillStyle='#fff0ba';ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x-65,470);ctx.lineTo(x+90,470);ctx.fill();}}
+ if(chosenWorld===2){for(let i=0;i<30;i++){let x=(i*91+frame*.23)%1050,y=(i*173+frame*.48)%490;ctx.globalAlpha=.3;ctx.fillStyle='#efffff';ctx.beginPath();ctx.arc(x,y,1+i%3*.65,0,7);ctx.fill();}}
+ if(chosenWorld===3){for(let i=0;i<10;i++){let x=(i*133+42)%985,y=(i*127+101)%420;ctx.globalAlpha=.3;ctx.strokeStyle='#e9c8ff';ctx.lineWidth=2;ctx.save();ctx.translate(x,y+Math.sin(frame*.02+i)*5);ctx.rotate(frame*.004+(i%3)*.9);ctx.strokeRect(-4,-4,8,8);ctx.restore();}}
+ if(chosenWorld===4){for(let i=0;i<18;i++){let x=(i*153+frame*.18)%1010,y=90+(i*81)%360;ctx.globalAlpha=.25+.2*Math.sin(frame*.02+i);ctx.fillStyle='#ffd8a1';ctx.fillRect(x,y,2,5);}}
+ ctx.globalAlpha=1;ctx.restore();}
+function render(){ctx.clearRect(0,0,W,H);background();drawTheme();for(let j=0;j<level.sequences.length;j++){const s=level.sequences[j];rounded(720,143+j*26,245,23,10,'#142d4ccc');text(`🧩 순서 봉인 ${s.progress}/${s.order.length} ${s.completed?'✓':''}`,842,154+j*26,13,s.completed?'#9ef0cf':'#ffe6b1','center',850);}drawGround();drawIce();for(const s of level.platforms)drawPlatform(s);for(const s of level.moving){if(s.kind==='elevator')drawElevator(s);else drawPlatform(s,true);}for(const h of level.hazards)drawHazard(h);drawPortals();drawLight();drawLevers();for(const p of level.plates)drawPlate(p);for(const gate of level.gates)drawGate(gate);for(const g of level.gems)drawGem(g);for(const b of level.crates)drawCrate(b);drawDoor('fire',884);drawDoor('water',942);players.forEach(drawPlayer);drawParticles();if(flash>0){ctx.fillStyle=`rgba(255,130,120,${flash})`;ctx.fillRect(0,0,W,H);}}
+function loop(time){if(!last)last=time;let dt=Math.min((time-last)/16.6667,2.2);last=time;if(mode==='playing'){update(dt);}else frame+=dt*.40;render();requestAnimationFrame(loop);}
+function action(name){switch(name){case'start':case'continue':{const i=isOpenLevel(lastPlayed)?lastPlayed:Math.max(0,unlocked-1);loadLevel(i);startGame();break;}case'resume':startGame();break;case'levels':levelSelect();break;case'back':intro();break;case'retry':loadLevel(current);startGame();break;case'next':loadLevel(Math.min(MAIN_COUNT-1,current+1));lastPlayed=current;saveProgress();startGame();break;case'bonus':{const i=bonusIndex(chosenWorld);if(isOpenLevel(i)){loadLevel(i);lastPlayed=i;saveProgress();startGame();}break;}case'hint':showHint();break;case'hintNext':showHint(true);break;case'stats':showStats();break;case'rankings':showLeaderboard('local');break;case'registerTeam':registrationScreen();break;case'submitTeam':submitTeam();break;case'refreshOnline':onlineBoard=[];readOnline();break;case'saveOnlineUrl':saveBoardUrl();break;case'newRunAsk':askNewRun();break;case'newRunConfirm':confirmNewRun();break;case'exportCSV':exportRankingCSV();break;case'resetAsk':askReset();break;case'resetConfirm':doReset();break;}}
+$('modal').addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;if(btn.dataset.world!==undefined){chosenWorld=+btn.dataset.world;levelSelect();return;}if(btn.dataset.level!==undefined){let i=+btn.dataset.level;if(!isOpenLevel(i))return;loadLevel(i);lastPlayed=i;saveProgress();startGame();return;}if(btn.dataset.board){leaderTab=btn.dataset.board;showLeaderboard(leaderTab);return;}if(btn.dataset.sort){leaderSort=btn.dataset.sort;renderLeaderboard();return;}if(btn.dataset.action)action(btn.dataset.action);});
+$('levelsBtn').addEventListener('click',()=>levelSelect());$('hintBtn').addEventListener('click',()=>showHint());$('statsBtn').addEventListener('click',()=>showStats());$('leaderBtn').addEventListener('click',()=>showLeaderboard('local'));$('restartBtn').addEventListener('click',()=>{loadLevel(current);startGame();});$('soundBtn').addEventListener('click',()=>{sound=!sound;$('soundBtn').textContent=sound?'♫ 소리 끄기':'♪ 소리';musical(640,.14)});
+window.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)){if(e.code==='Enter'&&mode==='register'){e.preventDefault();submitTeam();}return;}if(inputMap[e.code]&&mode==='playing'){key[inputMap[e.code]]=true;e.preventDefault();}if(!e.repeat&&(e.code==='KeyE'||e.code==='ArrowDown')){e.preventDefault();interact(e.code==='KeyE'?'fire':'water');}if(e.code==='KeyR'&&!e.repeat){loadLevel(current);startGame();}if(e.code==='KeyH'&&!e.repeat){e.preventDefault();showHint();}if(['Escape','KeyP'].includes(e.code)&&!e.repeat){e.preventDefault();if(mode==='playing')pause();else if(mode==='paused')startGame();}});
+window.addEventListener('keyup',e=>{if(inputMap[e.code]){key[inputMap[e.code]]=false;e.preventDefault();}});window.addEventListener('blur',()=>{clearInputs();if(mode==='playing')pause();});
+for(const b of document.querySelectorAll('.touchkey')){if(b.dataset.interact){b.addEventListener('pointerdown',e=>{e.preventDefault();interact(b.dataset.interact);});continue;}const k=b.dataset.control;b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture(e.pointerId);key[k]=true;b.classList.add('down');});const up=e=>{e.preventDefault();key[k]=false;b.classList.remove('down');};b.addEventListener('pointerup',up);b.addEventListener('pointercancel',up);b.addEventListener('lostpointercapture',up);}
+if(navigator.maxTouchPoints>0)document.documentElement.classList.add('touch-mode');ensureFinishedRun();loadLevel(0);updateLight();intro();requestAnimationFrame(loop);
+})();
+
+</script>
+</body>
+</html>
